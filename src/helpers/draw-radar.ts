@@ -19,8 +19,8 @@ export function drawRadar({
   let svgContainer = createSvgContainer({
     root: radarContainer,
     id: containerId,
-    width: width,
-    height: height,
+    width,
+    height,
   });
 
   createRadar({
@@ -31,5 +31,6 @@ export function drawRadar({
     stroke,
     el: svgContainer,
   });
+
   return svgContainer;
 }
