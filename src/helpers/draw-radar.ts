@@ -13,8 +13,8 @@ export function drawRadar({
 
   if (!radarContainer) throw new Error("Radar container not found");
 
-  radarContainer.style.width = `${width}px`;
-  radarContainer.style.height = `${height}px`;
+  radarContainer.style.maxWidth = `${width}px`;
+  radarContainer.style.maxHeight = `${height}px`;
 
   let svgContainer = createSvgContainer({
     root: radarContainer,
@@ -26,7 +26,7 @@ export function drawRadar({
   createRadar({
     cx: width / 2,
     cy: height / 2,
-    radius: width / 2,
+    r: width / 2,
     circlesNum,
     stroke,
     el: svgContainer,

@@ -22,3 +22,12 @@ html {
   cursor: pointer;
   stroke: red;
 }
+
+.vertical-line {
+  position: absolute;
+  top: var(--unit);
+  left: calc(50% - 1px);
+  width: 2px;
+  height: calc(100vh - var(--unit) * 2);
+  background-color: var(--text);
+}

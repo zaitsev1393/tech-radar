@@ -1,12 +1,12 @@
 import { createCircle } from "./create-circle";
 import { createRadarLines } from "./create-lines";
 
-export const createRadar = ({ radius, circlesNum, cx, cy, el, stroke }) => {
+export const createRadar = ({ r, circlesNum, cx, cy, el, stroke }) => {
   for (let i = 1; i <= circlesNum; i++) {
     createCircle({
       cx,
       cy,
-      radius: (radius / circlesNum) * i,
+      r: (r / circlesNum) * i,
       stroke,
       el,
     });
@@ -14,6 +14,6 @@ export const createRadar = ({ radius, circlesNum, cx, cy, el, stroke }) => {
   createRadarLines({
     el,
     stroke,
-    radius,
+    r,
   });
 };

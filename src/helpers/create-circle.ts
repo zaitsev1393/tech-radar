@@ -1,5 +1,5 @@
 export const createCircle = ({
-  radius,
+  r,
   el,
   stroke,
   cx,
@@ -14,7 +14,7 @@ export const createCircle = ({
   );
   circle.setAttribute("cx", cx);
   circle.setAttribute("cy", cy);
-  circle.setAttribute("r", radius);
+  circle.setAttribute("r", r);
   circle.setAttribute("fill", fill || "none");
   circle.setAttribute("stroke", stroke);
   circle.setAttribute("class", cssClass);

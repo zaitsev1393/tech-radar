@@ -11,17 +11,33 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <div class="p-4">
-      <div class="flex gap-2 items-center">
-        <button
-          id="createBulletToggle"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
-        >
-          Create tech mode
-        </button>
-        <div class="label" id="creatingBulletLabel"></div>
+    <div class="flex flex-col md:flex-row h-screen">
+      <div class="p-4 flex-1">
+        <div class="flex gap-2 items-center">
+          <button
+            id="createBulletToggle"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+          >
+            Create tech mode
+          </button>
+          <div class="label" id="creatingBulletLabel"></div>
+        </div>
+        <div id="radar"></div>
       </div>
-      <div id="radar"></div>
+      <!-- <div class="vertical-line"></div> -->
+      <div class="p-4 flex-1">
+        <div id="create-bullet-content"></div>
+        <div id="bullet-overview">
+          <div
+            id="tech-overview-title"
+            class="font-medium text-2xl text-white"
+          ></div>
+          <div
+            id="tech-overview-description"
+            class="text-white text-base"
+          ></div>
+        </div>
+      </div>
       <div
         id="radar-popup"
         class="p-2 bg-gray-800 text-white absolute hidden"

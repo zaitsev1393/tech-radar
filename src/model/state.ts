@@ -1,9 +1,13 @@
 const stateElements = {
   creatingBulletMode: "creatingBulletLabel",
+  currentBulletTitle: "tech-overview-title",
+  currentBulletDescription: "tech-overview-description",
 };
 
 export let state = {
   creatingBulletMode: false,
+  currentBulletTitle: "",
+  currentBulletDescription: "",
 };
 
 export const toggleState = (newState) => {

@@ -1,10 +1,14 @@
 import { appendPopup } from "../components/popup/append-popup";
 import { removePopup } from "../components/popup/remove-popup";
 import { l } from "../logger/l";
+import { state, toggleState } from "../model/state";
+import { saveBullet } from "../save/save";
 
 let mouseDownOnBullet = false;
 let bulletHovered = false;
 let selectedBullet = null;
+
+const popup = document.getElementById("radar-popup");
 
 const getPopupCoords = (event) => {
   const rect = event.target.getBoundingClientRect();
@@ -20,22 +24,19 @@ const getPopupCoords = (event) => {
 
 const getBulletData = (bullet) => {
   return {
-    title: bullet.dataset.name,
+    title: bullet.dataset.title,
     description: bullet.dataset.description || "",
   };
 };
 
-export function listenBullet(bullet, popup?) {
-  popup = popup || document.getElementById("radar-popup");
-  const svgContainer = document.getElementById("svg");
+export function listenBullet(bullet) {
   bullet.addEventListener("mouseenter", (event) => {
     // console.log("🟢 entered");
     bulletHovered = true;
-    const rect = event.target.getBoundingClientRect();
-    const { name } = event.target.dataset;
+    const { title } = event.target.dataset;
     appendPopup(popup, {
       ...getPopupCoords(event),
-      data: { title: name, description: "" },
+      data: { title, description: "" },
     });
   });
 
@@ -46,44 +47,54 @@ export function listenBullet(bullet, popup?) {
   });
 
   bullet.addEventListener("click", (event) => {
-    l("bullet clicked: ", event);
+    toggleState({
+      currentBulletTitle: getBulletData(event.target).title,
+      currentBulletDescription: getBulletData(event.target).description,
+    });
   });
 
   bullet.addEventListener("mousedown", (event) => {
     mouseDownOnBullet = true;
     selectedBullet = event.target;
   });
-
-  document.addEventListener("mouseup", (event) => {
-    l("mouse up on document");
-    if (bulletHovered) {
-      appendPopup(popup, {
-        ...getPopupCoords(event),
-        data: { title: getBulletData(selectedBullet).title },
-      });
-    }
-    mouseDownOnBullet = false;
-  });
-
-  document.addEventListener("mousemove", (event) => {
-    if (mouseDownOnBullet) {
-      removePopup(popup);
-
-      if (!event.target || !svgContainer) return;
-      const pt = svgContainer?.createSVGPoint(); // створюємо точку
-      pt.x = event.clientX;
-      pt.y = event.clientY;
-
-      const svgCoords = pt.matrixTransform(
-        svgContainer.getScreenCTM().inverse()
-      );
-
-      if (selectedBullet) {
-        setTimeout(() => {
-          selectedBullet.setAttribute("cx", svgCoords.x);
-          selectedBullet.setAttribute("cy", svgCoords.y);
-        }, 50);
-      }
-    }
-  });
 }
+
+document.addEventListener("mouseup", async (event) => {
+  if (bulletHovered) {
+    appendPopup(popup, {
+      ...getPopupCoords(event),
+      data: { title: state.currentBulletTitle },
+    });
+  }
+
+  if (selectedBullet) {
+    l("selected bullet: ", selectedBullet);
+    await saveBullet(selectedBullet);
+    selectedBullet = null;
+  }
+
+  mouseDownOnBullet = false;
+});
+
+document.addEventListener("mousemove", (event) => {
+  const svgContainer = document.getElementById("svg");
+  if (mouseDownOnBullet) {
+    removePopup(popup);
+
+    if (!event.target || !svgContainer) return;
+    l("here");
+    const pt = svgContainer?.createSVGPoint(); // створюємо точку
+    pt.x = event.clientX;
+    pt.y = event.clientY;
+
+    const svgCoords = pt.matrixTransform(svgContainer.getScreenCTM().inverse());
+
+    if (selectedBullet) {
+      l("selected bullet: ", selectedBullet);
+      setTimeout(() => {
+        selectedBullet.setAttribute("cx", svgCoords.x);
+        selectedBullet.setAttribute("cy", svgCoords.y);
+      }, 50);
+    }
+  }
+});
