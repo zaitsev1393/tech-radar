@@ -79,8 +79,10 @@ export function listenBullet(bullet, popup?) {
       );
 
       if (selectedBullet) {
-        selectedBullet.setAttribute("cx", svgCoords.x);
-        selectedBullet.setAttribute("cy", svgCoords.y);
+        setTimeout(() => {
+          selectedBullet.setAttribute("cx", svgCoords.x);
+          selectedBullet.setAttribute("cy", svgCoords.y);
+        }, 50);
       }
     }
   });
