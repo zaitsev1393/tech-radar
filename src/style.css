@@ -1,0 +1,24 @@
+:root {
+  --bg: #320a6b;
+  --text: #78b9b5;
+  --mid: #0f828c;
+  --hard: #065084;
+  --unit: 16px;
+}
+
+html {
+  background: var(--bg);
+}
+
+#radar {
+  margin: var(--unit);
+}
+
+.label {
+  color: white;
+}
+
+.bullet:hover {
+  cursor: pointer;
+  stroke: red;
+}

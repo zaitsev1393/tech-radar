@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.6.0/tailwind.min.css"
+    />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div class="p-4">
+      <div class="flex gap-2 items-center">
+        <button
+          id="createBulletToggle"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+        >
+          Create tech mode
+        </button>
+        <div class="label" id="creatingBulletLabel"></div>
+      </div>
+      <div id="radar"></div>
+      <div
+        id="radar-popup"
+        class="p-2 bg-gray-800 text-white absolute hidden"
+      ></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
