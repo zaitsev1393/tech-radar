@@ -38,3 +38,8 @@ html {
   position: absolute;
   pointer-events: visibleFill;
 }
+
+input,
+textarea {
+  color: black;
+}

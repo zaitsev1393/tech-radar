@@ -1,7 +1,10 @@
+import { BulletOverview } from "../../components/bullet-overview/bullet-overview";
 import { appendPopup } from "../../components/popup/append-popup";
 import { removePopup } from "../../components/popup/remove-popup";
-import { state, toggleState } from "../../model/state";
+import { l } from "../../logger/l";
+import { state } from "../../model/state";
 import { saveBullet } from "../../save/save";
+import { nodeToJsonBullet } from "../mappers/node-to-jsonbullet";
 
 let mouseDownOnBullet = false;
 let bulletHovered = false;
@@ -38,11 +41,18 @@ const getBulletData = (bullet) => {
 export function listenBullet(bullet) {
   bullet.addEventListener("mouseenter", (event) => {
     // console.log("🟢 entered");
+
+    state.currentBullet = state.bullets.find(
+      (b) => b["data-id"] === bullet.dataset.id
+    );
+    l(state);
     bulletHovered = true;
-    const { title } = event.target.dataset;
     appendPopup(popup, {
       ...getPopupCoords(event),
-      data: { title, description: "" },
+      data: {
+        title: state.currentBullet["data-title"],
+        description: state.currentBullet["data-description"],
+      },
     });
   });
 
@@ -53,13 +63,7 @@ export function listenBullet(bullet) {
   });
 
   bullet.addEventListener("click", (event) => {
-    const currentBullet = getBulletData(event.target);
-    const { title, description } = currentBullet;
-    toggleState({
-      currentBullet,
-      currentBulletTitle: title,
-      currentBulletDescription: description,
-    });
+    BulletOverview().open(state.currentBullet);
   });
 
   bullet.addEventListener("mousedown", (event) => {
@@ -77,7 +81,7 @@ document.addEventListener("mouseup", async (event) => {
   }
 
   if (selectedBullet) {
-    await saveBullet(selectedBullet);
+    await saveBullet(nodeToJsonBullet(selectedBullet));
     selectedBullet = null;
   }
 

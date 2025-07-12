@@ -7,6 +7,7 @@ import {
 } from "./config/radar.config";
 import { getBullet } from "./helpers/bullet/get-bullet";
 import { listenBullet } from "./helpers/bullet/listen-bullet";
+import { nodeToJsonBullet } from "./helpers/mappers/node-to-jsonbullet";
 import { getSvgContainer } from "./helpers/primitives/create-svg-container";
 import { createRadar } from "./helpers/radar/create-radar";
 import { drawSavedBullets } from "./helpers/radar/draw-saved-bullets";
@@ -19,6 +20,14 @@ import "./style.css";
 
 listenCreateBulletToggle();
 listenClearAllButton();
+let bullets = [];
+const savedRadar = localStorage.getItem("radar");
+if (savedRadar) {
+  bullets = JSON.parse(savedRadar)["bullets"];
+}
+toggleState({
+  bullets,
+});
 
 const radarNode = getRadarNode(DEFAULT_RADAR_CONFIG);
 const svgContainer = getSvgContainer(DEFAULT_SVG_CONTAINER_CONFIG);
@@ -41,7 +50,7 @@ svgContainer.addEventListener("click", (event) => {
     const bullet = getBullet(event, svgContainer, DEFAULT_BULLET_CONFIG);
     svgContainer.appendChild(bullet);
     listenBullet(bullet);
-    saveBullet(bullet);
+    saveBullet(nodeToJsonBullet(bullet));
     toggleState({ creatingBulletMode: false });
   }
 });
