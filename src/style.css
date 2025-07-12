@@ -31,3 +31,10 @@ html {
   height: calc(100vh - var(--unit) * 2);
   background-color: var(--text);
 }
+
+.radar-circle {
+  transition: 0.3s;
+  fill: var(--bg);
+  position: absolute;
+  pointer-events: visibleFill;
+}

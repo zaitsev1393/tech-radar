@@ -1,5 +1,6 @@
 import { DEFAULT_BULLET_CONFIG } from "./components/bullet/default-bullet.config";
 import { listenCreateBulletToggle } from "./components/create-bullet-toggle";
+import { EditForm } from "./components/edit-form/edit-form";
 import {
   DEFAULT_RADAR_CONFIG,
   DEFAULT_SVG_CONTAINER_CONFIG,
@@ -10,6 +11,7 @@ import { getSvgContainer } from "./helpers/primitives/create-svg-container";
 import { createRadar } from "./helpers/radar/create-radar";
 import { drawSavedBullets } from "./helpers/radar/draw-saved-bullets";
 import { getRadarNode } from "./helpers/radar/get-radar-node";
+import { d } from "./helpers/selectors/d";
 import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
 import { state, toggleState } from "./model/state";
 import { saveBullet } from "./save/save";
@@ -43,3 +45,18 @@ svgContainer.addEventListener("click", (event) => {
     toggleState({ creatingBulletMode: false });
   }
 });
+const openEditFormButton = d.id("openEditFormButton");
+openEditFormButton?.addEventListener("click", (event) => {
+  EditForm().open();
+  openEditFormButton.classList.add("hidden");
+});
+
+// const circles = d.all(".radar-circle");
+// for (const circle of circles) {
+//   circle.addEventListener("mouseenter", (event) => {
+//     event.target.style.fill = "var(--mid)";
+//   });
+//   circle.addEventListener("mouseleave", (event) => {
+//     event.target.style.fill = "var(--bg)";
+//   });
+// }

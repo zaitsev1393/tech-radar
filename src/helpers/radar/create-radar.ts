@@ -3,13 +3,14 @@ import { createVerticalLine } from "../lines/create-vertical-line";
 import { createCircle } from "../primitives/create-circle";
 
 export const createRadar = ({ r, circlesNum, cx, cy, el, stroke, fill }) => {
-  for (let i = 1; i <= circlesNum; i++) {
+  for (let i = circlesNum; i >= 1; i--) {
     const circle = createCircle({
       cx,
       cy,
       r: (r / circlesNum) * i,
       stroke,
       fill,
+      cssClass: `radar-circle radar-circle-${i}`,
     });
     el.appendChild(circle);
   }

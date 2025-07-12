@@ -22,7 +22,14 @@ const getPopupCoords = (event) => {
 };
 
 const getBulletData = (bullet) => {
+  let bulletData = {};
+
+  for (const attr of bullet.attributes) {
+    bulletData[attr.name] = attr.value;
+  }
+
   return {
+    ...bulletData,
     title: bullet.dataset.title,
     description: bullet.dataset.description || "",
   };
@@ -46,9 +53,12 @@ export function listenBullet(bullet) {
   });
 
   bullet.addEventListener("click", (event) => {
+    const currentBullet = getBulletData(event.target);
+    const { title, description } = currentBullet;
     toggleState({
-      currentBulletTitle: getBulletData(event.target).title,
-      currentBulletDescription: getBulletData(event.target).description,
+      currentBullet,
+      currentBulletTitle: title,
+      currentBulletDescription: description,
     });
   });
 
@@ -88,10 +98,10 @@ document.addEventListener("mousemove", (event) => {
 
     if (selectedBullet) {
       // l("selected bullet: ", selectedBullet);
-      setTimeout(() => {
-        selectedBullet.setAttribute("cx", svgCoords.x);
-        selectedBullet.setAttribute("cy", svgCoords.y);
-      }, 50);
+      // setTimeout(() => {
+      selectedBullet.setAttribute("cx", svgCoords.x);
+      selectedBullet.setAttribute("cy", svgCoords.y);
+      // }, 50);
     }
   }
 });

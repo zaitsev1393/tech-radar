@@ -28,7 +28,8 @@ export function getBullet(event, el, bulletData) {
     el,
     cssClass,
     data: {
-      title: "JavaScript",
+      title: "No title",
+      description: "No description",
       id: dataId || uuidv4(),
     },
   });

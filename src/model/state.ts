@@ -3,6 +3,7 @@ interface GlobalStateModel {
   currentBulletTitle: string;
   currentBulletDescription: string;
   svgContainer: SVGSVGElement | null;
+  currentBullet: any;
 }
 
 const stateElements = {
@@ -16,6 +17,7 @@ export let state: GlobalStateModel = {
   currentBulletTitle: "",
   currentBulletDescription: "",
   svgContainer: null,
+  currentBullet: null,
 };
 
 export const toggleState = (newState) => {

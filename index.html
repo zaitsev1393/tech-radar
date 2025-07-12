@@ -32,12 +32,33 @@
       </div>
       <!-- <div class="vertical-line"></div> -->
       <div class="p-4 flex-1">
+        <div id="editform" class="hidden edit-form border border-white p-2 w-64 flex flex-col gap-2">
+          <div class="text-white flex flex-col gap-1">
+            <label for="editTile">Title</label>
+            <input id="editTitle" type="text" />
+          </div>
+          <div class="text-white flex flex-col gap-1">
+            <label for="editDescription">Description</label>
+            <textarea id="editDescription" /></textarea>
+          </div>
+          <button
+            id="saveFormButton"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+          >
+            Save
+          </button>
+        </div>
         <div id="create-bullet-content"></div>
-        <div id="bullet-overview">
-          <div
-            id="tech-overview-title"
-            class="font-medium text-2xl text-white"
-          ></div>
+        <div id="bullet-overview" class="hidden border rounded-lg p-4">
+          <div class=" text-white flex justify-between items-center">
+            <div
+              id="tech-overview-title"
+              class="font-medium text-2xl text-white"
+            ></div>
+            <button id="openEditFormButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+              Edit
+            </button>
+          </div>
           <div
             id="tech-overview-description"
             class="text-white text-base"
