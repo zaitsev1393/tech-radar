@@ -2,6 +2,7 @@ import { DEFAULT_BULLET_CONFIG } from "./components/bullet/default-bullet.config
 import { listenCreateBulletToggle } from "./components/create-bullet-toggle";
 import { appendBullet } from "./helpers/append-bullet";
 import { drawRadar } from "./helpers/draw-radar";
+import { listenClearAllButton } from "./helpers/listen-clear-all-button";
 import { state, toggleState } from "./model/state";
 import { saveBullet } from "./save/save";
 import "./style.css";
@@ -9,6 +10,7 @@ import "./style.css";
 toggleState({ creatingBulletMode: false });
 
 listenCreateBulletToggle();
+listenClearAllButton();
 
 const svgContainer = drawRadar();
 

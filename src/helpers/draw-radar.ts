@@ -1,6 +1,7 @@
 import { RADAR_HEIGHT, RADAR_WIDTH } from "../config/radar.config";
 import { createRadar } from "./create-radar";
 import { createSvgContainer } from "./create-svg-container";
+import { d } from "./selectors/d";
 
 export function drawRadar({
   width = RADAR_WIDTH,
@@ -34,3 +35,11 @@ export function drawRadar({
 
   return svgContainer;
 }
+
+export const redrawRadar = () => {
+  const currentRadar = d.id("radar");
+  if (currentRadar) {
+    currentRadar.innerHTML = "";
+    drawRadar();
+  }
+};
