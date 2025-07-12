@@ -1,6 +1,5 @@
 import { appendPopup } from "../components/popup/append-popup";
 import { removePopup } from "../components/popup/remove-popup";
-import { l } from "../logger/l";
 import { state, toggleState } from "../model/state";
 import { saveBullet } from "../save/save";
 
@@ -68,7 +67,6 @@ document.addEventListener("mouseup", async (event) => {
   }
 
   if (selectedBullet) {
-    l("selected bullet: ", selectedBullet);
     await saveBullet(selectedBullet);
     selectedBullet = null;
   }
@@ -82,7 +80,6 @@ document.addEventListener("mousemove", (event) => {
     removePopup(popup);
 
     if (!event.target || !svgContainer) return;
-    l("here");
     const pt = svgContainer?.createSVGPoint(); // створюємо точку
     pt.x = event.clientX;
     pt.y = event.clientY;
@@ -90,7 +87,7 @@ document.addEventListener("mousemove", (event) => {
     const svgCoords = pt.matrixTransform(svgContainer.getScreenCTM().inverse());
 
     if (selectedBullet) {
-      l("selected bullet: ", selectedBullet);
+      // l("selected bullet: ", selectedBullet);
       setTimeout(() => {
         selectedBullet.setAttribute("cx", svgCoords.x);
         selectedBullet.setAttribute("cy", svgCoords.y);

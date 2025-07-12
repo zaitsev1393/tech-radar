@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { l } from "../logger/l";
 import { createBullet } from "./create-bullet";
 import { listenBullet } from "./listen-bullet";
@@ -32,7 +33,7 @@ export function appendBullet(event, el, bulletData) {
     cssClass,
     data: {
       title: "JavaScript",
-      id: dataId || Math.floor(Math.random() * 100000),
+      id: dataId || uuidv4(),
     },
   });
 
