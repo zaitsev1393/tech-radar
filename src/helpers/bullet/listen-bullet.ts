@@ -1,7 +1,7 @@
-import { appendPopup } from "../components/popup/append-popup";
-import { removePopup } from "../components/popup/remove-popup";
-import { state, toggleState } from "../model/state";
-import { saveBullet } from "../save/save";
+import { appendPopup } from "../../components/popup/append-popup";
+import { removePopup } from "../../components/popup/remove-popup";
+import { state, toggleState } from "../../model/state";
+import { saveBullet } from "../../save/save";
 
 let mouseDownOnBullet = false;
 let bulletHovered = false;

@@ -1,4 +1,4 @@
-import { d } from "./selectors/d";
+import { d } from "../selectors/d";
 
 export const removeBullets = () => {
   const bullets = d.all(".bullet");

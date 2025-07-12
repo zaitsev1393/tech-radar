@@ -1,9 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
-import { l } from "../logger/l";
 import { createBullet } from "./create-bullet";
-import { listenBullet } from "./listen-bullet";
 
-export function appendBullet(event, el, bulletData) {
+export function getBullet(event, el, bulletData) {
   const {
     fill = "black",
     stroke = "white",
@@ -13,9 +11,7 @@ export function appendBullet(event, el, bulletData) {
     cy,
   } = bulletData;
   const dataId = bulletData["data-id"];
-  l("bulletData: ", bulletData);
   const pt = el.createSVGPoint(); // створюємо точку
-  l(cx, cy);
   if (event) {
     pt.x = event.clientX;
     pt.y = event.clientY;
@@ -36,8 +32,6 @@ export function appendBullet(event, el, bulletData) {
       id: dataId || uuidv4(),
     },
   });
-
-  listenBullet(bullet);
 
   return bullet;
 }

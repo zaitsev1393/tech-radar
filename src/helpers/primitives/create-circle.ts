@@ -1,6 +1,5 @@
 export const createCircle = ({
   r,
-  el,
   stroke,
   cx,
   cy,
@@ -23,6 +22,5 @@ export const createCircle = ({
       circle.setAttribute(`data-${key}`, data[key]);
     }
   }
-  el.appendChild(circle);
   return circle;
 };

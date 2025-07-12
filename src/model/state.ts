@@ -2,7 +2,7 @@ interface GlobalStateModel {
   creatingBulletMode: boolean;
   currentBulletTitle: string;
   currentBulletDescription: string;
-  radar: SVGSVGElement | null;
+  svgContainer: SVGSVGElement | null;
 }
 
 const stateElements = {
@@ -15,7 +15,7 @@ export let state: GlobalStateModel = {
   creatingBulletMode: false,
   currentBulletTitle: "",
   currentBulletDescription: "",
-  radar: null,
+  svgContainer: null,
 };
 
 export const toggleState = (newState) => {
