@@ -1,12 +1,13 @@
 import { l } from "../logger/l";
+import type { Bullet } from "./bullet";
 
 interface GlobalStateModel {
   creatingBulletMode: boolean;
   currentBulletTitle: string;
   currentBulletDescription: string;
   svgContainer: SVGSVGElement | null;
-  currentBullet: any;
-  bullets: any[];
+  currentBullet: Bullet | null;
+  bullets: Bullet[];
 }
 
 const stateElements = {
@@ -22,11 +23,6 @@ export let state: GlobalStateModel = {
   svgContainer: null,
   currentBullet: null,
   bullets: [],
-};
-
-export const setCurrentBullet = (bullet) => {
-  const id = bullet.dataset.id;
-  state.currentBullet = state.bullets.find((b) => b["data-id"] === id);
 };
 
 export const toggleState = (newState) => {

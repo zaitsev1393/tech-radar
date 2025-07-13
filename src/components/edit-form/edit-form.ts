@@ -1,3 +1,4 @@
+import { updateDomBullet } from "../../helpers/bullet/update-dom-bullet";
 import { d } from "../../helpers/selectors/d";
 import { l } from "../../logger/l";
 import { state, toggleState } from "../../model/state";
@@ -46,6 +47,7 @@ export function EditForm(): EditFormAPI {
       "data-description": newDescription,
     };
     toggleState({ currentBullet });
+    updateDomBullet(currentBullet);
     await saveBullet(currentBullet);
     BulletOverview().update(currentBullet);
   }

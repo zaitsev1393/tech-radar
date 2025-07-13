@@ -1,4 +1,3 @@
-import { l } from "../logger/l";
 import { toggleState } from "../model/state";
 
 const ls = localStorage;
@@ -19,15 +18,9 @@ export const saveBullet = (jsonBullet) => {
     let savedBullets = [];
     if (radar) {
       savedBullets = radar.bullets;
-      // l(
-      // "radar.bullets:",
-      // radar.bullets.map((data) => data["data-id"])
-      // );
-      l("jsonbullet: ", jsonBullet["data-id"]);
       const existingBulletIdx = radar.bullets.findIndex(
         (b) => b["data-id"] === jsonBullet["data-id"]
       );
-      l(existingBulletIdx);
       if (existingBulletIdx > -1) {
         savedBullets.splice(existingBulletIdx, 1, jsonBullet);
       } else {

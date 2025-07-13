@@ -1,10 +1,10 @@
 import { BulletOverview } from "../../components/bullet-overview/bullet-overview";
 import { appendPopup } from "../../components/popup/append-popup";
 import { removePopup } from "../../components/popup/remove-popup";
-import { l } from "../../logger/l";
 import { state } from "../../model/state";
 import { saveBullet } from "../../save/save";
 import { nodeToJsonBullet } from "../mappers/node-to-jsonbullet";
+import { updateDomBullet } from "./update-dom-bullet";
 
 let mouseDownOnBullet = false;
 let bulletHovered = false;
@@ -45,7 +45,6 @@ export function listenBullet(bullet) {
     state.currentBullet = state.bullets.find(
       (b) => b["data-id"] === bullet.dataset.id
     );
-    l(state);
     bulletHovered = true;
     appendPopup(popup, {
       ...getPopupCoords(event),
@@ -81,6 +80,7 @@ document.addEventListener("mouseup", async (event) => {
   }
 
   if (selectedBullet) {
+    updateDomBullet(selectedBullet);
     await saveBullet(nodeToJsonBullet(selectedBullet));
     selectedBullet = null;
   }
