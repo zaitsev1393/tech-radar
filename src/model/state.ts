@@ -1,3 +1,4 @@
+import type { GroupedBullets } from "../components/groups/group-bullets";
 import { l } from "../logger/l";
 import type { Bullet } from "./bullet";
 
@@ -6,6 +7,7 @@ interface GlobalStateModel {
   svgContainer: SVGSVGElement | null;
   currentBullet: Bullet | null;
   bullets: Bullet[];
+  groups: GroupedBullets;
 }
 
 const stateElements = {
@@ -17,6 +19,7 @@ export let state: GlobalStateModel = {
   svgContainer: null,
   currentBullet: null,
   bullets: [],
+  groups: {},
 };
 
 export const toggleState = (newState) => {

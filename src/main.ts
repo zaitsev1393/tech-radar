@@ -1,6 +1,7 @@
 import { DEFAULT_BULLET_CONFIG } from "./components/bullet/default-bullet.config";
 import { listenCreateBulletToggle } from "./components/create-bullet-toggle";
 import { EditForm } from "./components/edit-form/edit-form";
+import { groupBullets } from "./components/groups/group-bullets";
 import {
   DEFAULT_RADAR_CONFIG,
   DEFAULT_SVG_CONTAINER_CONFIG,
@@ -10,10 +11,12 @@ import { listenBullet } from "./helpers/bullet/listen-bullet";
 import { nodeToJsonBullet } from "./helpers/mappers/node-to-jsonbullet";
 import { getSvgContainer } from "./helpers/primitives/create-svg-container";
 import { createRadar } from "./helpers/radar/create-radar";
+import { createSectorLabels } from "./helpers/radar/create-sectors-labels";
 import { drawSavedBullets } from "./helpers/radar/draw-saved-bullets";
 import { getRadarNode } from "./helpers/radar/get-radar-node";
 import { d } from "./helpers/selectors/d";
 import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
+import { sectorsInfo } from "./model/sectors";
 import { state, toggleState } from "./model/state";
 import { saveBullet } from "./save/save";
 import "./style.css";
@@ -44,6 +47,7 @@ createRadar({
 });
 
 drawSavedBullets();
+createSectorLabels(sectorsInfo, svgContainer);
 
 svgContainer.addEventListener("click", (event) => {
   if (state.creatingBulletMode) {
@@ -54,11 +58,14 @@ svgContainer.addEventListener("click", (event) => {
     toggleState({ creatingBulletMode: false });
   }
 });
+
 const openEditFormButton = d.id("openEditFormButton");
 openEditFormButton?.addEventListener("click", (event) => {
   EditForm().open();
   openEditFormButton.classList.add("hidden");
 });
+
+groupBullets(sectorsInfo, state.bullets);
 
 // const circles = d.all(".radar-circle");
 // for (const circle of circles) {
