@@ -20,7 +20,13 @@ html {
 
 .bullet:hover {
   cursor: pointer;
-  stroke: red;
+  stroke-width: 3px;
+  stroke: var(--hard);
+}
+
+.bullet-active {
+  stroke-width: 3px;
+  stroke: var(--hard);
 }
 
 .vertical-line {

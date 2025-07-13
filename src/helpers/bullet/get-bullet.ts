@@ -11,6 +11,8 @@ export function getBullet(event, el, bulletData) {
     cy,
   } = bulletData;
   const dataId = bulletData["data-id"];
+  const title = bulletData["data-title"];
+  const description = bulletData["data-description"];
   const pt = el.createSVGPoint(); // створюємо точку
   if (event) {
     pt.x = event.clientX;
@@ -28,8 +30,8 @@ export function getBullet(event, el, bulletData) {
     el,
     cssClass,
     data: {
-      title: "No title",
-      description: "No description",
+      title: title || "No title",
+      description: description || "No description",
       id: dataId || uuidv4(),
     },
   });

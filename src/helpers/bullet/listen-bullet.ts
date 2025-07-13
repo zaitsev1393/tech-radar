@@ -4,7 +4,8 @@ import { removePopup } from "../../components/popup/remove-popup";
 import { state } from "../../model/state";
 import { saveBullet } from "../../save/save";
 import { nodeToJsonBullet } from "../mappers/node-to-jsonbullet";
-import { updateDomBullet } from "./update-dom-bullet";
+import { d } from "../selectors/d";
+import { getBulletNode, updateDomBullet } from "./update-dom-bullet";
 
 let mouseDownOnBullet = false;
 let bulletHovered = false;
@@ -21,20 +22,6 @@ const getPopupCoords = (event) => {
       x: rect.width,
       y: rect.height,
     },
-  };
-};
-
-const getBulletData = (bullet) => {
-  let bulletData = {};
-
-  for (const attr of bullet.attributes) {
-    bulletData[attr.name] = attr.value;
-  }
-
-  return {
-    ...bulletData,
-    title: bullet.dataset.title,
-    description: bullet.dataset.description || "",
   };
 };
 
@@ -62,10 +49,17 @@ export function listenBullet(bullet) {
   });
 
   bullet.addEventListener("click", (event) => {
+    const bulletNode = getBulletNode(state.currentBullet);
+    bulletNode?.classList.add("bullet-active");
     BulletOverview().open(state.currentBullet);
+    updateDomBullet(state.currentBullet);
   });
 
   bullet.addEventListener("mousedown", (event) => {
+    const activeBullet = d.query(".bullet-active");
+    if (activeBullet) {
+      activeBullet.classList.remove("bullet-active");
+    }
     mouseDownOnBullet = true;
     selectedBullet = event.target;
   });
@@ -75,7 +69,7 @@ document.addEventListener("mouseup", async (event) => {
   if (bulletHovered) {
     appendPopup(popup, {
       ...getPopupCoords(event),
-      data: { title: state.currentBulletTitle },
+      data: { title: state.currentBullet["data-title"] },
     });
   }
 

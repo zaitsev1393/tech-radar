@@ -3,8 +3,6 @@ import type { Bullet } from "./bullet";
 
 interface GlobalStateModel {
   creatingBulletMode: boolean;
-  currentBulletTitle: string;
-  currentBulletDescription: string;
   svgContainer: SVGSVGElement | null;
   currentBullet: Bullet | null;
   bullets: Bullet[];
@@ -12,14 +10,10 @@ interface GlobalStateModel {
 
 const stateElements = {
   creatingBulletMode: "creatingBulletLabel",
-  // currentBulletTitle: "tech-overview-title",
-  // currentBulletDescription: "tech-overview-description",
 };
 
 export let state: GlobalStateModel = {
   creatingBulletMode: false,
-  currentBulletTitle: "",
-  currentBulletDescription: "",
   svgContainer: null,
   currentBullet: null,
   bullets: [],
