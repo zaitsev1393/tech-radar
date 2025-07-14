@@ -1,16 +1,21 @@
 import { BulletOverview } from "../../components/bullet-overview/bullet-overview";
+import { highlightBulletNode } from "../../components/bullet/highlight-bullet-node";
+import { renderGroups } from "../../components/groups/render-groups";
 import { appendPopup } from "../../components/popup/append-popup";
 import { removePopup } from "../../components/popup/remove-popup";
-import { state } from "../../model/state";
+import { state, toggleState } from "../../model/state";
 import { saveBullet } from "../../save/save";
 import bus from "../bus";
 import { nodeToJsonBullet } from "../mappers/node-to-jsonbullet";
 import { d } from "../selectors/d";
+import { getBulletById } from "./get-bullet-by-id";
 import { getBulletNode, updateDomBullet } from "./update-dom-bullet";
 
 let mouseDownOnBullet = false;
 let bulletHovered = false;
 let selectedBullet = null;
+
+let mouseOnGroupItem = false;
 
 const popup = document.getElementById("radar-popup");
 
@@ -85,6 +90,11 @@ document.addEventListener("mouseup", async (event) => {
 
 document.addEventListener("mousemove", (event) => {
   const svgContainer = document.getElementById("svg");
+
+  // if ((event?.target as HTMLElement).closest(".group-item")) {
+  //   highlightBulletNode(event.target);
+  // }
+
   if (mouseDownOnBullet) {
     removePopup(popup);
 
@@ -105,31 +115,18 @@ document.addEventListener("mousemove", (event) => {
   }
 });
 
+document.addEventListener("click", (event) => {
+  const target = event.target as HTMLElement;
+  if (target.classList.contains("group-item")) {
+    toggleState({ currentBullet: getBulletById(target.dataset.id) });
+    BulletOverview().open(state.currentBullet);
+    updateDomBullet(state.currentBullet);
+    highlightBulletNode(target);
+  }
+});
+
 const listenBulletSub = bus.subscribe((event) => {
   if (event.name === "STATE_CHANGED") {
     renderGroups(event.payload);
   }
 });
-
-const renderGroups = (state) => {
-  const groupsContainer = d.id("groupsContainer");
-  groupsContainer.innerHTML = null;
-  const groupNodes = Object.entries(state.groups).map(([name, nodes]) => {
-    const column = document.createElement("div");
-
-    const title = document.createElement("div");
-    title.innerText = name;
-
-    const list = document.createElement("div");
-    nodes.forEach((node, i) => {
-      const li = document.createElement("div");
-      li.innerText = `${i + 1}. ${node["data-title"]}`;
-      list.appendChild(li);
-    });
-
-    column.appendChild(title);
-    column.append(list);
-
-    groupsContainer?.appendChild(column);
-  });
-};

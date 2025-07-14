@@ -45,7 +45,19 @@ html {
   pointer-events: visibleFill;
 }
 
+.group-item:hover {
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: underline;
+}
+
 input,
 textarea {
+  background: white;
   color: black;
+}
+
+#editForm {
+  border-color: white;
+  border-radius: 8px;
 }

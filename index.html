@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.6.0/tailwind.min.css"
-    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Vite + TS</title>
   </head>
   <body>
@@ -35,7 +32,7 @@
         <div class="p-4 flex-1">
           <div
             id="editform"
-            class="hidden edit-form border border-white p-2 w-64 flex flex-col gap-2"
+            class="hidden edit-form border border-white rounded-lg p-2 w-64 flex flex-col gap-2"
           >
             <div class="text-white flex flex-col gap-1">
               <label for="editTile">Title</label>
@@ -52,8 +49,13 @@
               Save
             </button>
           </div>
+
           <div id="create-bullet-content"></div>
-          <div id="bullet-overview" class="hidden border rounded-lg p-4">
+
+          <div
+            id="bullet-overview"
+            class="hidden border border-white rounded-lg p-4"
+          >
             <div class="text-white flex justify-between items-center">
               <div title class="font-medium text-2xl text-white"></div>
               <button
@@ -70,7 +72,7 @@
 
       <div
         id="groupsContainer"
-        class="text-white p-4 flex w-full justify-between"
+        class="text-white p-4 flex flex-wrap w-full justify-between"
       >
         Groups
       </div>

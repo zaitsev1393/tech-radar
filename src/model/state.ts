@@ -1,6 +1,5 @@
 import type { GroupedBullets } from "../components/groups/group-bullets";
 import bus from "../helpers/bus";
-import { l } from "../logger/l";
 import type { Bullet } from "./bullet";
 
 interface GlobalStateModel {
@@ -23,6 +22,8 @@ export let state: GlobalStateModel = {
   groups: {},
 };
 
+(window as any).state = state;
+
 export const toggleState = (newState) => {
   state = {
     ...state,
@@ -40,6 +41,6 @@ export const toggleState = (newState) => {
     payload: state,
   });
 
-  l("- State -");
-  l(state);
+  // l("- State -");
+  // l(state);
 };
