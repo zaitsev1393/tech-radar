@@ -19,7 +19,7 @@ export const renderGroups = (state) => {
 
       const list = document.createElement("div");
       nodes.forEach((node, i) => {
-        const item = document.createElement("span");
+        const item = document.createElement("div");
         item.innerText = `${i + 1}. ${node["data-title"]}`;
         item.classList.add("group-item");
         item.dataset.id = node["data-id"];

@@ -7,6 +7,7 @@ import { state, toggleState } from "../../model/state";
 import { saveBullet } from "../../save/save";
 import bus from "../bus";
 import { nodeToJsonBullet } from "../mappers/node-to-jsonbullet";
+import { getRingsInfo } from "../rings/get-rings-info";
 import { d } from "../selectors/d";
 import { getBulletById } from "./get-bullet-by-id";
 import { getBulletNode, updateDomBullet } from "./update-dom-bullet";
@@ -84,6 +85,8 @@ document.addEventListener("mouseup", async (event) => {
     await saveBullet(nodeToJsonBullet(selectedBullet));
     selectedBullet = null;
   }
+
+  getRingsInfo();
 
   mouseDownOnBullet = false;
 });

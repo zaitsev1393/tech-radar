@@ -1,5 +1,7 @@
 import type { GroupedBullets } from "../components/groups/group-bullets";
 import bus from "../helpers/bus";
+import type { RingsInfo } from "../helpers/rings/get-rings-info";
+import { l } from "../logger/l";
 import type { Bullet } from "./bullet";
 
 interface GlobalStateModel {
@@ -8,6 +10,7 @@ interface GlobalStateModel {
   currentBullet: Bullet | null;
   bullets: Bullet[];
   groups: GroupedBullets;
+  ringsInfo: RingsInfo;
 }
 
 const stateElements = {
@@ -20,6 +23,7 @@ export let state: GlobalStateModel = {
   currentBullet: null,
   bullets: [],
   groups: {},
+  ringsInfo: {},
 };
 
 (window as any).state = state;
@@ -41,6 +45,6 @@ export const toggleState = (newState) => {
     payload: state,
   });
 
-  // l("- State -");
-  // l(state);
+  l("- State -");
+  l(state);
 };

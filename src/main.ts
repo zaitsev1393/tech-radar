@@ -11,9 +11,11 @@ import { listenBullet } from "./helpers/bullet/listen-bullet";
 import { nodeToJsonBullet } from "./helpers/mappers/node-to-jsonbullet";
 import { getSvgContainer } from "./helpers/primitives/create-svg-container";
 import { createRadar } from "./helpers/radar/create-radar";
+import { createRingLabels } from "./helpers/radar/create-ring-labels";
 import { createSectorLabels } from "./helpers/radar/create-sectors-labels";
 import { drawSavedBullets } from "./helpers/radar/draw-saved-bullets";
 import { getRadarNode } from "./helpers/radar/get-radar-node";
+import { getRingsInfo } from "./helpers/rings/get-rings-info";
 import { d } from "./helpers/selectors/d";
 import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
 import { sectorsInfo } from "./model/sectors";
@@ -49,6 +51,7 @@ createRadar({
 
 drawSavedBullets();
 createSectorLabels(sectorsInfo, svgContainer);
+createRingLabels();
 
 svgContainer.addEventListener("click", (event) => {
   if (state.creatingBulletMode) {
@@ -67,7 +70,7 @@ openEditFormButton?.addEventListener("click", (event) => {
 });
 
 groupBullets(sectorsInfo, state.bullets);
-
+getRingsInfo();
 // const circles = d.all(".radar-circle");
 // for (const circle of circles) {
 //   circle.addEventListener("mouseenter", (event) => {
