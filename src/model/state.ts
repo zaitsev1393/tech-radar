@@ -1,4 +1,5 @@
 import type { GroupedBullets } from "../components/groups/group-bullets";
+import bus from "../helpers/bus";
 import { l } from "../logger/l";
 import type { Bullet } from "./bullet";
 
@@ -33,6 +34,12 @@ export const toggleState = (newState) => {
       el.innerText = state[key];
     }
   }
+
+  bus.notify({
+    name: "STATE_CHANGED",
+    payload: state,
+  });
+
   l("- State -");
   l(state);
 };

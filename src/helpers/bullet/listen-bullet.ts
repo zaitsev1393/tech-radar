@@ -3,6 +3,7 @@ import { appendPopup } from "../../components/popup/append-popup";
 import { removePopup } from "../../components/popup/remove-popup";
 import { state } from "../../model/state";
 import { saveBullet } from "../../save/save";
+import bus from "../bus";
 import { nodeToJsonBullet } from "../mappers/node-to-jsonbullet";
 import { d } from "../selectors/d";
 import { getBulletNode, updateDomBullet } from "./update-dom-bullet";
@@ -103,3 +104,32 @@ document.addEventListener("mousemove", (event) => {
     }
   }
 });
+
+const listenBulletSub = bus.subscribe((event) => {
+  if (event.name === "STATE_CHANGED") {
+    renderGroups(event.payload);
+  }
+});
+
+const renderGroups = (state) => {
+  const groupsContainer = d.id("groupsContainer");
+  groupsContainer.innerHTML = null;
+  const groupNodes = Object.entries(state.groups).map(([name, nodes]) => {
+    const column = document.createElement("div");
+
+    const title = document.createElement("div");
+    title.innerText = name;
+
+    const list = document.createElement("div");
+    nodes.forEach((node, i) => {
+      const li = document.createElement("div");
+      li.innerText = `${i + 1}. ${node["data-title"]}`;
+      list.appendChild(li);
+    });
+
+    column.appendChild(title);
+    column.append(list);
+
+    groupsContainer?.appendChild(column);
+  });
+};

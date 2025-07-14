@@ -28,6 +28,7 @@ const savedRadar = localStorage.getItem("radar");
 if (savedRadar) {
   bullets = JSON.parse(savedRadar)["bullets"];
 }
+
 toggleState({
   bullets,
 });
