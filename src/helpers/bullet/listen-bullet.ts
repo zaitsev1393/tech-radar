@@ -3,6 +3,7 @@ import { highlightBulletNode } from "../../components/bullet/highlight-bullet-no
 import { renderGroups } from "../../components/groups/render-groups";
 import { appendPopup } from "../../components/popup/append-popup";
 import { removePopup } from "../../components/popup/remove-popup";
+import { renderRingGroups } from "../../components/ring-groups/render-ring-groups";
 import { state, toggleState } from "../../model/state";
 import { saveBullet } from "../../save/save";
 import bus from "../bus";
@@ -128,5 +129,6 @@ document.addEventListener("click", (event) => {
 const listenBulletSub = bus.subscribe((event) => {
   if (event.name === "STATE_CHANGED") {
     renderGroups(event.payload);
+    renderRingGroups();
   }
 });
