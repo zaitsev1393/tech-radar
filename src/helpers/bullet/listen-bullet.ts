@@ -83,10 +83,9 @@ document.addEventListener("mouseup", async (event) => {
   if (selectedBullet) {
     updateDomBullet(selectedBullet);
     await saveBullet(nodeToJsonBullet(selectedBullet));
+    getRingsInfo();
     selectedBullet = null;
   }
-
-  getRingsInfo();
 
   mouseDownOnBullet = false;
 });
