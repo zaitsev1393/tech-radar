@@ -1,4 +1,5 @@
 import { groupBullets } from "../components/groups/group-bullets";
+import { l } from "../logger/l";
 import { sectorsInfo } from "../model/sectors";
 import { state, toggleState } from "../model/state";
 
@@ -10,6 +11,7 @@ export const saveBullets = () => {
 };
 
 export const saveState = () => {
+  l("saving state: ", state);
   localStorage.setItem("radar", JSON.stringify(state));
 };
 

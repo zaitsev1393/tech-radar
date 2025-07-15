@@ -2,6 +2,7 @@ import { DEFAULT_BULLET_CONFIG } from "./components/bullet/default-bullet.config
 import { listenCreateBulletToggle } from "./components/create-bullet-toggle";
 import { listenDeleteButton } from "./components/delete-bullet-button/listen-delete-button";
 import { EditForm } from "./components/edit-form/edit-form";
+import { listenGroupByOptions } from "./components/group-by/group-by-options";
 import { groupBullets } from "./components/groups/group-bullets";
 import {
   DEFAULT_RADAR_CONFIG,
@@ -27,6 +28,7 @@ import "./style.css";
 listenCreateBulletToggle();
 listenClearAllButton();
 listenDeleteButton();
+listenGroupByOptions();
 
 let bullets = [];
 const savedRadar = localStorage.getItem("radar");
@@ -42,6 +44,7 @@ const radarNode = getRadarNode(DEFAULT_RADAR_CONFIG);
 const svgContainer = getSvgContainer(DEFAULT_SVG_CONTAINER_CONFIG);
 
 radarNode.appendChild(svgContainer);
+
 createRadar({
   cx: DEFAULT_RADAR_CONFIG.width / 2,
   cy: DEFAULT_RADAR_CONFIG.height / 2,

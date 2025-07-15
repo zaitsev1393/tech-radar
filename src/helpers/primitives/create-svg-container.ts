@@ -1,7 +1,8 @@
-import { state, toggleState } from "../../model/state";
+import { toggleState } from "../../model/state";
+import { d } from "../selectors/d";
 
 export const getSvgContainer = ({ id, width, height } = {}) => {
-  const svgContainer = state.svgContainer;
+  const svgContainer = d.id("svg");
 
   if (svgContainer) return svgContainer;
 

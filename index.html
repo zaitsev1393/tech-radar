@@ -77,12 +77,36 @@
           </div>
         </div>
       </div>
-
-      <div
-        id="groupsContainer"
-        class="text-white p-4 flex flex-wrap w-1/2 justify-between gap-4"
-      >
-        Groups
+      <div>
+        <div id="groupByContainer" class="text-white px-4 flex gap-4">
+          <div class="">Group by:</div>
+          <div
+            groupByOption
+            sectorsOption
+            class="hover:cursor-pointer hover:underline"
+          >
+            Sectors
+          </div>
+          <div
+            groupByOption
+            ringsOption
+            class="hover:cursor-pointer hover:underline"
+          >
+            Rings
+          </div>
+        </div>
+        <div
+          id="sectorsContainer"
+          group
+          class="hidden text-white px-4 flex flex-wrap w-1/2 justify-between gap-4"
+        ></div>
+        <div
+          group
+          id="ringsContainer"
+          class="hidden text-white px-4 flex flex-wrap w-1/2 justify-between gap-4"
+        >
+          rings
+        </div>
       </div>
     </div>
     <div

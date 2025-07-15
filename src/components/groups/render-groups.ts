@@ -1,8 +1,8 @@
 import { d } from "../../helpers/selectors/d";
 
 export const renderGroups = (state) => {
-  const groupsContainer = d.id("groupsContainer");
-  groupsContainer.innerHTML = null;
+  const sectorsContainer = d.id("sectorsContainer");
+  sectorsContainer.innerHTML = null;
   Object.entries(state.groups)
     .sort()
     .forEach(([name, nodes]) => {
@@ -29,6 +29,6 @@ export const renderGroups = (state) => {
       column.appendChild(title);
       column.append(list);
 
-      groupsContainer?.appendChild(column);
+      sectorsContainer?.appendChild(column);
     });
 };
