@@ -1,5 +1,6 @@
 import { DEFAULT_BULLET_CONFIG } from "./components/bullet/default-bullet.config";
 import { listenCreateBulletToggle } from "./components/create-bullet-toggle";
+import { listenDeleteButton } from "./components/delete-bullet-button/listen-delete-button";
 import { EditForm } from "./components/edit-form/edit-form";
 import { groupBullets } from "./components/groups/group-bullets";
 import {
@@ -25,6 +26,8 @@ import "./style.css";
 
 listenCreateBulletToggle();
 listenClearAllButton();
+listenDeleteButton();
+
 let bullets = [];
 const savedRadar = localStorage.getItem("radar");
 if (savedRadar) {

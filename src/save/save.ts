@@ -9,6 +9,10 @@ export const saveBullets = () => {
   // l(bullets);
 };
 
+export const saveState = () => {
+  localStorage.setItem("radar", JSON.stringify(state));
+};
+
 export const saveBullet = (jsonBullet) => {
   return new Promise((resolve) => {
     // l(jsonBullet);

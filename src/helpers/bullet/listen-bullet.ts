@@ -14,9 +14,7 @@ import { getBulletNode, updateDomBullet } from "./update-dom-bullet";
 
 let mouseDownOnBullet = false;
 let bulletHovered = false;
-let selectedBullet = null;
-
-let mouseOnGroupItem = false;
+let selectedBullet: SVGElement | null = null;
 
 const popup = document.getElementById("radar-popup");
 
@@ -32,7 +30,7 @@ const getPopupCoords = (event) => {
   };
 };
 
-export function listenBullet(bullet) {
+export function listenBullet(bullet: SVGElement) {
   bullet.addEventListener("mouseenter", (event) => {
     // console.log("🟢 entered");
 

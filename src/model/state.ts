@@ -33,6 +33,7 @@ export const toggleState = (newState) => {
     ...state,
     ...newState,
   };
+
   for (const key in state) {
     const el = document.getElementById(stateElements[key]);
     if (el) {
