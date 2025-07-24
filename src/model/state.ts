@@ -2,7 +2,6 @@ import { GroupByOptions } from "../components/group-by/group-by-options";
 import type { GroupedBullets } from "../components/groups/group-bullets";
 import bus from "../helpers/bus";
 import type { RingsInfo } from "../helpers/rings/get-rings-info";
-import { l } from "../logger/l";
 import { saveState } from "../save/save";
 import type { Bullet } from "./bullet";
 
@@ -52,8 +51,8 @@ export const toggleState = (newState) => {
 
   saveState();
 
-  l("- State -");
-  l(state);
+  // l("- State -");
+  // l(state);
 };
 
 const setSavedState = () => {
@@ -65,7 +64,7 @@ const setSavedState = () => {
   } else {
     _state = defaultState;
   }
-  l("_state:", _state);
+  // l("_state:", _state);
   toggleState(_state);
 };
 

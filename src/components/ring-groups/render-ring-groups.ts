@@ -1,5 +1,4 @@
 import { d } from "../../helpers/selectors/d";
-import { l } from "../../logger/l";
 import { state } from "../../model/state";
 
 export const renderRingGroups = () => {
@@ -8,7 +7,7 @@ export const renderRingGroups = () => {
   if (ringsContainer) {
     ringsContainer.innerHTML = null;
   }
-  l("rings info: ", ringsInfo);
+  // l("rings info: ", ringsInfo);
   Object.entries(state.ringsInfo)
     .sort()
     .forEach(([name, nodes]) => {

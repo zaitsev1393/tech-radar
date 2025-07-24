@@ -1,16 +1,14 @@
 import { BulletOverview } from "../../components/bullet-overview/bullet-overview";
-import { highlightBulletNode } from "../../components/bullet/highlight-bullet-node";
 import { renderGroups } from "../../components/groups/render-groups";
 import { appendPopup } from "../../components/popup/append-popup";
 import { removePopup } from "../../components/popup/remove-popup";
 import { renderRingGroups } from "../../components/ring-groups/render-ring-groups";
-import { state, toggleState } from "../../model/state";
+import { state } from "../../model/state";
 import { saveBullet } from "../../save/save";
 import bus from "../bus";
 import { nodeToJsonBullet } from "../mappers/node-to-jsonbullet";
 import { getRingsInfo } from "../rings/get-rings-info";
 import { d } from "../selectors/d";
-import { getBulletById } from "./get-bullet-by-id";
 import { getBulletNode, updateDomBullet } from "./update-dom-bullet";
 
 let mouseDownOnBullet = false;
@@ -84,6 +82,7 @@ document.addEventListener("mouseup", async (event) => {
     await saveBullet(nodeToJsonBullet(selectedBullet));
     getRingsInfo();
     selectedBullet = null;
+    console.log("to save");
   }
 
   mouseDownOnBullet = false;
@@ -113,16 +112,6 @@ document.addEventListener("mousemove", (event) => {
       selectedBullet.setAttribute("cy", svgCoords.y);
       // }, 50);
     }
-  }
-});
-
-document.addEventListener("click", (event) => {
-  const target = event.target as HTMLElement;
-  if (target.classList.contains("group-item")) {
-    toggleState({ currentBullet: getBulletById(target.dataset.id) });
-    BulletOverview().open(state.currentBullet);
-    updateDomBullet(state.currentBullet);
-    highlightBulletNode(target);
   }
 });
 

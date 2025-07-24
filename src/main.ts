@@ -4,6 +4,7 @@ import { listenDeleteButton } from "./components/delete-bullet-button/listen-del
 import { EditForm } from "./components/edit-form/edit-form";
 import { listenGroupByOptions } from "./components/group-by/group-by-options";
 import { groupBullets } from "./components/groups/group-bullets";
+import { listenSignUpButton } from "./components/sign-up-button/sign-up-button";
 import {
   DEFAULT_RADAR_CONFIG,
   DEFAULT_SVG_CONTAINER_CONFIG,
@@ -23,12 +24,14 @@ import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
 import { sectorsInfo } from "./model/sectors";
 import { state, toggleState } from "./model/state";
 import { saveBullet } from "./save/save";
+import { isAuthenticated } from "./services/auth.service";
 import "./style.css";
 
 listenCreateBulletToggle();
 listenClearAllButton();
 listenDeleteButton();
 listenGroupByOptions();
+listenSignUpButton();
 
 let bullets = [];
 const savedRadar = localStorage.getItem("radar");
@@ -77,6 +80,32 @@ openEditFormButton?.addEventListener("click", (event) => {
 
 groupBullets(sectorsInfo, state.bullets);
 getRingsInfo();
+
+if (document.URL.includes("auth/success")) {
+  updateUiAfterAuth();
+}
+
+updateUiAfterAuth();
+
+const auth = async () => {
+  const profile = await fetch();
+};
+
+async function updateUiAfterAuth() {
+  const signUpButton = d.id("signUpButton");
+  const profileSection = d.id("profileSection");
+  if (!signUpButton) return;
+
+  const isLoggedIn = await isAuthenticated();
+  if (isLoggedIn) {
+    signUpButton.style.display = "none";
+    if (profileSection) {
+      profileSection.style.display = "block";
+    }
+  } else {
+    signUpButton.style.display = "block";
+  }
+}
 // const circles = d.all(".radar-circle");
 // for (const circle of circles) {
 //   circle.addEventListener("mouseenter", (event) => {
