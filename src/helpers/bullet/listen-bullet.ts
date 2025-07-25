@@ -9,7 +9,8 @@ import bus from "../bus";
 import { nodeToJsonBullet } from "../mappers/node-to-jsonbullet";
 import { getRingsInfo } from "../rings/get-rings-info";
 import { d } from "../selectors/d";
-import { getBulletNode, updateDomBullet } from "./update-dom-bullet";
+import { getBulletNode } from "./get-bullet-node";
+import { updateDomBullet } from "./update-dom-bullet";
 
 let mouseDownOnBullet = false;
 let bulletHovered = false;
