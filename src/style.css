@@ -61,3 +61,24 @@ textarea {
   border-color: white;
   border-radius: 8px;
 }
+
+#tabs {
+  display: flex;
+  gap: 8px;
+  color: var(--text);
+
+  .tab {
+    padding: 8px;
+    transition: 0.3s;
+    border-bottom: 2px solid transparent;
+    &:hover {
+      border-bottom: 2px solid var(--text);
+      cursor: pointer;
+      color: white;
+    }
+    &.active {
+      border-bottom: 2px solid var(--text);
+      color: white;
+    }
+  }
+}

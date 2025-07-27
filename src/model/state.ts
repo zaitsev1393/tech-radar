@@ -2,8 +2,10 @@ import { GroupByOptions } from "../components/group-by/group-by-options";
 import type { GroupedBullets } from "../components/groups/group-bullets";
 import bus from "../helpers/bus";
 import type { RingsInfo } from "../helpers/rings/get-rings-info";
+import { l } from "../logger/l";
 import { saveState } from "../save/save";
 import type { Bullet } from "./bullet";
+import type { Radar } from "./radar";
 
 interface GlobalStateModel {
   creatingBulletMode: boolean;
@@ -13,6 +15,7 @@ interface GlobalStateModel {
   groups: GroupedBullets;
   ringsInfo: RingsInfo;
   groupBy: GroupByOptions | null;
+  currentRadar: Radar | null;
 }
 
 const stateElements = {
@@ -27,6 +30,7 @@ export let state: GlobalStateModel = {
   groups: {},
   ringsInfo: {},
   groupBy: null,
+  currentRadar: null,
 };
 
 (window as any).state = state;
@@ -51,8 +55,8 @@ export const toggleState = (newState) => {
 
   saveState();
 
-  // l("- State -");
-  // l(state);
+  l("- State -");
+  l(state);
 };
 
 const setSavedState = () => {

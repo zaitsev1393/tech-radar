@@ -1,3 +1,4 @@
+import console from "console";
 import { DEFAULT_BULLET_CONFIG } from "./components/bullet/default-bullet.config";
 import { listenCreateBulletToggle } from "./components/create-bullet-toggle";
 import { listenDeleteButton } from "./components/delete-bullet-button/listen-delete-button";
@@ -5,6 +6,7 @@ import { EditForm } from "./components/edit-form/edit-form";
 import { listenGroupByOptions } from "./components/group-by/group-by-options";
 import { groupBullets } from "./components/groups/group-bullets";
 import { listenSignUpButton } from "./components/sign-up-button/sign-up-button";
+import { renderTabs } from "./components/tabs/render-tabs";
 import {
   DEFAULT_RADAR_CONFIG,
   DEFAULT_SVG_CONTAINER_CONFIG,
@@ -21,10 +23,12 @@ import { getRadarNode } from "./helpers/radar/get-radar-node";
 import { getRingsInfo } from "./helpers/rings/get-rings-info";
 import { d } from "./helpers/selectors/d";
 import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
+import { l } from "./logger/l";
 import { sectorsInfo } from "./model/sectors";
 import { state, toggleState } from "./model/state";
 import { saveBullet } from "./save/save";
 import { isAuthenticated } from "./services/auth.service";
+import { getRadars } from "./services/radars.service";
 import "./style.css";
 
 listenCreateBulletToggle();
@@ -87,10 +91,6 @@ if (document.URL.includes("auth/success")) {
 
 updateUiAfterAuth();
 
-const auth = async () => {
-  const profile = await fetch();
-};
-
 async function updateUiAfterAuth() {
   const signUpButton = d.id("signUpButton");
   const profileSection = d.id("profileSection");
@@ -106,6 +106,18 @@ async function updateUiAfterAuth() {
     signUpButton.style.display = "block";
   }
 }
+
+if (await isAuthenticated()) {
+  try {
+    const radarsResponse = await getRadars();
+    const radars = await radarsResponse.json();
+    l("radars: ", radars);
+    renderTabs(radars);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 // const circles = d.all(".radar-circle");
 // for (const circle of circles) {
 //   circle.addEventListener("mouseenter", (event) => {

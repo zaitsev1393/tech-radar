@@ -1,0 +1,48 @@
+Scenario:
+- User opens website
+- If not logged in: show preview there you can add up to 20 bullets
+- save this radar to local storage
+- If logged in: show all radars of user in tabs
+- User can create new radars
+- User can add bullets to radars
+- Users can edit bullets
+- User can delete bullets
+- User can delete radars
+- User can share radars with other users
+- User can view shared radars
+- User can view shared radars in read-only mode
+- User can export radars to JSON
+- User can import radars from JSON
+- Adapter for local saving and bd saving
+
+Model:
+- User
+- Radar
+- Bullets
+- User can have multiple radars
+- Radar has 1 user
+- Radar has many bullets
+- Bullet has 1 radar and 1 user
+- User:
+{
+  id: string;
+  email: string;
+  name: string;
+  radarIds: RadarId[];
+} 
+- Radar:
+{
+  id: string;
+  name: string;
+  description: string;
+  userId: UserId;
+  bulletIds: BulletId[];
+}
+- Bullet:
+{
+  id: string;
+  r: number;
+  cx: number;
+  cy: number;
+  radarId: RadarId;
+}

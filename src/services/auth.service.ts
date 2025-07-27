@@ -1,4 +1,5 @@
-export const apiUrl = "http://localhost:3000";
+const API_BASE = "http://localhost:3000";
+export const apiUrl = API_BASE + "/api/v1";
 
 const token = null;
 
