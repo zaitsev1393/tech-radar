@@ -3,7 +3,6 @@ import { d } from "../../helpers/selectors/d";
 import type { Bullet } from "../../model/bullet";
 import { sectorsInfo } from "../../model/sectors";
 import { state, toggleState } from "../../model/state";
-import { saveState } from "../../save/save";
 import { BulletOverview } from "../bullet-overview/bullet-overview";
 import { groupBullets } from "../groups/group-bullets";
 import { renderGroups } from "../groups/render-groups";
@@ -11,6 +10,7 @@ import { renderGroups } from "../groups/render-groups";
 const DELETE_BUTTON_ID = "deleteBulletButton";
 
 const button = d.id(DELETE_BUTTON_ID);
+
 export const listenDeleteButton = () => {
   if (button) {
     button.addEventListener("click", (event) => {
@@ -24,7 +24,7 @@ function deleteBullet(bullet: Bullet): void {
   toggleState({
     bullets: state.bullets.filter((b) => b["data-id"] !== bullet["data-id"]),
   });
-  saveState();
+  // saveState();
   groupBullets(sectorsInfo, state.bullets);
   BulletOverview().hide();
   renderGroups(state);

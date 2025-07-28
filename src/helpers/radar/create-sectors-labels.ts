@@ -3,7 +3,7 @@ import type { SectorsInfo } from "../../model/sectors";
 
 export const createSectorLabels = (
   sectorsInfo: SectorsInfo,
-  el: HTMLElement
+  el: Element
 ): void => {
   const { sectors } = sectorsInfo;
   const names = sectors.map(({ name }) => name);

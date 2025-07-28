@@ -6,7 +6,7 @@ interface CreateTextLabelConfig {
 }
 
 interface CreateTextLabelArgs {
-  root: HTMLElement;
+  root: Element;
   text: string;
   x: number;
   y: number;

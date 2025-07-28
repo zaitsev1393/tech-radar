@@ -9,7 +9,7 @@ export const getSvgContainer = (
   { id, width, height }: GetSvgContainerArgs = {
     id: null,
   }
-): HTMLElement | null => {
+): Element | null => {
   if (!width || !height || !id) return null;
 
   const svgId = `svg-${id}`;
@@ -20,7 +20,7 @@ export const getSvgContainer = (
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
   svg.setAttribute("id", svgId);
-  svg.setAttribute("radar", id);
+  svg.setAttribute("radar", id.toString());
   svg.style.display = "none";
   toggleState({ svgContainer: svg });
   return svg;

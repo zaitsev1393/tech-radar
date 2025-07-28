@@ -8,12 +8,14 @@ import { createRadar } from "./components/radar/radar";
 import { listenSignUpButton } from "./components/sign-up-button/sign-up-button";
 import { renderTabs } from "./components/tabs/render-tabs";
 import { DEFAULT_RADAR_CONFIG } from "./config/radar.config";
+import { createBulletNode } from "./helpers/bullet/create-bullet";
 import { listenToDocumentEvents } from "./helpers/bullet/listen-bullet";
 import { getRadarNode } from "./helpers/radar/get-radar-node";
 import { getRingsInfo } from "./helpers/rings/get-rings-info";
 import { d } from "./helpers/selectors/d";
 import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
 import { l } from "./logger/l";
+import type { Radar } from "./model/radar";
 import { sectorsInfo } from "./model/sectors";
 import { state, toggleState } from "./model/state";
 import { isAuthenticated } from "./services/auth.service";
@@ -112,7 +114,23 @@ if (await isAuthenticated()) {
       svgRadarContainers[0].style.display = "block";
     }
     renderTabs(radars);
+    toggleState({
+      radars,
+      bullets: radars.map(({ bullets }: Radar) => bullets).flat(),
+    });
+    drawBullets(radars);
   } catch (e) {
     console.error(e);
   }
+}
+
+function drawBullets(radars: Radar[]): void {
+  radars.forEach(({ id, bullets }: Radar) => {
+    if (!bullets) return;
+    const svgContainer = document.querySelector(`[radar='${id}']`);
+    bullets.forEach((bullet) => {
+      const bulletNode = createBulletNode(bullet);
+      svgContainer?.appendChild(bulletNode);
+    });
+  });
 }

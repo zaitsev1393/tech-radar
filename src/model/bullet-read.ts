@@ -2,7 +2,7 @@ import type { Radar } from "./radar";
 import type { User } from "./user";
 
 export interface BulletRead {
-  id: number;
+  id?: number;
   name: string;
   description: string | null;
   cx: number;

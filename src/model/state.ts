@@ -16,6 +16,7 @@ interface GlobalStateModel {
   ringsInfo: RingsInfo;
   groupBy: GroupByOptions | null;
   currentRadar: Radar | null;
+  radars: Radar[];
 }
 
 const stateElements = {
@@ -24,6 +25,7 @@ const stateElements = {
 
 export let state: GlobalStateModel = {
   creatingBulletMode: false,
+  radars: [],
   svgContainer: null,
   currentBullet: null,
   bullets: [],

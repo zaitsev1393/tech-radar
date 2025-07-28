@@ -2,21 +2,22 @@ import {
   DEFAULT_RADAR_CONFIG,
   DEFAULT_SVG_CONTAINER_CONFIG,
 } from "../../config/radar.config";
-import { getBullet } from "../../helpers/bullet/get-bullet";
-import { listenBullet } from "../../helpers/bullet/listen-bullet";
+import { createBulletNode } from "../../helpers/bullet/create-bullet";
+import { getSVGCoords } from "../../helpers/bullet/get-bullet";
 import { getSvgContainer } from "../../helpers/primitives/create-svg-container";
 import { createTextLabel } from "../../helpers/primitives/create-text-label";
 import { drawRadar } from "../../helpers/radar/create-radar";
 import { createRingLabels } from "../../helpers/radar/create-ring-labels";
 import { createSectorLabels } from "../../helpers/radar/create-sectors-labels";
 import { l } from "../../logger/l";
+import type { BulletRead } from "../../model/bullet-read";
 import type { Radar } from "../../model/radar";
 import { sectorsInfo } from "../../model/sectors";
 import { state, toggleState } from "../../model/state";
-import { DEFAULT_BULLET_CONFIG } from "../bullet/default-bullet.config";
+import { createNewBullet } from "../../services/bullets.service";
 
 export function createRadar(root: HTMLElement, radar: Radar): void {
-  const svgContainer: HTMLElement | null = getSvgContainer({
+  const svgContainer: Element | null = getSvgContainer({
     ...DEFAULT_SVG_CONTAINER_CONFIG,
     id: radar.id,
   });
@@ -47,14 +48,38 @@ export function createRadar(root: HTMLElement, radar: Radar): void {
   createSectorLabels(sectorsInfo, svgContainer);
   createRingLabels(radar.id);
 
-  svgContainer.addEventListener("click", (event) => {
-    l(event.target);
-    if (state.creatingBulletMode) {
-      const bullet = getBullet(event, svgContainer, DEFAULT_BULLET_CONFIG);
-      svgContainer.appendChild(bullet);
-      listenBullet(bullet);
-      // saveBullet(nodeToJsonBullet(bullet));
-      toggleState({ creatingBulletMode: false });
+  (svgContainer as HTMLElement).addEventListener(
+    "click",
+    async (event: MouseEvent) => {
+      let radarId = null;
+      if (event.target) {
+        radarId = (event.target as HTMLElement)
+          .closest("svg")
+          ?.getAttribute("radar");
+      }
+      if (!radarId) return;
+
+      console.log("- Radar clicked ID: ", radarId);
+      if (state.creatingBulletMode) {
+        const { x: cx, y: cy } = getSVGCoords(event, svgContainer);
+        const bullet: BulletRead = {
+          name: "No title",
+          description: "No description",
+          cx,
+          cy,
+          radarId: parseInt(radarId),
+        };
+        const newBullet = await createNewBullet(bullet);
+        l("bullet: ", newBullet);
+        const bulletNode = createBulletNode(newBullet);
+        svgContainer.appendChild(bulletNode);
+        // const bullet = null;
+        // const bullet = getBullet(event, svgContainer, DEFAULT_BULLET_CONFIG);
+        // svgContainer.appendChild(bullet);
+        // listenBullet(bullet);
+        // saveBullet(nodeToJsonBullet(bullet));
+        toggleState({ creatingBulletMode: false, currentBullet: newBullet });
+      }
     }
-  });
+  );
 }

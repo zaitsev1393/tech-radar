@@ -1,7 +1,11 @@
+import type { User } from "../model/user";
+
 const API_BASE = "http://localhost:3000";
 export const apiUrl = API_BASE + "/api/v1";
 
 const token = null;
+
+export let currentUser: User | null = null;
 
 export const authGoogle = async () => {
   try {
@@ -21,7 +25,8 @@ export const isAuthenticated = async (): Promise<boolean> => {
     if (!response.ok) return false;
 
     const profile = await response.json();
-    localStorage.setItem("profile", JSON.stringify(profile));
+    // localStorage.setItem("profile", JSON.stringify(profile));
+    currentUser = profile;
     return true;
   } catch (e) {
     return false;

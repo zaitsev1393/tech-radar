@@ -11,11 +11,7 @@ export const elWidth = (el: HTMLElement | SVGElement): number =>
 export const elHeight = (el: HTMLElement | SVGElement): number =>
   el.getBoundingClientRect().height;
 
-const createLabel = (
-  root: HTMLElement,
-  name: string,
-  distance: number
-): void => {
+const createLabel = (root: Element, name: string, distance: number): void => {
   const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
 
   text.textContent = name;

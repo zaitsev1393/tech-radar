@@ -6,7 +6,6 @@ export const listenSignUpButton = (): void => {
 
   if (signUpButton) {
     signUpButton.addEventListener("click", () => {
-      console.log("click");
       authGoogle();
     });
   }

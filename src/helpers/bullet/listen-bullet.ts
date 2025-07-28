@@ -4,9 +4,7 @@ import { appendPopup } from "../../components/popup/append-popup";
 import { removePopup } from "../../components/popup/remove-popup";
 import { renderRingGroups } from "../../components/ring-groups/render-ring-groups";
 import { state } from "../../model/state";
-import { saveBullet } from "../../save/save";
 import bus from "../bus";
-import { nodeToJsonBullet } from "../mappers/node-to-jsonbullet";
 import { getRingsInfo } from "../rings/get-rings-info";
 import { d } from "../selectors/d";
 import { getBulletNode } from "./get-bullet-node";
@@ -31,18 +29,15 @@ const getPopupCoords = (event) => {
 };
 
 export function listenBullet(bullet: SVGElement) {
-  bullet.addEventListener("mouseenter", (event) => {
+  bullet.addEventListener("mouseenter", (event: MouseEvent) => {
     // console.log("🟢 entered");
 
-    state.currentBullet = state.bullets.find(
-      (b) => b["data-id"] === bullet.dataset.id
-    );
     bulletHovered = true;
     appendPopup(popup, {
       ...getPopupCoords(event),
       data: {
-        title: state.currentBullet["data-title"],
-        description: state.currentBullet["data-description"],
+        title: "title",
+        description: "desc",
       },
     });
   });
@@ -69,6 +64,7 @@ export function listenBullet(bullet: SVGElement) {
     selectedBullet = event.target;
   });
 }
+
 export const listenToDocumentEvents = () => {
   document.addEventListener("mouseup", async (event) => {
     if (bulletHovered) {
@@ -80,7 +76,7 @@ export const listenToDocumentEvents = () => {
 
     if (selectedBullet) {
       updateDomBullet(selectedBullet);
-      await saveBullet(nodeToJsonBullet(selectedBullet));
+      // await saveBullet(nodeToJsonBullet(selectedBullet));
       getRingsInfo();
       selectedBullet = null;
       console.log("to save");
