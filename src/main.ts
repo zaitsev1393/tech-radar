@@ -8,7 +8,7 @@ import { createRadar } from "./components/radar/radar";
 import { listenSignUpButton } from "./components/sign-up-button/sign-up-button";
 import { renderTabs } from "./components/tabs/render-tabs";
 import { DEFAULT_RADAR_CONFIG } from "./config/radar.config";
-import { createBulletNode } from "./helpers/bullet/create-bullet";
+import { drawBullets } from "./helpers/bullet/draw-bullets";
 import { listenToDocumentEvents } from "./helpers/bullet/listen-bullet";
 import { getRadarNode } from "./helpers/radar/get-radar-node";
 import { getRingsInfo } from "./helpers/rings/get-rings-info";
@@ -122,15 +122,4 @@ if (await isAuthenticated()) {
   } catch (e) {
     console.error(e);
   }
-}
-
-function drawBullets(radars: Radar[]): void {
-  radars.forEach(({ id, bullets }: Radar) => {
-    if (!bullets) return;
-    const svgContainer = document.querySelector(`[radar='${id}']`);
-    bullets.forEach((bullet) => {
-      const bulletNode = createBulletNode(bullet);
-      svgContainer?.appendChild(bulletNode);
-    });
-  });
 }

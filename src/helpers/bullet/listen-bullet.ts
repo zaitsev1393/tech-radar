@@ -5,6 +5,8 @@ import { removePopup } from "../../components/popup/remove-popup";
 import { renderRingGroups } from "../../components/ring-groups/render-ring-groups";
 import { state } from "../../model/state";
 import bus from "../bus";
+import { getPopup } from "../popup/get-popup";
+import { getPopupCoords } from "../popup/get-popup-coords";
 import { getRingsInfo } from "../rings/get-rings-info";
 import { d } from "../selectors/d";
 import { getBulletNode } from "./get-bullet-node";
@@ -14,38 +16,24 @@ let mouseDownOnBullet = false;
 let bulletHovered = false;
 let selectedBullet: SVGElement | null = null;
 
-const popup = document.getElementById("radar-popup");
-
-const getPopupCoords = (event) => {
-  const rect = event.target.getBoundingClientRect();
-  return {
-    top: rect.top,
-    left: rect.left,
-    offset: {
-      x: rect.width,
-      y: rect.height,
-    },
-  };
-};
-
-export function listenBullet(bullet: SVGElement) {
-  bullet.addEventListener("mouseenter", (event: MouseEvent) => {
-    // console.log("🟢 entered");
-
-    bulletHovered = true;
-    appendPopup(popup, {
-      ...getPopupCoords(event),
-      data: {
+export function listenBullet(bullet: Element) {
+  (bullet as HTMLElement).addEventListener(
+    "mouseenter",
+    (event: MouseEvent) => {
+      // console.log("🟢 entered");
+      bulletHovered = true;
+      const coords = getPopupCoords(event);
+      appendPopup(getPopup(), coords, {
         title: "title",
         description: "desc",
-      },
-    });
-  });
+      });
+    }
+  );
 
   bullet.addEventListener("mouseleave", (event) => {
     // console.log("🔴 left");
     bulletHovered = false;
-    removePopup(popup);
+    removePopup(getPopup());
   });
 
   bullet.addEventListener("click", (event) => {
@@ -68,9 +56,8 @@ export function listenBullet(bullet: SVGElement) {
 export const listenToDocumentEvents = () => {
   document.addEventListener("mouseup", async (event) => {
     if (bulletHovered) {
-      appendPopup(popup, {
-        ...getPopupCoords(event),
-        data: { title: state.currentBullet["data-title"] },
+      appendPopup(getPopup(), getPopupCoords(event), {
+        title: state.currentBullet["data-title"] || "",
       });
     }
 
@@ -92,7 +79,7 @@ export const listenToDocumentEvents = () => {
     // }
 
     if (mouseDownOnBullet) {
-      removePopup(popup);
+      removePopup(getPopup());
 
       if (!event.target || !svgContainer) return;
       const pt = svgContainer?.createSVGPoint(); // створюємо точку
