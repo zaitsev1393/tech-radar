@@ -4,14 +4,14 @@ import bus from "../helpers/bus";
 import type { RingsInfo } from "../helpers/rings/get-rings-info";
 import { l } from "../logger/l";
 import { saveState } from "../save/save";
-import type { Bullet } from "./bullet";
+import type { BulletRead } from "./bullet-read";
 import type { Radar } from "./radar";
 
 interface GlobalStateModel {
   creatingBulletMode: boolean;
   svgContainer: SVGSVGElement | null;
-  currentBullet: Bullet | null;
-  bullets: Bullet[];
+  currentBullet: BulletRead | null;
+  bullets: BulletRead[];
   groups: GroupedBullets;
   ringsInfo: RingsInfo;
   groupBy: GroupByOptions | null;

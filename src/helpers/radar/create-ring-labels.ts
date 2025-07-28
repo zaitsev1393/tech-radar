@@ -12,7 +12,7 @@ export const elHeight = (el: HTMLElement | SVGElement): number =>
   el.getBoundingClientRect().height;
 
 const createLabel = (
-  root: SVGSVGElement,
+  root: HTMLElement,
   name: string,
   distance: number
 ): void => {
@@ -28,8 +28,9 @@ const createLabel = (
   text.setAttribute("y", `${RADIUS + elHeight(text)}`);
 };
 
-export const createRingLabels = (id: string) => {
+export const createRingLabels = (id: number): void => {
   const svgContainer = getSvgContainer({ id });
+  if (!svgContainer) return;
   createLabel(svgContainer, "Adopt", 400);
   createLabel(svgContainer, "Trial", 300);
   createLabel(svgContainer, "Assess", 200);

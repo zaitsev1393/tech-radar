@@ -8,6 +8,7 @@ import { createRadar } from "./components/radar/radar";
 import { listenSignUpButton } from "./components/sign-up-button/sign-up-button";
 import { renderTabs } from "./components/tabs/render-tabs";
 import { DEFAULT_RADAR_CONFIG } from "./config/radar.config";
+import { listenToDocumentEvents } from "./helpers/bullet/listen-bullet";
 import { getRadarNode } from "./helpers/radar/get-radar-node";
 import { getRingsInfo } from "./helpers/rings/get-rings-info";
 import { d } from "./helpers/selectors/d";
@@ -25,6 +26,7 @@ listenDeleteButton();
 listenGroupByOptions();
 listenSignUpButton();
 listenDeleteAllRadarsButton();
+listenToDocumentEvents();
 
 let bullets = [];
 const savedRadar = localStorage.getItem("radar");

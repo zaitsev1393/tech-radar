@@ -1,15 +1,26 @@
 import { toggleState } from "../../model/state";
 import { d } from "../selectors/d";
+interface GetSvgContainerArgs {
+  id: number | null;
+  width?: number | null;
+  height?: number | null;
+}
+export const getSvgContainer = (
+  { id, width, height }: GetSvgContainerArgs = {
+    id: null,
+  }
+): HTMLElement | null => {
+  if (!width || !height || !id) return null;
 
-export const getSvgContainer = ({ id, width, height } = {}): SVGSVGElement => {
-  const svgContainer = d.id(id);
+  const svgId = `svg-${id}`;
+  const svgContainer: HTMLElement | null = d.id(svgId);
 
   if (svgContainer) return svgContainer;
 
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-  svg.setAttribute("id", id);
-  svg.setAttribute("radar", "true");
+  svg.setAttribute("id", svgId);
+  svg.setAttribute("radar", id);
   svg.style.display = "none";
   toggleState({ svgContainer: svg });
   return svg;

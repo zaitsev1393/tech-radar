@@ -6,7 +6,7 @@ interface CreateTextLabelConfig {
 }
 
 interface CreateTextLabelArgs {
-  root: SVGSVGElement;
+  root: HTMLElement;
   text: string;
   x: number;
   y: number;

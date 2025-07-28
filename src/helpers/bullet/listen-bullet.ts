@@ -69,52 +69,54 @@ export function listenBullet(bullet: SVGElement) {
     selectedBullet = event.target;
   });
 }
-
-document.addEventListener("mouseup", async (event) => {
-  if (bulletHovered) {
-    appendPopup(popup, {
-      ...getPopupCoords(event),
-      data: { title: state.currentBullet["data-title"] },
-    });
-  }
-
-  if (selectedBullet) {
-    updateDomBullet(selectedBullet);
-    await saveBullet(nodeToJsonBullet(selectedBullet));
-    getRingsInfo();
-    selectedBullet = null;
-    console.log("to save");
-  }
-
-  mouseDownOnBullet = false;
-});
-
-document.addEventListener("mousemove", (event) => {
-  const svgContainer = document.getElementById("svg");
-
-  // if ((event?.target as HTMLElement).closest(".group-item")) {
-  //   highlightBulletNode(event.target);
-  // }
-
-  if (mouseDownOnBullet) {
-    removePopup(popup);
-
-    if (!event.target || !svgContainer) return;
-    const pt = svgContainer?.createSVGPoint(); // створюємо точку
-    pt.x = event.clientX;
-    pt.y = event.clientY;
-
-    const svgCoords = pt.matrixTransform(svgContainer.getScreenCTM().inverse());
+export const listenToDocumentEvents = () => {
+  document.addEventListener("mouseup", async (event) => {
+    if (bulletHovered) {
+      appendPopup(popup, {
+        ...getPopupCoords(event),
+        data: { title: state.currentBullet["data-title"] },
+      });
+    }
 
     if (selectedBullet) {
-      // l("selected bullet: ", selectedBullet);
-      // setTimeout(() => {
-      selectedBullet.setAttribute("cx", svgCoords.x);
-      selectedBullet.setAttribute("cy", svgCoords.y);
-      // }, 50);
+      updateDomBullet(selectedBullet);
+      await saveBullet(nodeToJsonBullet(selectedBullet));
+      getRingsInfo();
+      selectedBullet = null;
+      console.log("to save");
     }
-  }
-});
+
+    mouseDownOnBullet = false;
+  });
+
+  document.addEventListener("mousemove", (event) => {
+    const svgContainer = document.getElementById("svg");
+    // if ((event?.target as HTMLElement).closest(".group-item")) {
+    //   highlightBulletNode(event.target);
+    // }
+
+    if (mouseDownOnBullet) {
+      removePopup(popup);
+
+      if (!event.target || !svgContainer) return;
+      const pt = svgContainer?.createSVGPoint(); // створюємо точку
+      pt.x = event.clientX;
+      pt.y = event.clientY;
+
+      const svgCoords = pt.matrixTransform(
+        svgContainer.getScreenCTM().inverse()
+      );
+
+      if (selectedBullet) {
+        // l("selected bullet: ", selectedBullet);
+        // setTimeout(() => {
+        selectedBullet.setAttribute("cx", svgCoords.x);
+        selectedBullet.setAttribute("cy", svgCoords.y);
+        // }, 50);
+      }
+    }
+  });
+};
 
 const listenBulletSub = bus.subscribe((event) => {
   if (event.name === "STATE_CHANGED") {
