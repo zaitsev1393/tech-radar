@@ -1,4 +1,5 @@
 import { listenCreateBulletToggle } from "./components/create-bullet-toggle";
+import { listenDeleteAllRadarsButton } from "./components/delete-all-radars-button/listen-delete-all-radars";
 import { listenDeleteButton } from "./components/delete-bullet-button/listen-delete-button";
 import { EditForm } from "./components/edit-form/edit-form";
 import { listenGroupByOptions } from "./components/group-by/group-by-options";
@@ -23,6 +24,7 @@ listenClearAllButton();
 listenDeleteButton();
 listenGroupByOptions();
 listenSignUpButton();
+listenDeleteAllRadarsButton();
 
 let bullets = [];
 const savedRadar = localStorage.getItem("radar");

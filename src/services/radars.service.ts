@@ -7,6 +7,7 @@ export function getRadars(): Promise<any> {
     credentials: "include",
   });
 }
+
 export async function createNewRadar({
   title,
   description,
@@ -26,4 +27,11 @@ export async function createNewRadar({
     }),
   });
   return response.json();
+}
+
+export async function deleteAllRadars(): Promise<Response> {
+  return fetch(apiUrl + "/radars", {
+    method: "DELETE",
+    credentials: "include",
+  });
 }
