@@ -2,7 +2,16 @@ import { createHorizontalLine } from "../lines/create-horizontal-line";
 import { createVerticalLine } from "../lines/create-vertical-line";
 import { createCircle } from "../primitives/create-circle";
 
-export const createRadar = ({ r, circlesNum, cx, cy, el, stroke, fill }) => {
+export const drawRadar = ({
+  title,
+  r,
+  circlesNum,
+  cx,
+  cy,
+  el,
+  stroke,
+  fill,
+}) => {
   for (let i = circlesNum; i >= 1; i--) {
     const circle = createCircle({
       cx,

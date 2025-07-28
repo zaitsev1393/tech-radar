@@ -1,19 +1,14 @@
+import type { Radar } from "./radar";
+import type { User } from "./user";
+
 export interface BulletRead {
   id: number;
   name: string;
-  description?: string;
+  description: string | null;
   cx: number;
   cy: number;
-  radarId: number;
-  userId: number;
+  radar?: Radar | null;
+  radarId: number | null;
+  user?: User | null;
+  userId: number | null;
 }
-
-// id Int @id @default(autoincrement())
-// name String
-// description String?
-// cx Int
-// cy Int
-// radar Radar? @relation(fields: [radarId], references: [id])
-// radarId Int?
-// user User? @relation(fields: [userId], references: [id])
-// userId Int?
