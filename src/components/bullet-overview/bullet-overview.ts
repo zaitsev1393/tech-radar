@@ -1,15 +1,16 @@
 import { d } from "../../helpers/selectors/d";
+import type { BulletRead } from "../../model/bullet-read";
 
 interface BulletOverviewAPI {
-  open: (bullet: any) => void;
+  open: (bullet: BulletRead | null) => void;
   hide: () => void;
   update: (bullet: any) => void;
 }
 
 export function BulletOverview(): BulletOverviewAPI {
   const el = d.id("bullet-overview");
-  const titleNode = el?.querySelector(`[title]`);
-  const descriptionNode = el?.querySelector(`[description]`);
+  const titleNode = el?.querySelector(`[title]`) as HTMLElement;
+  const descriptionNode = el?.querySelector(`[description]`) as HTMLElement;
 
   function open(bullet: any): void {
     if (!el) return;
@@ -23,12 +24,13 @@ export function BulletOverview(): BulletOverviewAPI {
     el.classList.add("hidden");
   }
 
-  function update(bullet): void {
+  function update(bullet: BulletRead): void {
+    const { name: title, description } = bullet;
     if (titleNode) {
-      titleNode.innerHTML = bullet["data-title"];
+      titleNode.innerHTML = title;
     }
-    if (descriptionNode) {
-      descriptionNode.innerHTML = bullet["data-description"];
+    if (descriptionNode && description) {
+      descriptionNode.innerText = description;
     }
   }
 

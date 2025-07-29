@@ -11,6 +11,7 @@ interface GlobalStateModel {
   creatingBulletMode: boolean;
   svgContainer: SVGSVGElement | null;
   currentBullet: BulletRead | null;
+  currentBulletNode: Element | null;
   bullets: BulletRead[];
   groups: GroupedBullets;
   ringsInfo: RingsInfo;
@@ -25,14 +26,15 @@ const stateElements = {
 
 export let state: GlobalStateModel = {
   creatingBulletMode: false,
-  radars: [],
   svgContainer: null,
   currentBullet: null,
+  currentBulletNode: null,
+  currentRadar: null,
+  radars: [],
   bullets: [],
   groups: {},
   ringsInfo: {},
   groupBy: null,
-  currentRadar: null,
 };
 
 (window as any).state = state;

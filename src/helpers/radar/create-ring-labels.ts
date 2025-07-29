@@ -1,5 +1,4 @@
 import { RADAR_WIDTH } from "../../config/radar.config";
-import { l } from "../../logger/l";
 import { getSvgContainer } from "../primitives/create-svg-container";
 
 const FONT_SIZE = 16;
@@ -28,7 +27,6 @@ const createLabel = (root: Element, name: string, distance: number): void => {
 
 export const createRingLabels = (id: number): void => {
   const svgContainer = getSvgContainer({ id });
-  l("sbg for rings: ", svgContainer);
   if (!svgContainer) return;
   createLabel(svgContainer, "Adopt", 400);
   createLabel(svgContainer, "Trial", 300);

@@ -4,6 +4,7 @@ import {
 } from "../../config/radar.config";
 import { createBulletNode } from "../../helpers/bullet/create-bullet";
 import { getSVGCoords } from "../../helpers/bullet/get-bullet";
+import { listenBullet } from "../../helpers/bullet/listen-bullet";
 import { getSvgContainer } from "../../helpers/primitives/create-svg-container";
 import { createTextLabel } from "../../helpers/primitives/create-text-label";
 import { drawRadar } from "../../helpers/radar/create-radar";
@@ -63,15 +64,18 @@ export function createRadar(root: HTMLElement, radar: Radar): void {
       if (state.creatingBulletMode) {
         const { x: cx, y: cy } = getSVGCoords(event, svgContainer);
         const bullet: BulletRead = {
+          id: 0,
           name: "No title",
           description: "No description",
           cx,
           cy,
+          userId: 0,
           radarId: parseInt(radarId),
         };
         const newBullet = await createNewBullet(bullet);
         l("bullet: ", newBullet);
         const bulletNode = createBulletNode(newBullet);
+        listenBullet(bulletNode);
         svgContainer.appendChild(bulletNode);
         // const bullet = null;
         // const bullet = getBullet(event, svgContainer, DEFAULT_BULLET_CONFIG);
