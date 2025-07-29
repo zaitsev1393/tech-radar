@@ -1,13 +1,16 @@
 import { createBulletNode } from "./create-bullet";
 
-export function getSVGCoords(event: MouseEvent, svg: Element): DOMPoint | null {
+export function getSVGCoords(
+  event: MouseEvent,
+  svg: SVGSVGElement
+): DOMPoint | null {
   if (!event) return null;
 
-  const pt = (svg as SVGSVGElement).createSVGPoint();
+  const pt = svg.createSVGPoint();
   pt.x = event.clientX;
   pt.y = event.clientY;
 
-  return pt.matrixTransform((svg as SVGSVGElement).getScreenCTM()?.inverse());
+  return pt.matrixTransform(svg.getScreenCTM()?.inverse());
 }
 
 export function getBullet(
