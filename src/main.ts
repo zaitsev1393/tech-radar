@@ -106,7 +106,7 @@ if (await isAuthenticated()) {
     const radarsResponse = await getRadars();
     const radars = await radarsResponse.json();
     l("radars: ", radars);
-    radars.forEach((radar) => {
+    radars.forEach((radar: Radar) => {
       createRadar(getRadarNode(DEFAULT_RADAR_CONFIG), radar);
     });
     const svgRadarContainers = document.querySelectorAll("[radar]");

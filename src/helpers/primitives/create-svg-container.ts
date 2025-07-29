@@ -10,7 +10,7 @@ export const getSvgContainer = (
     id: null,
   }
 ): Element | null => {
-  if (!width || !height || !id) return null;
+  if (!id) return null;
 
   const svgId = `svg-${id}`;
   const svgContainer: HTMLElement | null = d.id(svgId);

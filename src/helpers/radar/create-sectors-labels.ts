@@ -14,7 +14,7 @@ export const createSectorLabels = (
   );
   const FONT_SIZE = 20;
   const DEFAULT_OFFSET = 24;
-  qudrantOne.setAttribute("x", 0);
+  qudrantOne.setAttribute("x", "0");
   qudrantOne.setAttribute("y", DEFAULT_OFFSET.toString());
   qudrantOne.setAttribute("font-size", FONT_SIZE.toString());
   qudrantOne.setAttribute("fill", "white");
@@ -27,15 +27,12 @@ export const createSectorLabels = (
   );
   quadrantTwo.setAttribute("font-size", FONT_SIZE.toString());
   quadrantTwo.setAttribute("fill", "white");
+  quadrantTwo.setAttribute("text-anchor", "end");
   quadrantTwo.textContent = names[1];
   el.appendChild(quadrantTwo);
   quadrantTwo.setAttribute(
     "x",
-    (
-      RADAR_WIDTH -
-      quadrantTwo.getBoundingClientRect().width -
-      DEFAULT_OFFSET
-    ).toString()
+    (RADAR_WIDTH - quadrantTwo.getBoundingClientRect().width).toString()
   );
   quadrantTwo.setAttribute("y", DEFAULT_OFFSET.toString());
 
@@ -56,15 +53,12 @@ export const createSectorLabels = (
   );
   quadrantFour.setAttribute("font-size", FONT_SIZE.toString());
   quadrantFour.setAttribute("fill", "white");
+  quadrantFour.setAttribute("text-anchor", "end");
   quadrantFour.textContent = names[3];
   el.appendChild(quadrantFour);
   quadrantFour.setAttribute(
     "x",
-    (
-      RADAR_WIDTH -
-      quadrantFour.getBoundingClientRect().width -
-      DEFAULT_OFFSET
-    ).toString()
+    (RADAR_WIDTH - quadrantFour.getBoundingClientRect().width).toString()
   );
   quadrantFour.setAttribute("y", (RADAR_HEIGHT - DEFAULT_OFFSET).toString());
 };

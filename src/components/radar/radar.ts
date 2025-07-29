@@ -39,7 +39,7 @@ export function createRadar(root: HTMLElement, radar: Radar): void {
 
   createTextLabel({
     root: svgContainer,
-    x: 50,
+    x: 0,
     y: 50,
     text: radar.title,
     config: { "font-size": 16, color: "white" },

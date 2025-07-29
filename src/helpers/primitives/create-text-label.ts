@@ -1,4 +1,4 @@
-import { DEFAULT_OFFSET, elHeight, elWidth } from "../radar/create-ring-labels";
+import { elHeight, elWidth } from "../radar/create-ring-labels";
 
 interface CreateTextLabelConfig {
   "font-size": number;
@@ -31,6 +31,6 @@ export const createTextLabel = ({
   textLabelEl.setAttribute("fill", "white");
   root.appendChild(textLabelEl);
 
-  textLabelEl.setAttribute("x", `${x - elWidth(textLabelEl) - DEFAULT_OFFSET}`);
+  textLabelEl.setAttribute("x", `${x - elWidth(textLabelEl)}`);
   textLabelEl.setAttribute("y", `${y + elHeight(textLabelEl)}`);
 };
