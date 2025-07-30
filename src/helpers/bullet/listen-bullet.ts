@@ -47,7 +47,6 @@ export function listenBullet(bullet: Element) {
   bulletNode.addEventListener("click", () => {
     bullet.classList.add("bullet-active");
     BulletOverview().open(state.currentBullet);
-    // updateDomBullet(state.currentBullet);
   });
 
   bulletNode.addEventListener("mousedown", (event: MouseEvent) => {
@@ -102,6 +101,7 @@ export const listenToDocumentEvents = () => {
   });
 
   document.addEventListener("mousemove", (event) => {
+    if (!state.currentBullet) return;
     const svgContainer = document.getElementById(
       `svg-${state.currentBullet.radarId}`
     );

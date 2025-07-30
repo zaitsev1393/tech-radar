@@ -1,4 +1,3 @@
-import { toggleState } from "../../model/state";
 import { d } from "../selectors/d";
 interface GetSvgContainerArgs {
   id: number | null;
@@ -22,6 +21,5 @@ export const getSvgContainer = (
   svg.setAttribute("id", svgId);
   svg.setAttribute("radar", id.toString());
   svg.style.display = "none";
-  toggleState({ svgContainer: svg });
   return svg;
 };

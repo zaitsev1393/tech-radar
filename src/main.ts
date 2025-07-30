@@ -116,6 +116,8 @@ if (await isAuthenticated()) {
     renderTabs(radars);
     toggleState({
       radars,
+      currentRadar: radars[0],
+      currentSvgContainer: svgRadarContainers[0],
       bullets: radars.map(({ bullets }: Radar) => bullets).flat(),
     });
     drawBullets(radars);

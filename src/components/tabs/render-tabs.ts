@@ -36,7 +36,10 @@ export function renderTabs(radars: Radar[]): void {
         svgRadarContainer.style.display = "block";
       }
 
-      toggleState({ currentRadar: radar });
+      toggleState({
+        currentRadar: radar,
+        currentSvgContainer: svgRadarContainer,
+      });
     });
   });
 

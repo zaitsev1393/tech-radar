@@ -10,7 +10,6 @@ import { createTextLabel } from "../../helpers/primitives/create-text-label";
 import { drawRadar } from "../../helpers/radar/create-radar";
 import { createRingLabels } from "../../helpers/radar/create-ring-labels";
 import { createSectorLabels } from "../../helpers/radar/create-sectors-labels";
-import { l } from "../../logger/l";
 import type { BulletRead } from "../../model/bullet-read";
 import type { Radar } from "../../model/radar";
 import { sectorsInfo } from "../../model/sectors";
@@ -73,7 +72,6 @@ export function createRadar(root: HTMLElement, radar: Radar): void {
           radarId: parseInt(radarId),
         };
         const newBullet = await createNewBullet(bullet);
-        l("bullet: ", newBullet);
         const bulletNode = createBulletNode(newBullet);
         listenBullet(bulletNode);
         svgContainer.appendChild(bulletNode);

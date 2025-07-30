@@ -9,7 +9,7 @@ import type { Radar } from "./radar";
 
 interface GlobalStateModel {
   creatingBulletMode: boolean;
-  svgContainer: SVGSVGElement | null;
+  currentSvgContainer: SVGSVGElement | null;
   currentBullet: BulletRead | null;
   currentBulletNode: Element | null;
   bullets: BulletRead[];
@@ -26,7 +26,7 @@ const stateElements = {
 
 export let state: GlobalStateModel = {
   creatingBulletMode: false,
-  svgContainer: null,
+  currentSvgContainer: null,
   currentBullet: null,
   currentBulletNode: null,
   currentRadar: null,
@@ -76,4 +76,4 @@ const setSavedState = () => {
   toggleState(_state);
 };
 
-setSavedState();
+// setSavedState();
