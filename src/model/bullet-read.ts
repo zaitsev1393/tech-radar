@@ -15,8 +15,8 @@ export interface BulletRead {
 
 export interface BulletWrite {
   id: string;
-  name: string;
-  description: string | null;
+  name?: string;
+  description?: string | null;
   cx: number;
   cy: number;
   radar?: Radar | null;

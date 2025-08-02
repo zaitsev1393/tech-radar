@@ -7,7 +7,7 @@ import { saveState } from "../save/save";
 import type { BulletRead } from "./bullet-read";
 import type { Radar } from "./radar";
 
-interface GlobalStateModel {
+export interface GlobalStateModel {
   creatingBulletMode: boolean;
   currentSvgContainer: SVGSVGElement | null;
   currentBullet: BulletRead | null;

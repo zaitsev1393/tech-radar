@@ -3,14 +3,13 @@ import { renderGroups } from "../../components/groups/render-groups";
 import { appendPopup } from "../../components/popup/append-popup";
 import { removePopup } from "../../components/popup/remove-popup";
 import { renderRingGroups } from "../../components/ring-groups/render-ring-groups";
-import { l } from "../../logger/l";
-import { state, toggleState } from "../../model/state";
-import { patchBullet } from "../../services/bullets.service";
+import { state, toggleState, type GlobalStateModel } from "../../model/state";
 import bus from "../bus";
 import { getPopup } from "../popup/get-popup";
 import { getPopupCoords } from "../popup/get-popup-coords";
 import { d } from "../selectors/d";
 import { getSVGCoords } from "./get-bullet";
+import { getBulletNode } from "./get-bullet-node";
 
 let mouseDownOnBulletNode = false;
 let bulletHovered = false;
@@ -26,7 +25,6 @@ export function listenBullet(bullet: Element) {
 
     const title = target.getAttribute("name");
     const description = target.getAttribute("description") || "";
-
     bulletHovered = true;
 
     if (title) {
@@ -80,21 +78,26 @@ export const listenToDocumentEvents = () => {
       // await saveBullet(nodeToJsonBullet(selectedBulletNode));
       // getRingsInfo();
       const svgContainer = document.getElementById(
-        `svg-${state.currentBullet.radarId}`
+        `svg-${state.currentBullet?.radarId}`
       );
+
+      if (!svgContainer) return;
       const coords = getSVGCoords(event, svgContainer);
-      const { name, description, id, radarId } = state.currentBullet;
-      const newBullet = await patchBullet({
-        radarId,
-        bulletId: id,
-        body: {
-          name,
-          description,
-          cx: coords?.x,
-          cy: coords?.y,
-        },
-      });
-      l("newbullet: ", newBullet);
+      const currentBullet = state.currentBullet;
+      const radarId = currentBullet?.radarId?.toString();
+      const bulletId = currentBullet?.id?.toString();
+
+      if (!radarId || !bulletId || !coords?.x || !coords.y) return;
+
+      // const newBullet = await patchBullet({
+      //   radarId,
+      //   bulletId,
+      //   body: {
+      //     cx: coords?.x,
+      //     cy: coords?.y,
+      //   },
+      // });
+      // l("newbullet: ", newBullet);
     }
 
     mouseDownOnBulletNode = false;
@@ -130,8 +133,21 @@ const listenBulletSub = bus.subscribe((event) => {
   if (event.name === "STATE_CHANGED") {
     renderGroups(event.payload);
     renderRingGroups();
+    updateCurrentBulletNode(event.payload);
   }
 });
+
+function updateCurrentBulletNode(state: GlobalStateModel): void {
+  const bullet = state.currentBullet;
+  console.log("bullet: ", bullet);
+  if (!bullet) return;
+  const bulletNode = getBulletNode(bullet);
+  console.log("bulletNode: ", bulletNode);
+  if (!bulletNode) return;
+
+  bulletNode?.setAttribute("name", bullet.name);
+  bulletNode?.setAttribute("description", bullet?.description || "");
+}
 
 function clearActiveBullet(): void {
   const activeBullet = d.query(".bullet-active");

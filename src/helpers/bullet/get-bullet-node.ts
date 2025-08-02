@@ -1,7 +1,8 @@
-import type { Bullet } from "../../model/bullet";
-import { state } from "../../model/state";
+import type { BulletRead } from "../../model/bullet-read";
+import { d } from "../selectors/d";
 
-export const getBulletNode = (bullet: Bullet) => {
-  const query = `[data-id='${bullet["data-id"]}']`;
-  return state.svgContainer.querySelector(query);
+export const getBulletNode = (bullet: BulletRead): HTMLElement | null => {
+  const query = `[id='${bullet.id}']`;
+  console.log("query:", query);
+  return d.query(query);
 };

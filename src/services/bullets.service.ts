@@ -1,4 +1,5 @@
 import type { BulletRead, BulletWrite } from "../model/bullet-read";
+import { state, toggleState } from "../model/state";
 import { apiUrl } from "./auth.service";
 
 interface PatchBulletRequest {
@@ -38,5 +39,15 @@ export async function patchBullet({
       body: JSON.stringify(body),
     }
   );
-  return response.json();
+  const bullet = await response.json();
+  const bullets = state.bullets;
+  const bulletIdx = bullets.findIndex(({ id }) => id === bullet.id);
+  if (bulletIdx > -1) {
+    bullets.splice(bulletIdx, 1, bullet);
+  }
+  toggleState({
+    currentBullet: bullet,
+    bullets,
+  });
+  return bullet;
 }
