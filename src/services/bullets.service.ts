@@ -8,6 +8,11 @@ interface PatchBulletRequest {
   body: BulletWrite;
 }
 
+interface DeleteBulletRequest {
+  radarId: string;
+  bulletId: string;
+}
+
 export async function createNewBullet(bullet: BulletRead): Promise<BulletRead> {
   const response = await fetch(
     apiUrl + "/radars/" + bullet.radarId + "/bullets",
@@ -55,4 +60,18 @@ export async function patchBullet({
     bullets,
   });
   return bullet;
+}
+
+export async function deleteBullet({
+  radarId,
+  bulletId,
+}: DeleteBulletRequest): Promise<Response> {
+  try {
+    return await fetch(apiUrl + "/radars/" + radarId + "/bullets/" + bulletId, {
+      method: "DELETE",
+      credentials: "include",
+    });
+  } catch (e: any) {
+    throw new Error(e);
+  }
 }

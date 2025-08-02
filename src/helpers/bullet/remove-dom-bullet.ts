@@ -1,9 +1,6 @@
-import type { Bullet } from "../../model/bullet";
-import { d } from "../selectors/d";
+import { state } from "../../model/state";
 
-export const removeDomBullet = (bullet: Bullet): void => {
-  const bulletNode = d.query(`[data-id='${bullet["data-id"]}']`);
-  if (bulletNode) {
-    bulletNode.remove();
-  }
+export const removeDomBullet = (): void => {
+  const bullet = state.currentBulletNode;
+  bullet?.remove();
 };
