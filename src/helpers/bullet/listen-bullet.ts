@@ -80,7 +80,6 @@ export const listenToDocumentEvents = () => {
       selectedBulletNode = null;
       // updateDomBullet(selectedBulletNode);
       // await saveBullet(nodeToJsonBullet(selectedBulletNode));
-      getRingsInfo();
       const svgContainer = document.getElementById(
         `svg-${state.currentBullet?.radarId}`
       );
@@ -104,6 +103,7 @@ export const listenToDocumentEvents = () => {
         },
       });
       groupBullets(sectorsInfo, state.bullets);
+      getRingsInfo(state);
     }
 
     mouseDownOnBulletNode = false;

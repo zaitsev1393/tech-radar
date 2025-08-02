@@ -76,9 +76,6 @@ openEditFormButton?.addEventListener("click", (event) => {
   openEditFormButton.classList.add("hidden");
 });
 
-groupBullets(sectorsInfo, state.bullets);
-getRingsInfo();
-
 if (document.URL.includes("auth/success")) {
   updateUiAfterAuth();
 }
@@ -120,6 +117,8 @@ if (await isAuthenticated()) {
       currentSvgContainer: svgRadarContainers[0],
       bullets: radars.map(({ bullets }: Radar) => bullets).flat(),
     });
+    groupBullets(sectorsInfo, state.bullets);
+    getRingsInfo(state);
     drawBullets(radars);
   } catch (e) {
     console.error(e);
