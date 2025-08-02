@@ -1,12 +1,16 @@
 import { BulletOverview } from "../../components/bullet-overview/bullet-overview";
+import { groupBullets } from "../../components/groups/group-bullets";
 import { renderGroups } from "../../components/groups/render-groups";
 import { appendPopup } from "../../components/popup/append-popup";
 import { removePopup } from "../../components/popup/remove-popup";
 import { renderRingGroups } from "../../components/ring-groups/render-ring-groups";
+import { sectorsInfo } from "../../model/sectors";
 import { state, toggleState, type GlobalStateModel } from "../../model/state";
+import { patchBullet } from "../../services/bullets.service";
 import bus from "../bus";
 import { getPopup } from "../popup/get-popup";
 import { getPopupCoords } from "../popup/get-popup-coords";
+import { getRingsInfo } from "../rings/get-rings-info";
 import { d } from "../selectors/d";
 import { getSVGCoords } from "./get-bullet";
 import { getBulletNode } from "./get-bullet-node";
@@ -76,7 +80,7 @@ export const listenToDocumentEvents = () => {
       selectedBulletNode = null;
       // updateDomBullet(selectedBulletNode);
       // await saveBullet(nodeToJsonBullet(selectedBulletNode));
-      // getRingsInfo();
+      getRingsInfo();
       const svgContainer = document.getElementById(
         `svg-${state.currentBullet?.radarId}`
       );
@@ -89,15 +93,17 @@ export const listenToDocumentEvents = () => {
 
       if (!radarId || !bulletId || !coords?.x || !coords.y) return;
 
-      // const newBullet = await patchBullet({
-      //   radarId,
-      //   bulletId,
-      //   body: {
-      //     cx: coords?.x,
-      //     cy: coords?.y,
-      //   },
-      // });
-      // l("newbullet: ", newBullet);
+      const newBullet = await patchBullet({
+        radarId,
+        bulletId,
+        body: {
+          name: currentBullet?.name || "",
+          description: currentBullet?.description,
+          cx: coords?.x,
+          cy: coords?.y,
+        },
+      });
+      groupBullets(sectorsInfo, state.bullets);
     }
 
     mouseDownOnBulletNode = false;
@@ -131,18 +137,17 @@ export const listenToDocumentEvents = () => {
 
 const listenBulletSub = bus.subscribe((event) => {
   if (event.name === "STATE_CHANGED") {
-    renderGroups(event.payload);
-    renderRingGroups();
-    updateCurrentBulletNode(event.payload);
+    const { payload: state } = event;
+    renderGroups(state);
+    renderRingGroups(state);
+    updateCurrentBulletNode(state);
   }
 });
 
 function updateCurrentBulletNode(state: GlobalStateModel): void {
   const bullet = state.currentBullet;
-  console.log("bullet: ", bullet);
   if (!bullet) return;
   const bulletNode = getBulletNode(bullet);
-  console.log("bulletNode: ", bulletNode);
   if (!bulletNode) return;
 
   bulletNode?.setAttribute("name", bullet.name);

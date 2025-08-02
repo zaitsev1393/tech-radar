@@ -20,7 +20,12 @@ export async function createNewBullet(bullet: BulletRead): Promise<BulletRead> {
       body: JSON.stringify(bullet),
     }
   );
-  return response.json();
+  const newBullet = await response.json();
+  toggleState({
+    currentBullet: newBullet,
+    bullets: [...state.bullets, newBullet],
+  });
+  return newBullet;
 }
 
 export async function patchBullet({

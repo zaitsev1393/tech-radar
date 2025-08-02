@@ -1,8 +1,10 @@
 import { d } from "../../helpers/selectors/d";
 import type { BulletWrite } from "../../model/bullet-read";
+import { sectorsInfo } from "../../model/sectors";
 import { state, toggleState } from "../../model/state";
 import { patchBullet } from "../../services/bullets.service";
 import { BulletOverview } from "../bullet-overview/bullet-overview";
+import { groupBullets } from "../groups/group-bullets";
 
 interface EditFormAPI {
   open: () => void;
@@ -65,7 +67,7 @@ export function EditForm(): EditFormAPI {
       });
 
       BulletOverview().update(bullet);
-      console.log("bullet updated: ", bullet);
+      groupBullets(sectorsInfo, state.bullets);
     } catch (e) {
       console.error(e);
     }

@@ -1,11 +1,13 @@
 import { d } from "../../helpers/selectors/d";
+import type { GlobalStateModel } from "../../model/state";
 
-export const renderGroups = (state) => {
+export const renderGroups = (state: GlobalStateModel): void => {
   const sectorsContainer = d.id("sectorsContainer");
-  sectorsContainer.innerHTML = null;
+  if (!sectorsContainer) return;
+  sectorsContainer.innerHTML = "";
   Object.entries(state.groups)
     .sort()
-    .forEach(([name, nodes]) => {
+    .forEach(([name, bullets]) => {
       const column = document.createElement("div");
       column.classList.add(
         "mt-4",
@@ -18,11 +20,11 @@ export const renderGroups = (state) => {
       title.innerText = name;
 
       const list = document.createElement("div");
-      nodes.forEach((node, i) => {
+      bullets.forEach((bullet, i) => {
         const item = document.createElement("div");
-        item.innerText = `${i + 1}. ${node["data-title"]}`;
+        item.innerText = `${i + 1}. ${bullet.name}`;
         item.classList.add("group-item");
-        item.dataset.id = node["data-id"];
+        item.setAttribute("id", bullet.id?.toString() || "");
         list.appendChild(item);
       });
 

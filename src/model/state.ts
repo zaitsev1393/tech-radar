@@ -34,7 +34,7 @@ export let state: GlobalStateModel = {
   bullets: [],
   groups: {},
   ringsInfo: {},
-  groupBy: null,
+  groupBy: GroupByOptions.Sectors,
 };
 
 (window as any).state = state;

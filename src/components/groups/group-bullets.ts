@@ -1,21 +1,21 @@
-import type { Bullet } from "../../model/bullet";
-import type { SectorsInfo } from "../../model/sectors";
+import type { BulletRead } from "../../model/bullet-read";
+import { type SectorsInfo } from "../../model/sectors";
 import { toggleState } from "../../model/state";
 
 export interface GroupedBullets {
-  [key: string]: Bullet[];
+  [key: string]: BulletRead[];
 }
 
 export function groupBullets(
   sectorsInfo: SectorsInfo,
-  bullets: Bullet[]
+  bullets: BulletRead[]
 ): GroupedBullets {
   let groups = {};
   for (let bullet of bullets) {
     for (let sector of sectorsInfo.sectors) {
       let { cx, cy } = bullet;
-      const x = parseInt(cx);
-      const y = parseInt(cy);
+      const x = cx;
+      const y = cy;
       if (
         x > sector.borders.x[0] &&
         x <= sector.borders.x[1] &&

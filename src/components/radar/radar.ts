@@ -15,6 +15,8 @@ import type { Radar } from "../../model/radar";
 import { sectorsInfo } from "../../model/sectors";
 import { state, toggleState } from "../../model/state";
 import { createNewBullet } from "../../services/bullets.service";
+import { BulletOverview } from "../bullet-overview/bullet-overview";
+import { groupBullets } from "../groups/group-bullets";
 
 export function createRadar(root: HTMLElement, radar: Radar): void {
   const svgContainer: Element | null = getSvgContainer({
@@ -80,7 +82,9 @@ export function createRadar(root: HTMLElement, radar: Radar): void {
         // svgContainer.appendChild(bullet);
         // listenBullet(bullet);
         // saveBullet(nodeToJsonBullet(bullet));
+        groupBullets(sectorsInfo, state.bullets);
         toggleState({ creatingBulletMode: false, currentBullet: newBullet });
+        BulletOverview().open(newBullet);
       }
     }
   );

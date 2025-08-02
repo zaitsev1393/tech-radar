@@ -1,14 +1,14 @@
 import { d } from "../../helpers/selectors/d";
-import { state } from "../../model/state";
+import { type GlobalStateModel } from "../../model/state";
 
-export const renderRingGroups = () => {
+export const renderRingGroups = (state: GlobalStateModel): void => {
   const ringsInfo = state.ringsInfo;
   const ringsContainer = d.id("ringsContainer");
   if (ringsContainer) {
-    ringsContainer.innerHTML = null;
+    ringsContainer.innerHTML = "";
   }
   // l("rings info: ", ringsInfo);
-  Object.entries(state.ringsInfo)
+  Object.entries(ringsInfo)
     .sort()
     .forEach(([name, nodes]) => {
       const column = document.createElement("div");
