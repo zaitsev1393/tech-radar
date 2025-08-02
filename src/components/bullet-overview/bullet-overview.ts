@@ -9,8 +9,13 @@ interface BulletOverviewAPI {
 
 export function BulletOverview(): BulletOverviewAPI {
   const el = d.id("bullet-overview");
-  const titleNode = el?.querySelector(`[title]`) as HTMLElement;
-  const descriptionNode = el?.querySelector(`[description]`) as HTMLElement;
+
+  if (!el) {
+    console.error("- No element with bullet-overview id, add one -");
+  }
+
+  const titleNode = el?.querySelector<HTMLElement>(`[title]`);
+  const descriptionNode = el?.querySelector<HTMLElement>(`[description]`);
 
   function open(bullet: any): void {
     if (!el) return;

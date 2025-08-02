@@ -1,7 +1,7 @@
-import { updateDomBullet } from "../../helpers/bullet/update-dom-bullet";
 import { d } from "../../helpers/selectors/d";
-import { l } from "../../logger/l";
+import type { BulletWrite } from "../../model/bullet-read";
 import { state, toggleState } from "../../model/state";
+import { patchBullet } from "../../services/bullets.service";
 import { BulletOverview } from "../bullet-overview/bullet-overview";
 
 interface EditFormAPI {
@@ -12,19 +12,21 @@ interface EditFormAPI {
 
 export function EditForm(): EditFormAPI {
   const editForm = d.id("editform");
-  const editTitleInput = d.id("editTitle");
-  const editDescriptionInput = d.id("editDescription");
+  const editTitleInput = d.query<HTMLInputElement>("#editTitle");
+  const editDescriptionInput = d.query<HTMLInputElement>("#editDescription");
   function open(): void {
     if (!editForm) return;
     editForm.classList.remove("hidden");
-    const currentBullet = state.currentBullet;
+
+    if (!state.currentBullet) return;
+
+    const { name, description } = state.currentBullet;
 
     if (editTitleInput) {
-      l(editTitleInput);
-      editTitleInput.value = currentBullet["data-title"];
+      editTitleInput.value = name || "";
     }
     if (editDescriptionInput) {
-      editDescriptionInput.value = currentBullet["data-description"];
+      editDescriptionInput.value = description || "";
     }
   }
 
@@ -35,20 +37,38 @@ export function EditForm(): EditFormAPI {
     openEditFormButton?.classList.remove("hidden");
   }
 
-  async function saveForm(): void {
+  async function saveForm(): Promise<void> {
     close();
-    const newTitle = editTitleInput?.value;
-    const newDescription = editDescriptionInput?.value;
-    let currentBullet = state.currentBullet;
-    currentBullet = {
+    const name = editTitleInput?.value;
+    const description = editDescriptionInput?.value;
+    const currentBullet = state.currentBullet;
+
+    if (!currentBullet?.id) return;
+
+    const updatedBullet: BulletWrite = {
       ...currentBullet,
-      "data-title": newTitle,
-      "data-description": newDescription,
+      id: currentBullet?.id?.toString(),
+      name: name || "",
+      description: description || "",
     };
-    toggleState({ currentBullet });
-    updateDomBullet(currentBullet);
-    // await saveBullet(currentBullet);
-    BulletOverview().update(currentBullet);
+    toggleState({ currentBullet: updatedBullet });
+    try {
+      const radarId = state.currentRadar?.id.toString();
+      const bulletId = state.currentBullet?.id?.toString();
+
+      if (!radarId || !bulletId) return;
+
+      const bullet = await patchBullet({
+        radarId,
+        bulletId,
+        body: updatedBullet,
+      });
+
+      BulletOverview().update(bullet);
+      console.log("bullet updated: ", bullet);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   return {

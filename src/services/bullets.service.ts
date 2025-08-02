@@ -1,5 +1,11 @@
-import type { BulletRead } from "../model/bullet-read";
+import type { BulletRead, BulletWrite } from "../model/bullet-read";
 import { apiUrl } from "./auth.service";
+
+interface PatchBulletRequest {
+  radarId: string;
+  bulletId: string;
+  body: BulletWrite;
+}
 
 export async function createNewBullet(bullet: BulletRead): Promise<BulletRead> {
   const response = await fetch(
@@ -20,7 +26,7 @@ export async function patchBullet({
   radarId,
   bulletId,
   body,
-}): Promise<BulletRead> {
+}: PatchBulletRequest): Promise<BulletRead> {
   const response = await fetch(
     apiUrl + "/radars/" + radarId + "/bullets/" + bulletId,
     {
