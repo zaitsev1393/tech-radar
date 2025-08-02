@@ -1,6 +1,7 @@
 import { DEFAULT_RADAR_CONFIG } from "../../config/radar.config";
 import { getRadarNode } from "../../helpers/radar/get-radar-node";
 import { d } from "../../helpers/selectors/d";
+import { getElements } from "../../helpers/selectors/get-elements";
 import { clearElement } from "../../helpers/utils/clear-element";
 import type { Radar } from "../../model/radar";
 import { toggleState } from "../../model/state";
@@ -14,39 +15,35 @@ export function renderTabs(radars: Radar[]): void {
 
   clearElement(tabsEl);
 
-  radars.forEach((radar) => {
+  radars.forEach((radar: Radar) => {
     const tab = document.createElement("div");
 
     tab.innerText = radar.title;
     tab.classList.add("tab");
 
     tabsEl.appendChild(tab);
-    tab.addEventListener("click", (event) => {
-      const tabs = document.querySelectorAll(".tab");
+
+    tab.addEventListener("click", (event: MouseEvent) => {
+      const target: HTMLElement | null = event?.target as HTMLElement;
+      const tabs: NodeListOf<Element> = document.querySelectorAll(".tab");
+
       tabs.forEach((tab) => tab.classList.remove("active"));
-      if (event.target) {
-        (event.target as HTMLElement).classList.add("active");
+
+      if (target) {
+        target.classList.add("active");
       }
 
-      const svgRadarContainers = document.querySelectorAll("[radar]");
-      svgRadarContainers.forEach((svg) => (svg.style.display = "none"));
+      hideRadars();
+      showRadar(radar);
 
-      const svgRadarContainer = d.id(`svg-${radar.id}`);
-      if (svgRadarContainer) {
-        svgRadarContainer.style.display = "block";
-      }
-
-      toggleState({
-        currentRadar: radar,
-        currentSvgContainer: svgRadarContainer,
-      });
+      toggleState({ currentRadar: radar });
     });
   });
 
   const addRadarButton = document.createElement("div");
   addRadarButton.innerText = "+";
   addRadarButton.classList.add("add-new-radar");
-  addRadarButton.addEventListener("click", async (event) => {
+  addRadarButton.addEventListener("click", async (_) => {
     const radar = await createNewRadar({
       title: `Radar ${Math.floor(Math.random() * 1000)}`,
       description: "radar",
@@ -57,4 +54,17 @@ export function renderTabs(radars: Radar[]): void {
     renderTabs(radars);
   });
   tabsEl.appendChild(addRadarButton);
+}
+
+function hideRadars(): void {
+  getElements<SVGSVGElement>("[radar]").forEach(
+    (radarNode: SVGSVGElement) => (radarNode.style.display = "none")
+  );
+}
+
+function showRadar(radar: Radar): void {
+  const svgRadarContainer = d.id(`svg-${radar.id}`);
+  if (svgRadarContainer) {
+    svgRadarContainer.style.display = "block";
+  }
 }

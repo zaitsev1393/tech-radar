@@ -15,9 +15,18 @@ import { d } from "../selectors/d";
 import { getSVGCoords } from "./get-bullet";
 import { getBulletNode } from "./get-bullet-node";
 
+interface BulletNodePosition {
+  cx: number | null;
+  cy: number | null;
+}
+
 let mouseDownOnBulletNode = false;
 let bulletHovered = false;
 let selectedBulletNode: Element | null = null;
+let bulletStartPosition: BulletNodePosition = {
+  cx: null,
+  cy: null,
+};
 
 export function listenBullet(bullet: Element) {
   const bulletNode = bullet as HTMLElement;
@@ -54,6 +63,7 @@ export function listenBullet(bullet: Element) {
   bulletNode.addEventListener("mousedown", (event: MouseEvent) => {
     // const target = event.target as HTMLElement;
     const currentBulletNode = bulletNode;
+    bulletStartPosition = getBulletNodePosition(bulletNode);
     const currentBullet = state.bullets.find(
       ({ id }) => Number(bulletNode.getAttribute("id")) === id
     );
@@ -77,7 +87,15 @@ export const listenToDocumentEvents = () => {
     }
 
     if (selectedBulletNode) {
+      const { cx, cy } = getBulletNodePosition(selectedBulletNode);
       selectedBulletNode = null;
+
+      const { cx: startCx, cy: startCy } = bulletStartPosition;
+      if (cx === startCx && cy === startCy) {
+        bulletStartPosition = { cx: 0, cy: 0 };
+        return;
+      }
+
       // updateDomBullet(selectedBulletNode);
       // await saveBullet(nodeToJsonBullet(selectedBulletNode));
       const svgContainer = document.getElementById(
@@ -159,4 +177,15 @@ function clearActiveBullet(): void {
   if (activeBullet) {
     activeBullet.classList.remove("bullet-active");
   }
+}
+
+function getBulletNodePosition(bulletNode: Element): BulletNodePosition {
+  const defaultPosition = { cx: 0, cy: 0 };
+  const cx = Number(bulletNode.getAttribute("cx"));
+  const cy = Number(bulletNode.getAttribute("cy"));
+  if (isNaN(cx) || isNaN(cy)) {
+    return defaultPosition;
+  }
+
+  return { cx, cy };
 }

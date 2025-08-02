@@ -77,11 +77,6 @@ export function createRadar(root: HTMLElement, radar: Radar): void {
         const bulletNode = createBulletNode(newBullet);
         listenBullet(bulletNode);
         svgContainer.appendChild(bulletNode);
-        // const bullet = null;
-        // const bullet = getBullet(event, svgContainer, DEFAULT_BULLET_CONFIG);
-        // svgContainer.appendChild(bullet);
-        // listenBullet(bullet);
-        // saveBullet(nodeToJsonBullet(bullet));
         groupBullets(sectorsInfo, state.bullets);
         toggleState({ creatingBulletMode: false, currentBullet: newBullet });
         BulletOverview().open(newBullet);
