@@ -1,7 +1,3 @@
-import {
-  DEFAULT_RADAR_CONFIG,
-  DEFAULT_SVG_CONTAINER_CONFIG,
-} from "../../config/radar.config";
 import { createNewBullet } from "../../data-access/bullets.service";
 import { createBulletNode } from "../../helpers/bullet/create-bullet";
 import { getSVGCoords } from "../../helpers/bullet/get-bullet";
@@ -14,9 +10,13 @@ import { createSectorLabels } from "../../helpers/radar/create-sectors-labels";
 import type { BulletRead } from "../../model/bullet-read";
 import type { Radar } from "../../model/radar";
 import { sectorsInfo } from "../../model/sectors";
-import { state } from "../../model/state";
+import { setState, state } from "../../model/state";
+import {
+  DEFAULT_RADAR_CONFIG,
+  DEFAULT_SVG_CONTAINER_CONFIG,
+} from "./radar.config";
 
-export function createRadar(root: HTMLElement, radar: Radar): void {
+export function createRadar(anchorElement: HTMLElement, radar: Radar): void {
   const svgContainer: Element | null = getSvgContainer({
     ...DEFAULT_SVG_CONTAINER_CONFIG,
     id: radar.id,
@@ -24,7 +24,7 @@ export function createRadar(root: HTMLElement, radar: Radar): void {
 
   if (!svgContainer) return;
 
-  root.appendChild(svgContainer);
+  anchorElement.appendChild(svgContainer);
 
   drawRadar({
     title: radar.title,
@@ -80,7 +80,7 @@ export function createRadar(root: HTMLElement, radar: Radar): void {
         // svgContainer.appendChild(bullet);
         // listenBullet(bullet);
         // saveBullet(nodeToJsonBullet(bullet));
-        toggleState({ creatingBulletMode: false, currentBullet: newBullet });
+        setState({ creatingBulletMode: false, currentBullet: newBullet });
       }
     }
   );

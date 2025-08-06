@@ -1,5 +1,5 @@
 import { setState } from "../model/state";
-import { l } from "../shared/logger/l";
+import { l } from "../shared/utils/logger/l";
 
 export const listenCreateBulletToggle = (): void => {
   const createBulletToggle = document.getElementById("createBulletToggle");

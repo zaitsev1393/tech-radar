@@ -1,4 +1,4 @@
-import { RADAR_WIDTH } from "../../config/radar.config";
+import { RADAR_WIDTH } from "../../components/radar/radar.config";
 import type { BulletRead } from "../../model/bullet-read";
 import { setState, type GlobalStateModel } from "../../model/state";
 import { isBulletInRing } from "./is-bullet-in-ring";

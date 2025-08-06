@@ -1,4 +1,3 @@
-import { DEFAULT_RADAR_CONFIG } from "../../config/radar.config";
 import { createNewRadar, getRadars } from "../../data-access/radars.service";
 import { getRadarNode } from "../../helpers/radar/get-radar-node";
 import { d } from "../../helpers/selectors/d";
@@ -7,6 +6,7 @@ import { clearElement } from "../../helpers/utils/clear-element";
 import type { Radar } from "../../model/radar";
 import { setState } from "../../model/state";
 import { createRadar } from "../radar/radar";
+import { DEFAULT_RADAR_CONFIG } from "../radar/radar.config";
 
 export function renderTabs(radars: Radar[]): void {
   const tabsEl = d.id("tabs");

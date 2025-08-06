@@ -1,15 +1,14 @@
 import { BulletOverview } from "../../components/bullet-overview/bullet-overview";
 import { groupBullets } from "../../components/groups/group-bullets";
 import { renderGroups } from "../../components/groups/render-groups";
-import { appendPopup } from "../../components/popup/append-popup";
-import { removePopup } from "../../components/popup/remove-popup";
 import { renderRingGroups } from "../../components/ring-groups/render-ring-groups";
 import { patchBullet } from "../../data-access/bullets.service";
 import { sectorsInfo } from "../../model/sectors";
 import { setState, state, type GlobalStateModel } from "../../model/state";
+import { removePopup } from "../../shared/ui/popup/remove-popup";
+import { showPopup } from "../../shared/ui/popup/show-popup";
+import { l } from "../../shared/utils/logger/l";
 import bus from "../bus";
-import { getPopup } from "../popup/get-popup";
-import { getPopupCoords } from "../popup/get-popup-coords";
 import { getRingsInfo } from "../rings/get-rings-info";
 import { d } from "../selectors/d";
 import { getSVGCoords } from "./get-bullet";
@@ -37,22 +36,17 @@ export function listenBullet(bullet: Element) {
     if (!target) return;
 
     const title = target.getAttribute("name");
-    const description = target.getAttribute("description") || "";
     bulletHovered = true;
 
     if (title) {
-      const coords = getPopupCoords(event);
-      appendPopup(getPopup(), coords, {
-        title,
-        description,
-      });
+      showPopup({ title }, event);
     }
   });
 
   bulletNode.addEventListener("mouseleave", () => {
     // console.log("🔴 left");
     bulletHovered = false;
-    removePopup(getPopup());
+    removePopup();
   });
 
   bulletNode.addEventListener("click", () => {
@@ -80,13 +74,13 @@ export function listenBullet(bullet: Element) {
 export const listenToDocumentEvents = () => {
   document.addEventListener("mouseup", async (event) => {
     clearActiveBullet();
+    mouseDownOnBulletNode = false;
     if (bulletHovered) {
-      // appendPopup(getPopup(), getPopupCoords(event), {
-      //   title: state.currentBullet["data-title"] || "",
-      // });
+      showPopup({ title: state.currentBullet.name }, event);
     }
 
     if (selectedBulletNode) {
+      l("document.addEventListener('mouseup') if selectedBulletNode");
       const { cx, cy } = getBulletNodePosition(selectedBulletNode);
       selectedBulletNode = null;
 
@@ -123,8 +117,6 @@ export const listenToDocumentEvents = () => {
       groupBullets(sectorsInfo, state.bullets);
       getRingsInfo(state);
     }
-
-    mouseDownOnBulletNode = false;
   });
 
   document.addEventListener("mousemove", (event) => {
@@ -137,8 +129,8 @@ export const listenToDocumentEvents = () => {
     // }
 
     if (mouseDownOnBulletNode) {
-      removePopup(getPopup());
-
+      console.log("mouse down on bullet");
+      removePopup();
       const svgCoords = getSVGCoords(event, svgContainer);
 
       if (!svgCoords) return;

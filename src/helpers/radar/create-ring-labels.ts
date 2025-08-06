@@ -1,4 +1,4 @@
-import { RADAR_WIDTH } from "../../config/radar.config";
+import { RADAR_WIDTH } from "../../components/radar/radar.config";
 import { getSvgContainer } from "../primitives/create-svg-container";
 
 const FONT_SIZE = 16;

@@ -5,9 +5,9 @@ import { EditForm } from "./components/edit-form/edit-form";
 import { listenGroupByOptions } from "./components/group-by/group-by-options";
 import { groupBullets } from "./components/groups/group-bullets";
 import { createRadar } from "./components/radar/radar";
+import { DEFAULT_RADAR_CONFIG } from "./components/radar/radar.config";
 import { listenSignUpButton } from "./components/sign-up-button/sign-up-button";
 import { renderTabs } from "./components/tabs/render-tabs";
-import { DEFAULT_RADAR_CONFIG } from "./config/radar.config";
 import { isAuthenticated } from "./data-access/auth.service";
 import { getRadars } from "./data-access/radars.service";
 import { drawBullets } from "./helpers/bullet/draw-bullets";
@@ -19,9 +19,11 @@ import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
 import type { Radar } from "./model/radar";
 import { sectorsInfo } from "./model/sectors";
 import { setState, state } from "./model/state";
-import { l } from "./shared/logger/l";
+import { createPopup } from "./shared/ui/popup/create-popup";
+import { l } from "./shared/utils/logger/l";
 import "./style.css";
 
+createPopup();
 listenCreateBulletToggle();
 listenClearAllButton();
 listenDeleteButton();
@@ -39,36 +41,6 @@ if (savedRadar) {
 setState({
   bullets,
 });
-
-// const radarContainerNode = getRadarNode(DEFAULT_RADAR_CONFIG);
-// const svgContainer = getSvgContainer(DEFAULT_SVG_CONTAINER_CONFIG);
-
-// radarContainerNode.appendChild(svgContainer);
-
-// drawRadar({
-//   cx: DEFAULT_RADAR_CONFIG.width / 2,
-//   cy: DEFAULT_RADAR_CONFIG.height / 2,
-//   r: DEFAULT_RADAR_CONFIG.width / 2,
-//   circlesNum: 4,
-//   stroke: "white",
-//   fill: "none",
-//   el: svgContainer,
-// });
-
-// createSectorLabels(sectorsInfo, svgContainer);
-// createRingLabels();
-
-// drawSavedBullets();
-
-// svgContainer.addEventListener("click", (event) => {
-//   if (state.creatingBulletMode) {
-//     const bullet = getBullet(event, svgContainer, DEFAULT_BULLET_CONFIG);
-//     svgContainer.appendChild(bullet);
-//     listenBullet(bullet);
-//     saveBullet(nodeToJsonBullet(bullet));
-//     setState({ creatingBulletMode: false });
-//   }
-// });
 
 const openEditFormButton = d.id("openEditFormButton");
 openEditFormButton?.addEventListener("click", (event) => {

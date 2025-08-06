@@ -7,9 +7,8 @@ export interface PopupCoords {
   };
 }
 
-export const getPopupCoords = (event: MouseEvent): PopupCoords | null => {
+export const getCoordsForPopup = (event: MouseEvent): PopupCoords | null => {
   if (!event || !event.target) return null;
-
   const rect = (event.target as HTMLElement).getBoundingClientRect();
 
   return {
