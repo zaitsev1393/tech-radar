@@ -14,12 +14,12 @@ import { getRadarNode } from "./helpers/radar/get-radar-node";
 import { getRingsInfo } from "./helpers/rings/get-rings-info";
 import { d } from "./helpers/selectors/d";
 import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
-import { l } from "./logger/l";
 import type { Radar } from "./model/radar";
 import { sectorsInfo } from "./model/sectors";
 import { setState, state } from "./model/state";
 import { isAuthenticated } from "./services/auth.service";
 import { getRadars } from "./services/radars.service";
+import { l } from "./shared/logger/l";
 import "./style.css";
 
 listenCreateBulletToggle();

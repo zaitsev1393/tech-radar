@@ -2,8 +2,8 @@ import { GroupByOptions } from "../components/group-by/group-by-options";
 import type { GroupedBullets } from "../components/groups/group-bullets";
 import bus from "../helpers/bus";
 import type { RingsInfo } from "../helpers/rings/get-rings-info";
-import { l } from "../logger/l";
 import { saveState } from "../save/save";
+import { l } from "../shared/logger/l";
 import type { BulletRead } from "./bullet-read";
 import type { Radar } from "./radar";
 

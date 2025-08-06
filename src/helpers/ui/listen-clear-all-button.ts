@@ -1,4 +1,4 @@
-import { l } from "../../logger/l";
+import { l } from "../../shared/logger/l";
 import { removeBullets } from "../bullet/remove-bullets";
 
 const clearAllButton = document.getElementById("clearAllButton");
