@@ -1,4 +1,4 @@
-import type { Bullet } from "./bullet";
+import type { BulletRead } from "./bullet-read";
 import type { Radar } from "./radar";
 
 export interface User {
@@ -9,5 +9,5 @@ export interface User {
   picture: string | null;
   createdAt: Date;
   radars?: Radar[];
-  bullets?: Bullet[];
+  bullets?: BulletRead[];
 }
