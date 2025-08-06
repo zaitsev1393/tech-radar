@@ -1,5 +1,5 @@
 import type { BulletRead, BulletWrite } from "../model/bullet-read";
-import { state, toggleState } from "../model/state";
+import { setState, state } from "../model/state";
 import { apiUrl } from "./auth.service";
 
 interface PatchBulletRequest {
@@ -26,7 +26,7 @@ export async function createNewBullet(bullet: BulletRead): Promise<BulletRead> {
     }
   );
   const newBullet = await response.json();
-  toggleState({
+  setState({
     currentBullet: newBullet,
     bullets: [...state.bullets, newBullet],
   });
@@ -55,7 +55,7 @@ export async function patchBullet({
   if (bulletIdx > -1) {
     bullets.splice(bulletIdx, 1, bullet);
   }
-  toggleState({
+  setState({
     currentBullet: bullet,
     bullets,
   });
@@ -76,7 +76,7 @@ export async function deleteBullet({
     );
 
     if (response.ok) {
-      toggleState({
+      setState({
         currentBullet: null,
         bullets: state.bullets.filter((e) => e.id !== Number(bulletId)),
       });

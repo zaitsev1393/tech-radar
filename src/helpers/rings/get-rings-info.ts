@@ -1,6 +1,6 @@
 import { RADAR_WIDTH } from "../../config/radar.config";
 import type { BulletRead } from "../../model/bullet-read";
-import { toggleState, type GlobalStateModel } from "../../model/state";
+import { setState, type GlobalStateModel } from "../../model/state";
 import { isBulletInRing } from "./is-bullet-in-ring";
 
 const RADIUS = RADAR_WIDTH / 2;
@@ -55,6 +55,6 @@ export const getRingsInfo = (state: GlobalStateModel): RingsInfo => {
       }
     });
   });
-  toggleState({ ringsInfo });
+  setState({ ringsInfo });
   return ringsInfo;
 };

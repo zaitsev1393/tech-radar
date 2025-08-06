@@ -1,7 +1,7 @@
 import { d } from "../../helpers/selectors/d";
 import type { BulletWrite } from "../../model/bullet-read";
 import { sectorsInfo } from "../../model/sectors";
-import { state, toggleState } from "../../model/state";
+import { setState, state } from "../../model/state";
 import { patchBullet } from "../../services/bullets.service";
 import { BulletOverview } from "../bullet-overview/bullet-overview";
 import { groupBullets } from "../groups/group-bullets";
@@ -53,7 +53,7 @@ export function EditForm(): EditFormAPI {
       name: name || "",
       description: description || "",
     };
-    toggleState({ currentBullet: updatedBullet });
+    setState({ currentBullet: updatedBullet });
     try {
       const radarId = state.currentRadar?.id.toString();
       const bulletId = state.currentBullet?.id?.toString();

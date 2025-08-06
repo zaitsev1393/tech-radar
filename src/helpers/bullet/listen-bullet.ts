@@ -5,7 +5,7 @@ import { appendPopup } from "../../components/popup/append-popup";
 import { removePopup } from "../../components/popup/remove-popup";
 import { renderRingGroups } from "../../components/ring-groups/render-ring-groups";
 import { sectorsInfo } from "../../model/sectors";
-import { state, toggleState, type GlobalStateModel } from "../../model/state";
+import { setState, state, type GlobalStateModel } from "../../model/state";
 import { patchBullet } from "../../services/bullets.service";
 import bus from "../bus";
 import { getPopup } from "../popup/get-popup";
@@ -68,7 +68,7 @@ export function listenBullet(bullet: Element) {
       ({ id }) => Number(bulletNode.getAttribute("id")) === id
     );
     selectedBulletNode = currentBulletNode;
-    toggleState({
+    setState({
       currentBulletNode,
       currentBullet,
     });

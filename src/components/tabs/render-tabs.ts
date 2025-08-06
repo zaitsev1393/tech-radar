@@ -4,7 +4,7 @@ import { d } from "../../helpers/selectors/d";
 import { getElements } from "../../helpers/selectors/get-elements";
 import { clearElement } from "../../helpers/utils/clear-element";
 import type { Radar } from "../../model/radar";
-import { toggleState } from "../../model/state";
+import { setState } from "../../model/state";
 import { createNewRadar, getRadars } from "../../services/radars.service";
 import { createRadar } from "../radar/radar";
 
@@ -36,7 +36,7 @@ export function renderTabs(radars: Radar[]): void {
       hideRadars();
       showRadar(radar);
 
-      toggleState({ currentRadar: radar });
+      setState({ currentRadar: radar });
     });
   });
 

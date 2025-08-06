@@ -1,6 +1,6 @@
 import { groupBullets } from "../components/groups/group-bullets";
 import { sectorsInfo } from "../model/sectors";
-import { state, toggleState } from "../model/state";
+import { setState, state } from "../model/state";
 
 const ls = localStorage;
 
@@ -38,7 +38,7 @@ export const saveBullet = (jsonBullet) => {
       localStorage.setItem("radar", JSON.stringify(radar));
     }
 
-    toggleState({ bullets: savedBullets });
+    setState({ bullets: savedBullets });
     groupBullets(sectorsInfo, state.bullets);
     // l("saved radar: ", ls.getItem("radar"));
     resolve();

@@ -17,7 +17,7 @@ import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
 import { l } from "./logger/l";
 import type { Radar } from "./model/radar";
 import { sectorsInfo } from "./model/sectors";
-import { state, toggleState } from "./model/state";
+import { setState, state } from "./model/state";
 import { isAuthenticated } from "./services/auth.service";
 import { getRadars } from "./services/radars.service";
 import "./style.css";
@@ -36,7 +36,7 @@ if (savedRadar) {
   bullets = JSON.parse(savedRadar)["bullets"];
 }
 
-toggleState({
+setState({
   bullets,
 });
 
@@ -66,7 +66,7 @@ toggleState({
 //     svgContainer.appendChild(bullet);
 //     listenBullet(bullet);
 //     saveBullet(nodeToJsonBullet(bullet));
-//     toggleState({ creatingBulletMode: false });
+//     setState({ creatingBulletMode: false });
 //   }
 // });
 
@@ -111,7 +111,7 @@ if (await isAuthenticated()) {
       svgRadarContainers[0].style.display = "block";
     }
     renderTabs(radars);
-    toggleState({
+    setState({
       radars,
       currentRadar: radars[0],
       bullets: radars.map(({ bullets }: Radar) => bullets).flat(),

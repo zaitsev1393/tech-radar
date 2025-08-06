@@ -2,7 +2,7 @@ import { removeDomBullet } from "../../helpers/bullet/remove-dom-bullet";
 import { d } from "../../helpers/selectors/d";
 import type { BulletRead } from "../../model/bullet-read";
 import { sectorsInfo } from "../../model/sectors";
-import { state, toggleState } from "../../model/state";
+import { setState, state } from "../../model/state";
 import { deleteBullet } from "../../services/bullets.service";
 import { BulletOverview } from "../bullet-overview/bullet-overview";
 import { groupBullets } from "../groups/group-bullets";
@@ -28,7 +28,7 @@ async function _deleteBullet(bullet: BulletRead): Promise<void> {
       bulletId: bullet.id.toString(),
     });
     removeDomBullet();
-    toggleState({
+    setState({
       bullets: state.bullets.filter((b) => b.id !== bullet.id),
       currentBullet: null,
     });

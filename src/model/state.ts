@@ -37,7 +37,7 @@ export let state: GlobalStateModel = {
 
 (window as any).state = state;
 
-export const toggleState = (newState) => {
+export const setState = (newState) => {
   state = {
     ...state,
     ...newState,
@@ -71,7 +71,7 @@ const setSavedState = () => {
     _state = defaultState;
   }
   // l("_state:", _state);
-  toggleState(_state);
+  setState(_state);
 };
 
 // setSavedState();

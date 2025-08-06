@@ -1,5 +1,5 @@
 import { l } from "../logger/l";
-import { toggleState } from "../model/state";
+import { setState } from "../model/state";
 
 export const listenCreateBulletToggle = (): void => {
   const createBulletToggle = document.getElementById("createBulletToggle");
@@ -7,6 +7,6 @@ export const listenCreateBulletToggle = (): void => {
 
   createBulletToggle.addEventListener("click", () => {
     l("- Create bullet mode switched ON - ");
-    toggleState({ creatingBulletMode: true });
+    setState({ creatingBulletMode: true });
   });
 };

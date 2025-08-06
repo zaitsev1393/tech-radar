@@ -13,7 +13,7 @@ import { createSectorLabels } from "../../helpers/radar/create-sectors-labels";
 import type { BulletRead } from "../../model/bullet-read";
 import type { Radar } from "../../model/radar";
 import { sectorsInfo } from "../../model/sectors";
-import { state, toggleState } from "../../model/state";
+import { setState, state } from "../../model/state";
 import { createNewBullet } from "../../services/bullets.service";
 import { BulletOverview } from "../bullet-overview/bullet-overview";
 import { groupBullets } from "../groups/group-bullets";
@@ -78,7 +78,7 @@ export function createRadar(root: HTMLElement, radar: Radar): void {
         listenBullet(bulletNode);
         svgContainer.appendChild(bulletNode);
         groupBullets(sectorsInfo, state.bullets);
-        toggleState({ creatingBulletMode: false, currentBullet: newBullet });
+        setState({ creatingBulletMode: false, currentBullet: newBullet });
         BulletOverview().open(newBullet);
       }
     }

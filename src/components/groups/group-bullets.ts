@@ -1,6 +1,6 @@
 import type { BulletRead } from "../../model/bullet-read";
 import { type SectorsInfo } from "../../model/sectors";
-import { toggleState } from "../../model/state";
+import { setState } from "../../model/state";
 
 export interface GroupedBullets {
   [key: string]: BulletRead[];
@@ -31,6 +31,6 @@ export function groupBullets(
       }
     }
   }
-  toggleState({ groups });
+  setState({ groups });
   return groups;
 }

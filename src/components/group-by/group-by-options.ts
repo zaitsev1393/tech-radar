@@ -1,5 +1,5 @@
 import { d } from "../../helpers/selectors/d";
-import { state, toggleState } from "../../model/state";
+import { setState, state } from "../../model/state";
 
 type GroupByOptionNode = HTMLElement;
 export enum GroupByOptions {
@@ -61,6 +61,6 @@ const activateOption = (option: GroupByOptionNode) => {
     currentActiveOption.classList.remove("underline");
   }
   option.classList.add("underline");
-  toggleState({ groupBy: nodeToOption(option) });
+  setState({ groupBy: nodeToOption(option) });
   activateContainer();
 };
