@@ -8,6 +8,8 @@ import { createRadar } from "./components/radar/radar";
 import { listenSignUpButton } from "./components/sign-up-button/sign-up-button";
 import { renderTabs } from "./components/tabs/render-tabs";
 import { DEFAULT_RADAR_CONFIG } from "./config/radar.config";
+import { isAuthenticated } from "./data-access/auth.service";
+import { getRadars } from "./data-access/radars.service";
 import { drawBullets } from "./helpers/bullet/draw-bullets";
 import { listenToDocumentEvents } from "./helpers/bullet/listen-bullet";
 import { getRadarNode } from "./helpers/radar/get-radar-node";
@@ -17,8 +19,6 @@ import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
 import type { Radar } from "./model/radar";
 import { sectorsInfo } from "./model/sectors";
 import { setState, state } from "./model/state";
-import { isAuthenticated } from "./services/auth.service";
-import { getRadars } from "./services/radars.service";
 import { l } from "./shared/logger/l";
 import "./style.css";
 

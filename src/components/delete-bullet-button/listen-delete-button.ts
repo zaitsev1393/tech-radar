@@ -1,9 +1,9 @@
+import { deleteBullet } from "../../data-access/bullets.service";
 import { removeDomBullet } from "../../helpers/bullet/remove-dom-bullet";
 import { d } from "../../helpers/selectors/d";
 import type { BulletRead } from "../../model/bullet-read";
 import { sectorsInfo } from "../../model/sectors";
 import { setState, state } from "../../model/state";
-import { deleteBullet } from "../../services/bullets.service";
 import { BulletOverview } from "../bullet-overview/bullet-overview";
 import { groupBullets } from "../groups/group-bullets";
 import { renderGroups } from "../groups/render-groups";

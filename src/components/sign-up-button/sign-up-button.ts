@@ -1,5 +1,5 @@
+import { authGoogle } from "../../data-access/auth.service";
 import { d } from "../../helpers/selectors/d";
-import { authGoogle } from "../../services/auth.service";
 
 export const listenSignUpButton = (): void => {
   const signUpButton = d.id("signUpButton");

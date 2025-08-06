@@ -2,6 +2,7 @@ import {
   DEFAULT_RADAR_CONFIG,
   DEFAULT_SVG_CONTAINER_CONFIG,
 } from "../../config/radar.config";
+import { createNewBullet } from "../../data-access/bullets.service";
 import { createBulletNode } from "../../helpers/bullet/create-bullet";
 import { getSVGCoords } from "../../helpers/bullet/get-bullet";
 import { listenBullet } from "../../helpers/bullet/listen-bullet";
@@ -13,10 +14,7 @@ import { createSectorLabels } from "../../helpers/radar/create-sectors-labels";
 import type { BulletRead } from "../../model/bullet-read";
 import type { Radar } from "../../model/radar";
 import { sectorsInfo } from "../../model/sectors";
-import { setState, state } from "../../model/state";
-import { createNewBullet } from "../../services/bullets.service";
-import { BulletOverview } from "../bullet-overview/bullet-overview";
-import { groupBullets } from "../groups/group-bullets";
+import { state } from "../../model/state";
 
 export function createRadar(root: HTMLElement, radar: Radar): void {
   const svgContainer: Element | null = getSvgContainer({
@@ -77,9 +75,12 @@ export function createRadar(root: HTMLElement, radar: Radar): void {
         const bulletNode = createBulletNode(newBullet);
         listenBullet(bulletNode);
         svgContainer.appendChild(bulletNode);
-        groupBullets(sectorsInfo, state.bullets);
-        setState({ creatingBulletMode: false, currentBullet: newBullet });
-        BulletOverview().open(newBullet);
+        // const bullet = null;
+        // const bullet = getBullet(event, svgContainer, DEFAULT_BULLET_CONFIG);
+        // svgContainer.appendChild(bullet);
+        // listenBullet(bullet);
+        // saveBullet(nodeToJsonBullet(bullet));
+        toggleState({ creatingBulletMode: false, currentBullet: newBullet });
       }
     }
   );

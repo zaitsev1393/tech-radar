@@ -1,8 +1,8 @@
+import { patchBullet } from "../../data-access/bullets.service";
 import { d } from "../../helpers/selectors/d";
 import type { BulletWrite } from "../../model/bullet-read";
 import { sectorsInfo } from "../../model/sectors";
 import { setState, state } from "../../model/state";
-import { patchBullet } from "../../services/bullets.service";
 import { BulletOverview } from "../bullet-overview/bullet-overview";
 import { groupBullets } from "../groups/group-bullets";
 
