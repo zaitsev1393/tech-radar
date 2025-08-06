@@ -67,10 +67,21 @@ export async function deleteBullet({
   bulletId,
 }: DeleteBulletRequest): Promise<Response> {
   try {
-    return await fetch(apiUrl + "/radars/" + radarId + "/bullets/" + bulletId, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    const response = await fetch(
+      apiUrl + "/radars/" + radarId + "/bullets/" + bulletId,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
+
+    if (response.ok) {
+      toggleState({
+        currentBullet: null,
+        bullets: state.bullets.filter((e) => e.id !== Number(bulletId)),
+      });
+    }
+    return response;
   } catch (e: any) {
     throw new Error(e);
   }

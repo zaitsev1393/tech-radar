@@ -22,6 +22,7 @@ export const isAuthenticated = async (): Promise<boolean> => {
     const response = await fetch(apiUrl + "/profile", {
       credentials: "include",
     });
+
     if (!response.ok) return false;
 
     const profile = await response.json();
