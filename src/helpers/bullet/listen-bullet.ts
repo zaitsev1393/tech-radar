@@ -1,3 +1,5 @@
+import { removePopup } from "@/shared/ui/popup/remove-popup";
+import { showPopup } from "@/shared/ui/popup/show-popup";
 import { BulletOverview } from "../../components/bullet-overview/bullet-overview";
 import { groupBullets } from "../../components/groups/group-bullets";
 import { renderGroups } from "../../components/groups/render-groups";
@@ -5,8 +7,6 @@ import { renderRingGroups } from "../../components/ring-groups/render-ring-group
 import { patchBullet } from "../../data-access/bullets.service";
 import { sectorsInfo } from "../../model/sectors";
 import { setState, state, type GlobalStateModel } from "../../model/state";
-import { removePopup } from "../../shared/ui/popup/remove-popup";
-import { showPopup } from "../../shared/ui/popup/show-popup";
 import { l } from "../../shared/utils/logger/l";
 import bus from "../bus";
 import { getRingsInfo } from "../rings/get-rings-info";

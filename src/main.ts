@@ -1,3 +1,4 @@
+import { createPopup } from "@/shared/ui/popup/create-popup";
 import { listenCreateBulletToggle } from "./components/create-bullet-toggle";
 import { listenDeleteAllRadarsButton } from "./components/delete-all-radars-button/listen-delete-all-radars";
 import { listenDeleteButton } from "./components/delete-bullet-button/listen-delete-button";
@@ -19,7 +20,6 @@ import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
 import type { Radar } from "./model/radar";
 import { sectorsInfo } from "./model/sectors";
 import { setState, state } from "./model/state";
-import { createPopup } from "./shared/ui/popup/create-popup";
 import { l } from "./shared/utils/logger/l";
 import "./style.css";
 

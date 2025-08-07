@@ -1,6 +1,6 @@
-import { getCoordsForPopup } from "./get-coords-for-popup-";
-import { getPopup } from "./get-popup";
-import { DEFAULT_POPUP_OFFSET } from "./popup.config";
+import { DEFAULT_POPUP_OFFSET } from "./config/popup.config";
+import { getCoordsForPopup } from "./helpers/get-coords-for-popup-";
+import { getPopup } from "./selectors/get-popup";
 
 interface PopupData {
   title: string;

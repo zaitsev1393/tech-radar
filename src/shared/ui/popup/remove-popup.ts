@@ -1,4 +1,4 @@
-import { getPopup } from "./get-popup";
+import { getPopup } from "./selectors/get-popup";
 
 export function removePopup(): void {
   const popup = getPopup();
