@@ -1,4 +1,4 @@
-import { createBulletNode } from "../../entities/bullet/ui/create-bullet";
+import { createBulletNode } from "./create-bullet";
 
 export function getBullet(
   event: MouseEvent,

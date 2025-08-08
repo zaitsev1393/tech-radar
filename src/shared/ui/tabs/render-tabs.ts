@@ -1,7 +1,9 @@
+import { createNewRadar, getRadars } from "@/data-access/radars.service";
+import { DEFAULT_RADAR_CONFIG } from "@/entities/radar/model/radar.config";
+import { createRadar } from "@/entities/radar/ui/create-radar";
 import { getRadarsContainer } from "@/entities/radar/utils/get-radar-node";
-import { createNewRadar, getRadars } from "../../../data-access/radars.service";
-import { DEFAULT_RADAR_CONFIG } from "../../../entities/radar/model/radar.config";
-import { createRadar } from "../../../entities/radar/ui/create-radar";
+import { InputForm } from "@/features/radars/ui/create-radar-form/input-form";
+import { modalService } from "@/main";
 import type { Radar } from "../../../model/radar";
 import { setState } from "../../../model/state";
 import { clearElement } from "../../utils/layout/clear-element";
@@ -44,14 +46,17 @@ export function renderTabs(radars: Radar[]): void {
   addRadarButton.innerText = "+";
   addRadarButton.classList.add("add-new-radar");
   addRadarButton.addEventListener("click", async (_) => {
-    const radar = await createNewRadar({
-      title: `Radar ${Math.floor(Math.random() * 1000)}`,
-      description: "radar",
+    modalService.open(new InputForm(), async (title: any) => {
+      const radar = await createNewRadar({
+        title,
+        description: "radar",
+      });
+      createRadar(getRadarsContainer(DEFAULT_RADAR_CONFIG), radar);
+      const radarsResponse = await getRadars();
+      const radars = await radarsResponse.json();
+      renderTabs(radars);
+      return;
     });
-    createRadar(getRadarsContainer(DEFAULT_RADAR_CONFIG), radar);
-    const radarsResponse = await getRadars();
-    const radars = await radarsResponse.json();
-    renderTabs(radars);
   });
   tabsEl.appendChild(addRadarButton);
 }
