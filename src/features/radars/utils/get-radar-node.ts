@@ -1,4 +1,4 @@
-import { RADAR_HEIGHT, RADAR_WIDTH } from "../../components/radar/radar.config";
+import { RADAR_HEIGHT, RADAR_WIDTH } from "@/components/radar/radar.config";
 
 export const getRadarsContainer = ({
   id = "radar",

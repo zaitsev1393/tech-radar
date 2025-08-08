@@ -1,18 +1,18 @@
 import { d } from "../selectors/d";
-interface GetSvgContainerArgs {
+interface createSVGContainerArgs {
   id: number | null;
   width?: number | null;
   height?: number | null;
 }
-export const getSvgContainer = (
-  { id, width, height }: GetSvgContainerArgs = {
+export const createSVGContainer = (
+  { id, width, height }: createSVGContainerArgs = {
     id: null,
   }
-): Element | null => {
+): SVGSVGElement | null => {
   if (!id) return null;
 
   const svgId = `svg-${id}`;
-  const svgContainer: HTMLElement | null = d.id(svgId);
+  const svgContainer = d.id(svgId) as SVGSVGElement | null;
 
   if (svgContainer) return svgContainer;
 

@@ -2,7 +2,7 @@ import { createNewBullet } from "../../data-access/bullets.service";
 import { createBulletNode } from "../../helpers/bullet/create-bullet";
 import { getSVGCoords } from "../../helpers/bullet/get-bullet";
 import { listenBullet } from "../../helpers/bullet/listen-bullet";
-import { getSvgContainer } from "../../helpers/primitives/create-svg-container";
+import { createSVGContainer } from "../../helpers/primitives/create-svg-container";
 import { createTextLabel } from "../../helpers/primitives/create-text-label";
 import { drawRadar } from "../../helpers/radar/create-radar";
 import { createRingLabels } from "../../helpers/radar/create-ring-labels";
@@ -17,7 +17,7 @@ import {
 } from "./radar.config";
 
 export function createRadar(anchorElement: HTMLElement, radar: Radar): void {
-  const svgContainer: Element | null = getSvgContainer({
+  const svgContainer: Element | null = createSVGContainer({
     ...DEFAULT_SVG_CONTAINER_CONFIG,
     id: radar.id,
   });
@@ -79,7 +79,6 @@ export function createRadar(anchorElement: HTMLElement, radar: Radar): void {
         // const bullet = getBullet(event, svgContainer, DEFAULT_BULLET_CONFIG);
         // svgContainer.appendChild(bullet);
         // listenBullet(bullet);
-        // saveBullet(nodeToJsonBullet(bullet));
         setState({ creatingBulletMode: false, currentBullet: newBullet });
       }
     }

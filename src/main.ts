@@ -13,7 +13,7 @@ import { isAuthenticated } from "./data-access/auth.service";
 import { getRadars } from "./data-access/radars.service";
 import { drawBullets } from "./helpers/bullet/draw-bullets";
 import { listenToDocumentEvents } from "./helpers/bullet/listen-bullet";
-import { getRadarNode } from "./helpers/radar/get-radar-node";
+import { getRadarsContainer } from "./helpers/radar/get-radar-node";
 import { getRingsInfo } from "./helpers/rings/get-rings-info";
 import { d } from "./helpers/selectors/d";
 import { listenClearAllButton } from "./helpers/ui/listen-clear-all-button";
@@ -76,7 +76,7 @@ if (await isAuthenticated()) {
     const radars = await radarsResponse.json();
     l("radars: ", radars);
     radars.forEach((radar: Radar) => {
-      createRadar(getRadarNode(DEFAULT_RADAR_CONFIG), radar);
+      createRadar(getRadarsContainer(DEFAULT_RADAR_CONFIG), radar);
     });
     const svgRadarContainers = document.querySelectorAll("[radar]");
     if (svgRadarContainers[0]) {

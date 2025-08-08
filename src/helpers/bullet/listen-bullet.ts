@@ -91,7 +91,6 @@ export const listenToDocumentEvents = () => {
       }
 
       // updateDomBullet(selectedBulletNode);
-      // await saveBullet(nodeToJsonBullet(selectedBulletNode));
       const svgContainer = document.getElementById(
         `svg-${state.currentBullet?.radarId}`
       );
@@ -124,22 +123,15 @@ export const listenToDocumentEvents = () => {
     const svgContainer = document.getElementById(
       `svg-${state.currentBullet.radarId}`
     );
-    // if ((event?.target as HTMLElement).closest(".group-item")) {
-    //   highlightBulletNode(event.target);
-    // }
 
     if (mouseDownOnBulletNode) {
-      console.log("mouse down on bullet");
       removePopup();
       const svgCoords = getSVGCoords(event, svgContainer);
 
       if (!svgCoords) return;
       if (selectedBulletNode) {
-        // l("selected bullet: ", selectedBulletNode);
-        // setTimeout(() => {
         selectedBulletNode.setAttribute("cx", svgCoords.x.toString());
         selectedBulletNode.setAttribute("cy", svgCoords.y.toString());
-        // }, 50);
       }
     }
   });

@@ -1,5 +1,5 @@
 import { createNewRadar, getRadars } from "../../data-access/radars.service";
-import { getRadarNode } from "../../helpers/radar/get-radar-node";
+import { getRadarsContainer } from "../../helpers/radar/get-radar-node";
 import { d } from "../../helpers/selectors/d";
 import { getElements } from "../../helpers/selectors/get-elements";
 import { clearElement } from "../../helpers/utils/clear-element";
@@ -48,7 +48,7 @@ export function renderTabs(radars: Radar[]): void {
       title: `Radar ${Math.floor(Math.random() * 1000)}`,
       description: "radar",
     });
-    createRadar(getRadarNode(DEFAULT_RADAR_CONFIG), radar);
+    createRadar(getRadarsContainer(DEFAULT_RADAR_CONFIG), radar);
     const radarsResponse = await getRadars();
     const radars = await radarsResponse.json();
     renderTabs(radars);
