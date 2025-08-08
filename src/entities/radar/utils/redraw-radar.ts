@@ -1,4 +1,4 @@
-import { d } from "@/helpers/selectors/d";
+import { d } from "@/shared/utils/layout/d";
 
 export const redrawRadar = () => {
   const currentRadar = d.id("radar");

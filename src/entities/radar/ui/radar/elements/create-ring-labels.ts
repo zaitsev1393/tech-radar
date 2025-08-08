@@ -1,5 +1,5 @@
 import { RADAR_WIDTH } from "@/entities/radar/model/radar.config";
-import { createSVGContainer } from "@/helpers/primitives/create-svg-container";
+import { createSVGContainer } from "@/shared/utils/layout/create-svg-container";
 
 const FONT_SIZE = 16;
 export const DEFAULT_OFFSET = 16;

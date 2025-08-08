@@ -1,7 +1,7 @@
-import { GroupByOptions } from "../components/group-by/group-by-options";
-import type { GroupedBullets } from "../components/groups/group-bullets";
-import bus from "../helpers/bus";
-import type { RingsInfo } from "../helpers/rings/get-rings-info";
+import type { RingsInfo } from "../features/sorter/lib/get-rings-info";
+import { GroupByOptions } from "../features/sorter/ui/group-by/group-by-options";
+import type { GroupedBullets } from "../features/sorter/ui/groups/group-bullets";
+import bus from "../shared/bus/bus";
 import { deepEqual } from "../shared/utils/helpers/deep-equal";
 import { l } from "../shared/utils/logger/l";
 import type { BulletRead } from "./bullet-read";

@@ -1,6 +1,6 @@
-import { createHorizontalLine } from "@/helpers/lines/create-horizontal-line";
-import { createVerticalLine } from "@/helpers/lines/create-vertical-line";
-import { createCircle } from "@/helpers/primitives/create-circle";
+import { createHorizontalLine } from "@/entities/radar/ui/radar/elements/lines/create-horizontal-line";
+import { createVerticalLine } from "@/entities/radar/ui/radar/elements/lines/create-vertical-line";
+import { createCircle } from "@/shared/utils/layout/create-circle";
 
 interface DrawRadarParams {
   title: string;
