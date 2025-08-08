@@ -1,12 +1,12 @@
+import { getRadarsContainer } from "@/entities/radar/utils/get-radar-node";
 import { createNewRadar, getRadars } from "../../data-access/radars.service";
-import { getRadarsContainer } from "../../helpers/radar/get-radar-node";
+import { DEFAULT_RADAR_CONFIG } from "../../entities/radar/model/radar.config";
+import { createRadar } from "../../entities/radar/ui/create-radar";
 import { d } from "../../helpers/selectors/d";
 import { getElements } from "../../helpers/selectors/get-elements";
 import { clearElement } from "../../helpers/utils/clear-element";
 import type { Radar } from "../../model/radar";
 import { setState } from "../../model/state";
-import { createRadar } from "../radar/radar";
-import { DEFAULT_RADAR_CONFIG } from "../radar/radar.config";
 
 export function renderTabs(radars: Radar[]): void {
   const tabsEl = d.id("tabs");

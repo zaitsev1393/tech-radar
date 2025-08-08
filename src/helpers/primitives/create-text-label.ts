@@ -1,4 +1,7 @@
-import { elHeight, elWidth } from "../radar/create-ring-labels";
+import {
+  elHeight,
+  elWidth,
+} from "@/entities/radar/ui/radar/elements/create-ring-labels";
 
 interface CreateTextLabelConfig {
   "font-size": number;

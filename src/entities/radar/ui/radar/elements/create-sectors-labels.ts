@@ -1,5 +1,5 @@
-import { RADAR_HEIGHT, RADAR_WIDTH } from "../../components/radar/radar.config";
-import type { SectorsInfo } from "../../model/sectors";
+import { RADAR_HEIGHT, RADAR_WIDTH } from "@/entities/radar/model/radar.config";
+import type { SectorsInfo } from "@/model/sectors";
 
 export const createSectorLabels = (
   sectorsInfo: SectorsInfo,

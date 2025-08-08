@@ -1,4 +1,4 @@
-import { RADAR_WIDTH } from "../components/radar/radar.config";
+import { RADAR_WIDTH } from "../entities/radar/model/radar.config";
 
 export interface Sector {
   name: string;

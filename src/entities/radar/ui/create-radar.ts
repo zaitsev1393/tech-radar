@@ -1,20 +1,19 @@
-import { createNewBullet } from "../../data-access/bullets.service";
-import { createBulletNode } from "../../helpers/bullet/create-bullet";
-import { getSVGCoords } from "../../helpers/bullet/get-bullet";
-import { listenBullet } from "../../helpers/bullet/listen-bullet";
-import { createSVGContainer } from "../../helpers/primitives/create-svg-container";
-import { createTextLabel } from "../../helpers/primitives/create-text-label";
-import { drawRadar } from "../../helpers/radar/create-radar";
-import { createRingLabels } from "../../helpers/radar/create-ring-labels";
-import { createSectorLabels } from "../../helpers/radar/create-sectors-labels";
-import type { BulletRead } from "../../model/bullet-read";
-import type { Radar } from "../../model/radar";
-import { sectorsInfo } from "../../model/sectors";
-import { setState, state } from "../../model/state";
+import { createSectorLabels } from "@/entities/radar/ui/radar/elements/create-sectors-labels";
+import { createNewBullet } from "../../../data-access/bullets.service";
+import { createBulletNode } from "../../../helpers/bullet/create-bullet";
+import { getSVGCoords } from "../../../helpers/bullet/get-bullet";
+import { listenBullet } from "../../../helpers/bullet/listen-bullet";
+import { createSVGContainer } from "../../../helpers/primitives/create-svg-container";
+import type { BulletRead } from "../../../model/bullet-read";
+import type { Radar } from "../../../model/radar";
+import { sectorsInfo } from "../../../model/sectors";
+import { setState, state } from "../../../model/state";
 import {
   DEFAULT_RADAR_CONFIG,
   DEFAULT_SVG_CONTAINER_CONFIG,
-} from "./radar.config";
+} from "../model/radar.config";
+import { drawRadar } from "./radar/draw-radar";
+import { createRingLabels } from "./radar/elements/create-ring-labels";
 
 export function createRadar(anchorElement: HTMLElement, radar: Radar): void {
   const svgContainer: Element | null = createSVGContainer({
@@ -37,13 +36,13 @@ export function createRadar(anchorElement: HTMLElement, radar: Radar): void {
     el: svgContainer,
   });
 
-  createTextLabel({
-    root: svgContainer,
-    x: 0,
-    y: 50,
-    text: radar.title,
-    config: { "font-size": 16, color: "white" },
-  });
+  // createTextLabel({
+  //   root: svgContainer,
+  //   x: 0,
+  //   y: 50,
+  //   text: radar.title,
+  //   config: { "font-size": 16, color: "white" },
+  // });
 
   createSectorLabels(sectorsInfo, svgContainer);
   createRingLabels(radar.id);
