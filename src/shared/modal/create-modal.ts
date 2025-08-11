@@ -11,6 +11,7 @@ export const createModal = (): void => {
   backdrop.style.position = "absolute";
   backdrop.style.inset = "0";
   backdrop.style.background = `rgba(0,0,0,0.2)`;
+  backdrop.id = "modal-backdrop";
   backdrop.classList.add("flex", "justify-center", "items-center");
 
   modal.id = "modal-content";

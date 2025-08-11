@@ -1,10 +1,10 @@
 export const d = {
-  id: (selector: string) => {
+  id: (selector: string): HTMLElement | SVGSVGElement | null => {
     const el = document.getElementById(selector);
     if (el instanceof SVGSVGElement) {
       return el as SVGSVGElement;
     }
-    return el as HTMLElement | null;
+    return el;
   },
   all: (selector: string) => document.querySelectorAll(selector),
   attr: (name: string) => document.querySelector(`[${name}]`),

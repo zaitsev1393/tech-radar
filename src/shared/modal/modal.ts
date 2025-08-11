@@ -1,5 +1,6 @@
 import { d } from "../utils/layout/d";
 import {
+  MODAL_BACKDROP_ID,
   MODAL_ID,
   type FormInput,
   type ModalResponse,
@@ -8,12 +9,13 @@ import {
 
 export function ModalService(): ModalResponse {
   const modal = d.id(MODAL_ID);
+  const modalBackdrop = d.id(MODAL_BACKDROP_ID);
 
-  let callback: ((data: FormInput) => Promise<void>) | null = null;
+  let callback: ((data: FormInput | null) => Promise<void>) | null = null;
 
   const open = <T extends RadarModal>(
     modalClass: new (...args: any[]) => T,
-    cb: (data: FormInput) => Promise<void>
+    cb: (data: FormInput | null) => Promise<void>
   ): void => {
     if (!modal) return;
 
@@ -31,7 +33,7 @@ export function ModalService(): ModalResponse {
     modal.classList.remove("hidden");
   };
 
-  const close = (data: FormInput): void => {
+  const close = (data: FormInput | null): void => {
     if (!modal) return;
 
     if (callback) {
@@ -40,6 +42,10 @@ export function ModalService(): ModalResponse {
 
     modal.classList.add("hidden");
   };
+
+  modalBackdrop?.addEventListener("click", (_) => {
+    close(null);
+  });
 
   return {
     open,

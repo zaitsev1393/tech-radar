@@ -3,7 +3,7 @@
  *
  * @param el - The HTMLElement to be cleared. If `el` is falsy, the function does nothing.
  */
-export const clearElement = (el: HTMLElement): void => {
+export const clearElement = (el: HTMLElement | SVGSVGElement): void => {
   if (!el) return;
   el.innerHTML = "";
 };

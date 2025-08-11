@@ -8,6 +8,7 @@ export class CreateRadarModal implements RadarModal {
       id="editform"
       class="edit-form border border-white rounded-lg p-2 w-64 flex flex-col gap-2"
     >
+      <div class = "flex justify-end items-center" id='close-modal'>X</div>
       <div class=" text-gray-800 flex flex-col gap-1">
         <label for="radarTitle">Title</label>
         <input class="border" id="radarTitle" type="text" />

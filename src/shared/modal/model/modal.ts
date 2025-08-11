@@ -1,4 +1,5 @@
 export const MODAL_ID = "radar-modal";
+export const MODAL_BACKDROP_ID = "modal-backdrop";
 
 export interface ModalResponse {
   open: <T extends RadarModal>(
