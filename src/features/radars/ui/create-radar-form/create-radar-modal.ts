@@ -1,20 +1,8 @@
 import { modalService } from "@/main";
+import type { FormInput, RadarModal } from "@/shared/modal/model/modal";
 import { d } from "@/shared/utils/layout/d";
 
-interface FormInput {
-  [key: string]: string;
-}
-
-export interface ModalTemplate {
-  listen: () => void;
-  getFormTemplate: () => string;
-}
-
-export interface FormData {
-  getFormData: () => FormInput;
-}
-
-export class InputForm implements FormData, ModalTemplate {
+export class CreateRadarModal implements RadarModal {
   form = `
     <div
       id="editform"
@@ -35,7 +23,10 @@ export class InputForm implements FormData, ModalTemplate {
   `;
 
   getFormData(): FormInput {
-    return {};
+    const input = d.id("radarTitle") as HTMLInputElement;
+    return {
+      title: input.value,
+    };
   }
 
   listen() {
@@ -45,7 +36,7 @@ export class InputForm implements FormData, ModalTemplate {
 
     const nameRequiredError = d.id("nameRequiredError");
 
-    button.addEventListener("click", (event) => {
+    button.addEventListener("click", (_) => {
       const radarName = input.value;
 
       if (!radarName) {
@@ -53,7 +44,7 @@ export class InputForm implements FormData, ModalTemplate {
         nameRequiredError.classList.remove("hidden");
         return;
       } else {
-        modalService.close(input.value);
+        modalService.close(this.getFormData());
       }
     });
   }
@@ -62,5 +53,3 @@ export class InputForm implements FormData, ModalTemplate {
     return this.form;
   }
 }
-
-(window as any).InputForm = InputForm;

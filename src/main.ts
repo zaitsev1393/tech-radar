@@ -9,7 +9,6 @@ import { getRadarsContainer } from "./entities/radar/utils/get-radar-node";
 import { listenDeleteButton } from "./features/bullet-overview/delete-bullet-button/listen-delete-button";
 import { EditForm } from "./features/bullet-overview/edit-form/edit-form";
 import { listenCreateBulletToggle } from "./features/radars/ui/create-bullet-toggle";
-import { InputForm } from "./features/radars/ui/create-radar-form/input-form";
 import { getRingsInfo } from "./features/sorter/lib/get-rings-info";
 import { listenGroupByOptions } from "./features/sorter/ui/group-by/group-by-options";
 import { groupBullets } from "./features/sorter/ui/groups/group-bullets";
@@ -17,7 +16,7 @@ import type { Radar } from "./model/radar";
 import { sectorsInfo } from "./model/sectors";
 import { setState, state } from "./model/state";
 import { createModal } from "./shared/modal/create-modal";
-import { Modal } from "./shared/modal/modal";
+import { ModalService } from "./shared/modal/modal";
 import { listenDeleteAllRadarsButton } from "./shared/testing/delete-all-radars-button/listen-delete-all-radars";
 import { listenSignUpButton } from "./shared/ui/header/sign-up-button/sign-up-button";
 import { renderTabs } from "./shared/ui/tabs/render-tabs";
@@ -34,11 +33,7 @@ listenDeleteAllRadarsButton();
 listenToDocumentEvents();
 createModal();
 
-export const modalService = Modal();
-
-(window as any).modalService = modalService;
-
-const form = new InputForm();
+export const modalService = ModalService();
 
 let bullets = [];
 const savedRadar = localStorage.getItem("radar");

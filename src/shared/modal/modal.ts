@@ -1,26 +1,37 @@
-import type { ModalTemplate } from "@/features/radars/ui/create-radar-form/input-form";
 import { d } from "../utils/layout/d";
-import { MODAL_ID, type ModalResponse } from "./model/modal";
+import {
+  MODAL_ID,
+  type FormInput,
+  type ModalResponse,
+  type RadarModal,
+} from "./model/modal";
 
-export function Modal(): ModalResponse {
+export function ModalService(): ModalResponse {
   const modal = d.id(MODAL_ID);
-  let callback: ((data: any) => any) | null = null;
-  const open = (templateClass: ModalTemplate, cb: any) => {
+
+  let callback: ((data: FormInput) => Promise<void>) | null = null;
+
+  const open = <T extends RadarModal>(
+    modalClass: new (...args: any[]) => T,
+    cb: (data: FormInput) => Promise<void>
+  ): void => {
     if (!modal) return;
+
+    const modalEntity = new modalClass();
 
     callback = cb;
 
-    const modalContent = modal.querySelector("#modal-content");
+    const modalContent = modal.querySelector<HTMLElement>("#modal-content");
     if (!modalContent) return;
-    const template = templateClass.getFormTemplate();
+    const template = modalEntity.getFormTemplate();
     modalContent.innerHTML = template;
 
-    templateClass.listen();
+    modalEntity.listen();
 
     modal.classList.remove("hidden");
   };
 
-  const close = (data: any): void => {
+  const close = (data: FormInput): void => {
     if (!modal) return;
 
     if (callback) {

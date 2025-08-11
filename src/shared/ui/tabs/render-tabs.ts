@@ -2,8 +2,9 @@ import { createNewRadar, getRadars } from "@/data-access/radars.service";
 import { DEFAULT_RADAR_CONFIG } from "@/entities/radar/model/radar.config";
 import { createRadar } from "@/entities/radar/ui/create-radar";
 import { getRadarsContainer } from "@/entities/radar/utils/get-radar-node";
-import { InputForm } from "@/features/radars/ui/create-radar-form/input-form";
+import { CreateRadarModal } from "@/features/radars/ui/create-radar-form/create-radar-modal";
 import { modalService } from "@/main";
+import type { FormInput } from "@/shared/modal/model/modal";
 import type { Radar } from "../../../model/radar";
 import { setState } from "../../../model/state";
 import { clearElement } from "../../utils/layout/clear-element";
@@ -46,9 +47,11 @@ export function renderTabs(radars: Radar[]): void {
   addRadarButton.innerText = "+";
   addRadarButton.classList.add("add-new-radar");
   addRadarButton.addEventListener("click", async (_) => {
-    modalService.open(new InputForm(), async (title: any) => {
+    modalService.open(CreateRadarModal, async (data: FormInput) => {
+      if (!data) return;
+
       const radar = await createNewRadar({
-        title,
+        title: data?.title,
         description: "radar",
       });
       createRadar(getRadarsContainer(DEFAULT_RADAR_CONFIG), radar);
