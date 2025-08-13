@@ -1,11 +1,14 @@
 export const MODAL_ID = "radar-modal";
 export const MODAL_BACKDROP_ID = "modal-backdrop";
 
+export interface OpenModalConfig<T> {
+  class: new (...args: any[]) => T;
+  state?: FormInput;
+  cb: (data: any) => Promise<void>;
+}
+
 export interface ModalResponse {
-  open: <T extends RadarModal>(
-    modalTemplate: new (...args: any[]) => T,
-    cb: (data: any) => Promise<void>
-  ) => void;
+  open: <T extends RadarModal>(config: OpenModalConfig<T>) => void;
   close: (data: any) => any;
 }
 

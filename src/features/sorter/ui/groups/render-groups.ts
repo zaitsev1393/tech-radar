@@ -1,12 +1,26 @@
+import type { BulletRead } from "@/model/bullet-read";
 import type { GlobalStateModel } from "../../../../model/state";
 import { d } from "../../../../shared/utils/layout/d";
 
 export const renderGroups = (state: GlobalStateModel): void => {
   const sectorsContainer = d.id("sectorsContainer");
+
   if (!sectorsContainer) return;
+
   sectorsContainer.innerHTML = "";
+
+  const currentRadar = state?.currentRadar;
+
   Object.entries(state.groups)
     .sort()
+    .map(
+      ([name, bullets]) =>
+        [name, bullets.filter((b) => b.radarId === currentRadar?.id)] as [
+          string,
+          BulletRead[]
+        ]
+    )
+    .filter(([name, bullets]) => bullets.length > 0)
     .forEach(([name, bullets]) => {
       const column = document.createElement("div");
       column.classList.add(
@@ -20,6 +34,7 @@ export const renderGroups = (state: GlobalStateModel): void => {
       title.innerText = name;
 
       const list = document.createElement("div");
+
       bullets.forEach((bullet, i) => {
         const item = document.createElement("div");
         item.innerText = `${i + 1}. ${bullet.name}`;
@@ -29,7 +44,7 @@ export const renderGroups = (state: GlobalStateModel): void => {
       });
 
       column.appendChild(title);
-      column.append(list);
+      column.appendChild(list);
 
       sectorsContainer?.appendChild(column);
     });

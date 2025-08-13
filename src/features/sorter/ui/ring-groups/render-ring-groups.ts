@@ -1,3 +1,4 @@
+import type { BulletRead } from "@/model/bullet-read";
 import { type GlobalStateModel } from "../../../../model/state";
 import { d } from "../../../../shared/utils/layout/d";
 
@@ -7,9 +8,20 @@ export const renderRingGroups = (state: GlobalStateModel): void => {
   if (ringsContainer) {
     ringsContainer.innerHTML = "";
   }
+
+  const currentRadar = state?.currentRadar;
+
   // l("rings info: ", ringsInfo);
   Object.entries(ringsInfo)
     .sort()
+    .map(
+      ([name, bullets]) =>
+        [name, bullets.filter((b) => b.radarId === currentRadar?.id)] as [
+          string,
+          BulletRead[]
+        ]
+    )
+    .filter(([name, bullets]) => bullets.length > 0)
     .forEach(([name, bullets]) => {
       const column = document.createElement("div");
       column.classList.add(

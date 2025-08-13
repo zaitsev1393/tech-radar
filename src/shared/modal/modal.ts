@@ -4,6 +4,7 @@ import {
   MODAL_ID,
   type FormInput,
   type ModalResponse,
+  type OpenModalConfig,
   type RadarModal,
 } from "./model/modal";
 
@@ -13,13 +14,12 @@ export function ModalService(): ModalResponse {
 
   let callback: ((data: FormInput | null) => Promise<void>) | null = null;
 
-  const open = <T extends RadarModal>(
-    modalClass: new (...args: any[]) => T,
-    cb: (data: FormInput | null) => Promise<void>
-  ): void => {
+  const open = <T extends RadarModal>(config: OpenModalConfig<T>): void => {
     if (!modal) return;
 
-    const modalEntity = new modalClass();
+    const { state, cb } = config;
+
+    const modalEntity = new config.class();
 
     callback = cb;
 
@@ -27,6 +27,15 @@ export function ModalService(): ModalResponse {
     if (!modalContent) return;
     const template = modalEntity.getFormTemplate();
     modalContent.innerHTML = template;
+
+    if (state) {
+      for (const key in state) {
+        const el = d.id(key);
+        if (el && el instanceof HTMLInputElement) {
+          el.value = state[key];
+        }
+      }
+    }
 
     modalEntity.listen();
 
@@ -42,10 +51,6 @@ export function ModalService(): ModalResponse {
 
     modal.classList.add("hidden");
   };
-
-  modalBackdrop?.addEventListener("click", (_) => {
-    close(null);
-  });
 
   return {
     open,

@@ -1,3 +1,4 @@
+import { Colors } from "@/config/styles/colors";
 import { getSVGCoords } from "@/entities/bullet/ui/helpers/get-svg-coords";
 import { createSectorLabels } from "@/entities/radar/ui/radar/elements/create-sectors-labels";
 import { createNewBullet } from "../../../data-access/bullets.service";
@@ -31,7 +32,7 @@ export function createRadar(anchorElement: HTMLElement, radar: Radar): void {
     cy: DEFAULT_RADAR_CONFIG.height / 2,
     r: DEFAULT_RADAR_CONFIG.width / 2,
     circlesNum: 4,
-    stroke: "white",
+    stroke: Colors.Radar.Line,
     fill: "none",
     el: svgContainer,
   });

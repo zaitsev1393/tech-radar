@@ -1,3 +1,4 @@
+import { Colors } from "@/config/styles/colors";
 import type { BulletRead } from "../../../model/bullet-read";
 
 export const createBulletNode = ({
@@ -9,9 +10,9 @@ export const createBulletNode = ({
   radarId,
   userId,
 }: BulletRead): SVGCircleElement => {
-  const stroke = "black";
+  const stroke = Colors.Bullet.Stroke;
   const cssClass = "bullet";
-  const fill = "#065084";
+  const fill = Colors.Bullet.Bg;
   const r = "10px";
 
   const circle = document.createElementNS(

@@ -29,6 +29,20 @@ export async function createNewRadar({
   return response.json();
 }
 
+export async function patchRadar(
+  radarId: string,
+  body: Partial<Radar>
+): Promise<any> {
+  return fetch(`${apiUrl}/radars/${radarId}`, {
+    method: "PATCH",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+}
+
 export async function deleteAllRadars(): Promise<Response> {
   return fetch(apiUrl + "/radars", {
     method: "DELETE",
