@@ -43,6 +43,13 @@ export async function patchRadar(
   });
 }
 
+export function deleteRadar(radarId: number): Promise<Response> {
+  return fetch(`${apiUrl}/radars/${radarId}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+}
+
 export async function deleteAllRadars(): Promise<Response> {
   return fetch(apiUrl + "/radars", {
     method: "DELETE",

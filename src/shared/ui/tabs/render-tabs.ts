@@ -1,19 +1,11 @@
-import {
-  createNewRadar,
-  getRadars,
-  patchRadar,
-} from "@/data-access/radars.service";
-import { DEFAULT_RADAR_CONFIG } from "@/entities/radar/model/radar.config";
-import { createRadar } from "@/entities/radar/ui/create-radar";
-import { getRadarsContainer } from "@/entities/radar/utils/get-radar-node";
-import { CreateRadarModal } from "@/features/radars/ui/create-radar-form/create-radar-modal";
-import { modalService } from "@/main";
-import type { FormInput } from "@/shared/modal/model/modal";
 import type { Radar } from "../../../model/radar";
-import { setState, state } from "../../../model/state";
+import { setState } from "../../../model/state";
 import { clearElement } from "../../utils/layout/clear-element";
 import { d } from "../../utils/layout/d";
-import { getElements } from "../../utils/layout/get-elements";
+import { addRadarHandler } from "./event-handlers/add-radar-handler";
+import { deleteRadarHandler } from "./event-handlers/delete-radar-handler";
+import { editRadarHandler } from "./event-handlers/edit-radar-handler";
+import { showRadar } from "./helpers/show-radar";
 
 export function renderTabs(radars: Radar[]): void {
   const tabsEl = d.id("tabs");
@@ -26,47 +18,34 @@ export function renderTabs(radars: Radar[]): void {
     const tab = document.createElement("div");
     const text = document.createElement("div");
     const edit = document.createElement("div");
+    const deleteButton = document.createElement("div");
 
     text.innerText = radar.title;
+
     edit.innerText = "E";
-    edit.classList.add("edit-tab");
+    edit.classList.add("edit-radar");
+
+    deleteButton.innerText = "D";
+    deleteButton.classList.add("delete-radar");
+
     tab.appendChild(text);
     tab.appendChild(edit);
+    tab.appendChild(deleteButton);
     tab.classList.add("tab");
 
     tabsEl.appendChild(tab);
 
-    tab.addEventListener("click", (event: MouseEvent) => {
+    tab.addEventListener("click", async (event: MouseEvent) => {
       const target: HTMLElement | null = event?.target as HTMLElement;
       const tabs: NodeListOf<Element> = document.querySelectorAll(".tab");
 
-      if (target.classList.contains("edit-tab")) {
-        console.log("editing");
-        modalService.open({
-          class: CreateRadarModal,
-          state: { radarTitle: radar.title },
-          cb: async (data: FormInput) => {
-            if (!data) return;
+      if (target.classList.contains("delete-radar")) {
+        await deleteRadarHandler(radar);
+        return;
+      }
 
-            try {
-              const response = await patchRadar(String(radar.id), data);
-              const patchedRadar = await response.json();
-              const radarIdx = state.radars.findIndex(
-                ({ id }) => id === patchedRadar.id
-              );
-              if (radarIdx > -1) {
-                const newRadars = [
-                  ...state.radars.filter(({ id }) => id !== patchedRadar.id),
-                  patchedRadar,
-                ];
-                setState({ radars: newRadars });
-                renderTabs(newRadars);
-              }
-            } catch (e) {
-              console.error("- error patching radar: ", e);
-            }
-          },
-        });
+      if (target.classList.contains("edit-radar")) {
+        await editRadarHandler(radar);
         return;
       }
 
@@ -76,7 +55,6 @@ export function renderTabs(radars: Radar[]): void {
         target.classList.add("active");
       }
 
-      hideRadars();
       showRadar(radar);
 
       setState({ currentRadar: radar });
@@ -86,36 +64,7 @@ export function renderTabs(radars: Radar[]): void {
   const addRadarButton = document.createElement("div");
   addRadarButton.innerText = "+";
   addRadarButton.classList.add("add-new-radar");
-  addRadarButton.addEventListener("click", async (_) => {
-    modalService.open({
-      class: CreateRadarModal,
-      cb: async (data: FormInput) => {
-        if (!data) return;
+  addRadarButton.addEventListener("click", () => addRadarHandler());
 
-        const radar = await createNewRadar({
-          title: data?.title,
-          description: "radar",
-        });
-        createRadar(getRadarsContainer(DEFAULT_RADAR_CONFIG), radar);
-        const radarsResponse = await getRadars();
-        const radars = await radarsResponse.json();
-        renderTabs(radars);
-        return;
-      },
-    });
-  });
   tabsEl.appendChild(addRadarButton);
-}
-
-function hideRadars(): void {
-  getElements<SVGSVGElement>("[radar]").forEach(
-    (radarNode: SVGSVGElement) => (radarNode.style.display = "none")
-  );
-}
-
-function showRadar(radar: Radar): void {
-  const svgRadarContainer = d.id(`svg-${radar.id}`);
-  if (svgRadarContainer) {
-    svgRadarContainer.style.display = "block";
-  }
 }
