@@ -1,10 +1,11 @@
+import { l } from "@/shared/utils/logger/l";
 import type { BulletRead } from "../../model/bullet-read";
 import { d } from "../../shared/utils/layout/d";
 
 interface BulletOverviewAPI {
   open: (bullet: BulletRead | null) => void;
   hide: () => void;
-  update: (bullet: any) => void;
+  setBullet: (bullet: BulletRead) => void;
 }
 
 export function BulletOverview(): BulletOverviewAPI {
@@ -21,7 +22,7 @@ export function BulletOverview(): BulletOverviewAPI {
     if (!el) return;
     el.classList.remove("hidden");
 
-    update(bullet);
+    setBullet(bullet);
   }
 
   function hide(): void {
@@ -29,10 +30,11 @@ export function BulletOverview(): BulletOverviewAPI {
     el.classList.add("hidden");
   }
 
-  function update(bullet: BulletRead): void {
-    const { name: title, description } = bullet;
+  function setBullet(bullet: BulletRead): void {
+    l("bullet: ", bullet);
+    const { name, description } = bullet;
     if (titleNode) {
-      titleNode.innerHTML = title;
+      titleNode.innerHTML = name;
     }
     if (descriptionNode && description) {
       descriptionNode.innerText = description;
@@ -42,6 +44,6 @@ export function BulletOverview(): BulletOverviewAPI {
   return {
     open,
     hide,
-    update,
+    setBullet,
   };
 }

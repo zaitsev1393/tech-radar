@@ -69,7 +69,7 @@ openEditFormButton?.addEventListener("click", async (event) => {
           body: data,
         });
         updateStateBullet(patchedBullet);
-        BulletOverview().update(patchedBullet);
+        BulletOverview().setBullet(patchedBullet);
       } catch (e) {
         console.error(e);
       }

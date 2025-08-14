@@ -62,6 +62,7 @@ export function listenBullet(bullet: Element) {
       ({ id }) => Number(bulletNode.getAttribute("id")) === id
     );
     selectedBulletNode = currentBulletNode;
+    l("listenBullet:", currentBullet);
     setState({
       currentBulletNode,
       currentBullet,

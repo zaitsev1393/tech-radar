@@ -1,4 +1,5 @@
 import { d } from "../utils/layout/d";
+import { l } from "../utils/logger/l";
 import {
   MODAL_BACKDROP_ID,
   MODAL_ID,
@@ -19,6 +20,8 @@ export function ModalService(): ModalResponse {
 
     const { state, cb } = config;
 
+    l("state: ", state);
+
     const modalEntity = new config.class();
 
     callback = cb;
@@ -31,8 +34,14 @@ export function ModalService(): ModalResponse {
     if (state) {
       for (const key in state) {
         const el = d.id(key);
-        if (el && el instanceof HTMLInputElement) {
-          el.value = state[key];
+        const value = state[key];
+        if (el) {
+          if (el instanceof HTMLInputElement) {
+            el.value = value;
+          }
+          if (el instanceof HTMLTextAreaElement) {
+            el.innerText = value;
+          }
         }
       }
     }
