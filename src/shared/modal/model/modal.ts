@@ -8,7 +8,7 @@ export interface OpenModalConfig<T> {
 }
 
 export interface ModalResponse {
-  open: <T extends RadarModal>(config: OpenModalConfig<T>) => void;
+  open: <T extends Modal>(config: OpenModalConfig<T>) => void;
   close: (data: any) => any;
 }
 
@@ -21,8 +21,8 @@ export interface ModalTemplate {
   getFormTemplate: () => string;
 }
 
-export interface RadarFormData {
+export interface FormData {
   getFormData: () => FormInput;
 }
 
-export interface RadarModal extends RadarFormData, ModalTemplate {}
+export interface Modal extends FormData, ModalTemplate {}

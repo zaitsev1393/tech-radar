@@ -1,9 +1,9 @@
 import { modalService } from "@/main";
-import type { FormInput, RadarModal } from "@/shared/modal/model/modal";
+import type { FormInput, Modal } from "@/shared/modal/model/modal";
 import { d } from "@/shared/utils/layout/d";
 
-export class CreateRadarModal implements RadarModal {
-  form = /*template*/ `
+export class CreateModal implements Modal {
+  private template = /*template*/ `
     <div
       id="editform"
       class="edit-form relative border border-white rounded-lg p-2 w-64 flex flex-col gap-2"
@@ -50,6 +50,6 @@ export class CreateRadarModal implements RadarModal {
   }
 
   getFormTemplate() {
-    return this.form;
+    return this.template;
   }
 }

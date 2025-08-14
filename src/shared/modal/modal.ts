@@ -3,9 +3,9 @@ import {
   MODAL_BACKDROP_ID,
   MODAL_ID,
   type FormInput,
+  type Modal,
   type ModalResponse,
   type OpenModalConfig,
-  type RadarModal,
 } from "./model/modal";
 
 export function ModalService(): ModalResponse {
@@ -14,7 +14,7 @@ export function ModalService(): ModalResponse {
 
   let callback: ((data: FormInput | null) => Promise<void>) | null = null;
 
-  const open = <T extends RadarModal>(config: OpenModalConfig<T>): void => {
+  const open = <T extends Modal>(config: OpenModalConfig<T>): void => {
     if (!modal) return;
 
     const { state, cb } = config;

@@ -1,13 +1,16 @@
 import { createPopup } from "@/shared/ui/popup/create-popup";
 import { isAuthenticated } from "./data-access/auth.service";
+import { patchBullet } from "./data-access/bullets.service";
 import { getRadars } from "./data-access/radars.service";
+import { updateStateBullet } from "./data-access/state.service";
 import { listenToDocumentEvents } from "./entities/bullet/lib/listen-bullet";
 import { drawBullets } from "./entities/bullet/ui/draw-bullets";
 import { DEFAULT_RADAR_CONFIG } from "./entities/radar/model/radar.config";
 import { createRadar } from "./entities/radar/ui/create-radar";
 import { getRadarsContainer } from "./entities/radar/utils/get-radar-node";
+import { BulletModal } from "./features/bullet-overview/bullet-modal.ts/bullet-modal";
+import { BulletOverview } from "./features/bullet-overview/bullet-overview";
 import { listenDeleteButton } from "./features/bullet-overview/delete-bullet-button/listen-delete-button";
-import { EditForm } from "./features/bullet-overview/edit-form/edit-form";
 import { listenCreateBulletToggle } from "./features/radars/ui/create-bullet-toggle";
 import { getRingsInfo } from "./features/sorter/lib/get-rings-info";
 import { listenGroupByOptions } from "./features/sorter/ui/group-by/group-by-options";
@@ -46,9 +49,33 @@ setState({
 });
 
 const openEditFormButton = d.id("openEditFormButton");
-openEditFormButton?.addEventListener("click", (event) => {
-  EditForm().open();
-  openEditFormButton.classList.add("hidden");
+openEditFormButton?.addEventListener("click", async (event) => {
+  modalService.open({
+    class: BulletModal,
+    state: {
+      name: state.currentBullet?.name || "",
+      description: state.currentBullet?.description || "",
+    },
+    cb: async (data: any) => {
+      if (!data) return;
+
+      const radar = state.currentRadar;
+      const bullet = state.currentBullet;
+      if (!radar || !bullet || !bullet.id) return;
+      try {
+        const patchedBullet = await patchBullet({
+          radarId: radar.id,
+          bulletId: bullet.id,
+          body: data,
+        });
+        updateStateBullet(patchedBullet);
+        BulletOverview().update(patchedBullet);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  });
+  // openEditFormButton.classList.add("hidden");
 });
 
 if (document.URL.includes("auth/success")) {

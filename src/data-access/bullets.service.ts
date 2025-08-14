@@ -3,8 +3,8 @@ import { setState, state } from "../model/state";
 import { apiUrl } from "./auth.service";
 
 interface PatchBulletRequest {
-  radarId: string;
-  bulletId: string;
+  radarId: number;
+  bulletId: number;
   body: BulletWrite;
 }
 
