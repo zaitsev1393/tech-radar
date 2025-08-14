@@ -36,8 +36,8 @@ export function BulletOverview(): BulletOverviewAPI {
     if (titleNode) {
       titleNode.innerHTML = name;
     }
-    if (descriptionNode && description) {
-      descriptionNode.innerText = description;
+    if (descriptionNode) {
+      descriptionNode.innerText = description || "";
     }
   }
 

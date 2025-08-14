@@ -1,15 +1,13 @@
 import { createPopup } from "@/shared/ui/popup/create-popup";
 import { isAuthenticated } from "./data-access/auth.service";
-import { patchBullet } from "./data-access/bullets.service";
 import { getRadars } from "./data-access/radars.service";
-import { updateStateBullet } from "./data-access/state.service";
 import { listenToDocumentEvents } from "./entities/bullet/lib/listen-bullet";
 import { drawBullets } from "./entities/bullet/ui/draw-bullets";
+import { editBulletHandler } from "./entities/bullet/ui/modal/edit-handler/edit-handler";
 import { DEFAULT_RADAR_CONFIG } from "./entities/radar/model/radar.config";
 import { createRadar } from "./entities/radar/ui/create-radar";
 import { getRadarsContainer } from "./entities/radar/utils/get-radar-node";
 import { BulletModal } from "./features/bullet-overview/bullet-modal.ts/bullet-modal";
-import { BulletOverview } from "./features/bullet-overview/bullet-overview";
 import { listenDeleteButton } from "./features/bullet-overview/delete-bullet-button/listen-delete-button";
 import { listenCreateBulletToggle } from "./features/radars/ui/create-bullet-toggle";
 import { getRingsInfo } from "./features/sorter/lib/get-rings-info";
@@ -56,24 +54,7 @@ openEditFormButton?.addEventListener("click", async (event) => {
       name: state.currentBullet?.name || "",
       description: state.currentBullet?.description || "",
     },
-    cb: async (data: any) => {
-      if (!data) return;
-
-      const radar = state.currentRadar;
-      const bullet = state.currentBullet;
-      if (!radar || !bullet || !bullet.id) return;
-      try {
-        const patchedBullet = await patchBullet({
-          radarId: radar.id,
-          bulletId: bullet.id,
-          body: data,
-        });
-        updateStateBullet(patchedBullet);
-        BulletOverview().setBullet(patchedBullet);
-      } catch (e) {
-        console.error(e);
-      }
-    },
+    cb: editBulletHandler,
   });
   // openEditFormButton.classList.add("hidden");
 });

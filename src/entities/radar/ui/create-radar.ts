@@ -1,6 +1,10 @@
 import { Colors } from "@/config/styles/colors";
 import { getSVGCoords } from "@/entities/bullet/ui/helpers/get-svg-coords";
+import { editBulletHandler } from "@/entities/bullet/ui/modal/edit-handler/edit-handler";
 import { createSectorLabels } from "@/entities/radar/ui/radar/elements/create-sectors-labels";
+import { BulletModal } from "@/features/bullet-overview/bullet-modal.ts/bullet-modal";
+import { modalService } from "@/main";
+import { l } from "@/shared/utils/logger/l";
 import { createNewBullet } from "../../../data-access/bullets.service";
 import type { BulletRead } from "../../../model/bullet-read";
 import type { Radar } from "../../../model/radar";
@@ -64,8 +68,8 @@ export function createRadar(anchorElement: HTMLElement, radar: Radar): void {
         const { x: cx, y: cy } = getSVGCoords(event, svgContainer);
         const bullet: BulletRead = {
           id: 0,
-          name: "No title",
-          description: "No description",
+          name: "",
+          description: "",
           cx,
           cy,
           userId: 0,
@@ -75,11 +79,17 @@ export function createRadar(anchorElement: HTMLElement, radar: Radar): void {
         const bulletNode = createBulletNode(newBullet);
         listenBullet(bulletNode);
         svgContainer.appendChild(bulletNode);
-        // const bullet = null;
-        // const bullet = getBullet(event, svgContainer, DEFAULT_BULLET_CONFIG);
-        // svgContainer.appendChild(bullet);
-        // listenBullet(bullet);
+
         setState({ creatingBulletMode: false, currentBullet: newBullet });
+        l("newBullet: ", newBullet);
+        modalService.open({
+          class: BulletModal,
+          state: {
+            name: newBullet.name,
+            description: newBullet.description || "",
+          },
+          cb: editBulletHandler,
+        });
       }
     }
   );

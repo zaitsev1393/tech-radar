@@ -32,6 +32,11 @@ export class BulletModal implements Modal {
     saveButton.addEventListener("click", () => {
       modalService.close(this.getFormData());
     });
+
+    const nameInput = d.id("name");
+    if (nameInput) {
+      nameInput.focus();
+    }
   }
 
   getFormData(): FormInput {
