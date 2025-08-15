@@ -1,7 +1,8 @@
+import { state } from "@/model/state";
 import { isBulletInRing } from "../../../entities/bullet/lib/is-bullet-in-ring";
 import { RADAR_WIDTH } from "../../../entities/radar/model/radar.config";
 import type { BulletRead } from "../../../model/bullet-read";
-import { setState, type GlobalStateModel } from "../../../model/state";
+import type { SorterData } from "../ui/sorter/update-sorter-container";
 
 const RADIUS = RADAR_WIDTH / 2;
 const RINGS = [
@@ -27,12 +28,14 @@ const RINGS = [
   },
 ];
 
-export type RingsInfo = {
+export type BulletsByRing = {
   [key: string]: BulletRead[];
 };
 
-export const getRingsInfo = (state: GlobalStateModel): RingsInfo => {
-  const bullets = state.bullets;
+export const getBulltetsForRings = (): SorterData => {
+  const bullets = state.bullets.filter(
+    ({ radarId }) => state.currentRadar?.id === radarId
+  );
   const ringsInfo: any = {};
   bullets.forEach((bullet) => {
     RINGS.forEach((ring, i) => {
@@ -55,6 +58,6 @@ export const getRingsInfo = (state: GlobalStateModel): RingsInfo => {
       }
     });
   });
-  setState({ ringsInfo });
+  // setState({ ringsInfo });
   return ringsInfo;
 };

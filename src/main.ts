@@ -10,13 +10,11 @@ import { getRadarsContainer } from "./entities/radar/utils/get-radar-node";
 import { BulletModal } from "./features/bullet-overview/bullet-modal.ts/bullet-modal";
 import { listenDeleteButton } from "./features/bullet-overview/delete-bullet-button/listen-delete-button";
 import { listenCreateBulletToggle } from "./features/radars/ui/create-bullet-toggle";
-import { getRingsInfo } from "./features/sorter/lib/get-rings-info";
 import { SorterGroupByOptions } from "./features/sorter/model/sorter-group-by";
-import { listenGroupByOptions } from "./features/sorter/ui/group-by/group-by-options";
-import { groupBullets } from "./features/sorter/ui/groups/group-bullets";
 import { createSorterTabs } from "./features/sorter/ui/sorter-tabs/create-tabs";
+import { createSorterContainer } from "./features/sorter/ui/sorter/create-sorter";
+import { updateSorterContainer } from "./features/sorter/ui/sorter/update-sorter-container";
 import type { Radar } from "./model/radar";
-import { sectorsInfo } from "./model/sectors";
 import { setState, state } from "./model/state";
 import { createModal } from "./shared/modal/create-modal";
 import { ModalService } from "./shared/modal/modal";
@@ -31,7 +29,6 @@ import "./style.css";
 createPopup();
 listenCreateBulletToggle();
 listenDeleteButton();
-listenGroupByOptions();
 listenSignUpButton();
 listenDeleteAllRadarsButton();
 listenToDocumentEvents();
@@ -39,6 +36,8 @@ createModal();
 
 compose()
   .append(createSorterTabs(Object.values(SorterGroupByOptions)))
+  .to("sorter")
+  .append(createSorterContainer())
   .to("sorter");
 
 export const modalService = ModalService();
@@ -106,8 +105,10 @@ if (await isAuthenticated()) {
       currentRadar: radars[0],
       bullets: radars.map(({ bullets }: Radar) => bullets).flat(),
     });
-    groupBullets(sectorsInfo, state.bullets);
-    getRingsInfo(state);
+
+    updateSorterContainer(SorterGroupByOptions.Sectors, state.currentRadar);
+    // groupBullets(sectorsInfo, state.bullets);
+    // getRingsInfo(state);
     drawBullets(radars);
   } catch (e) {
     console.error(e);

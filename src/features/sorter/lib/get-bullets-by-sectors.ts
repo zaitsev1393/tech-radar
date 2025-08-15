@@ -1,16 +1,17 @@
-import type { BulletRead } from "../../../../model/bullet-read";
-import { type SectorsInfo } from "../../../../model/sectors";
-import { setState } from "../../../../model/state";
+import { sectorsInfo } from "@/model/sectors";
+import { state } from "@/model/state";
+import type { BulletRead } from "../../../model/bullet-read";
+import type { SorterData } from "../ui/sorter/update-sorter-container";
 
-export interface GroupedBullets {
+export interface BulletsBySector {
   [key: string]: BulletRead[];
 }
 
-export function groupBullets(
-  sectorsInfo: SectorsInfo,
-  bullets: BulletRead[]
-): GroupedBullets {
+export function getBulletsForSectors(): SorterData {
   let groups = {};
+  const bullets = state.bullets.filter(
+    ({ radarId }) => state.currentRadar?.id === radarId
+  );
   for (let bullet of bullets) {
     for (let sector of sectorsInfo.sectors) {
       let { cx, cy } = bullet;
@@ -31,6 +32,6 @@ export function groupBullets(
       }
     }
   }
-  setState({ groups });
+  // setState({ groups });
   return groups;
 }

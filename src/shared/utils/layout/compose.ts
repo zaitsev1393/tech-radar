@@ -1,6 +1,7 @@
 interface ComposeOptions {
   append: (el: HTMLElement) => ComposeOptions;
   to: (id: string) => ComposeOptions;
+  perform: (cb: Function) => ComposeOptions;
 }
 
 export const compose = (): ComposeOptions => {
@@ -18,6 +19,7 @@ export const compose = (): ComposeOptions => {
       currentEl = null;
       return options;
     },
+    perform: (cb: Function) => cb && cb(),
   };
 
   return options;

@@ -1,6 +1,5 @@
-import type { RingsInfo } from "../features/sorter/lib/get-rings-info";
-import { GroupByOptions } from "../features/sorter/ui/group-by/group-by-options";
-import type { GroupedBullets } from "../features/sorter/ui/groups/group-bullets";
+import { SorterGroupByOptions } from "@/features/sorter/model/sorter-group-by";
+import type { SorterData } from "@/features/sorter/ui/sorter/update-sorter-container";
 import bus from "../shared/bus/bus";
 import { deepEqual } from "../shared/utils/helpers/deep-equal";
 import { l } from "../shared/utils/logger/l";
@@ -12,9 +11,10 @@ export interface GlobalStateModel {
   currentBullet: BulletRead | null;
   currentBulletNode: Element | null;
   bullets: BulletRead[];
-  groups: GroupedBullets;
-  ringsInfo: RingsInfo;
-  groupBy: GroupByOptions | null;
+  groups: SorterData;
+  ringsInfo: SorterData;
+  sorterData: SorterData;
+  groupBy: SorterGroupByOptions | null;
   currentRadar: Radar | null;
   radars: Radar[];
 }
@@ -32,7 +32,8 @@ export let state: GlobalStateModel = {
   bullets: [],
   groups: {},
   ringsInfo: {},
-  groupBy: GroupByOptions.Sectors,
+  sorterData: {},
+  groupBy: SorterGroupByOptions.Sectors,
 };
 
 (window as any).state = state;

@@ -1,12 +1,10 @@
-import { getRingsInfo } from "@/features/sorter/lib/get-rings-info";
-import { renderRingGroups } from "@/features/sorter/ui/ring-groups/render-ring-groups";
+// import { renderRingGroups } from "@/features/sorter/ui/ring-groups/render-ring-groups";
 import { removePopup } from "@/shared/ui/popup/remove-popup";
 import { showPopup } from "@/shared/ui/popup/show-popup";
 import { patchBullet } from "../../../data-access/bullets.service";
 import { BulletOverview } from "../../../features/bullet-overview/bullet-overview";
-import { groupBullets } from "../../../features/sorter/ui/groups/group-bullets";
-import { renderGroups } from "../../../features/sorter/ui/groups/render-groups";
-import { sectorsInfo } from "../../../model/sectors";
+// import { groupBullets } from "../../../features/sorter/lib/get-bullets-by-sectors";
+// import { renderGroups } from "../../../features/sorter/ui/groups/render-groups";
 import { setState, state, type GlobalStateModel } from "../../../model/state";
 import bus from "../../../shared/bus/bus";
 import { d } from "../../../shared/utils/layout/d";
@@ -114,8 +112,8 @@ export const listenToDocumentEvents = () => {
           cy: coords?.y,
         },
       });
-      groupBullets(sectorsInfo, state.bullets);
-      getRingsInfo(state);
+      // groupBullets(sectorsInfo, state.bullets);
+      // getRingsInfo(state);
     }
   });
 
@@ -141,8 +139,8 @@ export const listenToDocumentEvents = () => {
 const listenBulletSub = bus.subscribe((event) => {
   if (event.name === "STATE_CHANGED") {
     const { payload: state } = event;
-    renderGroups(state);
-    renderRingGroups(state);
+    // renderGroups(state);
+    // renderRingGroups(state);
     updateCurrentBulletNode(state);
   }
 });

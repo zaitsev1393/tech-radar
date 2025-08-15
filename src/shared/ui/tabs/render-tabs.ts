@@ -1,5 +1,6 @@
+import { updateSorterContainer } from "@/features/sorter/ui/sorter/update-sorter-container";
 import type { Radar } from "../../../model/radar";
-import { setState } from "../../../model/state";
+import { setState, state } from "../../../model/state";
 import { clearElement } from "../../utils/layout/clear-element";
 import { d } from "../../utils/layout/d";
 import { addRadarHandler } from "./event-handlers/add-radar-handler";
@@ -58,6 +59,7 @@ export function renderTabs(radars: Radar[]): void {
       showRadar(radar);
 
       setState({ currentRadar: radar });
+      updateSorterContainer(state.groupBy, radar);
     });
   });
 

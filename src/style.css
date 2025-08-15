@@ -92,6 +92,10 @@ textarea {
   }
 }
 
+#sorter {
+  margin: 16px;
+}
+
 .sorter-tab-node {
   &:hover {
     text-decoration: underline;

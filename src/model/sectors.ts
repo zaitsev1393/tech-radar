@@ -10,14 +10,12 @@ export interface Sector {
 }
 
 export interface SectorsInfo {
-  direction: "clock-wise" | "counter-clock-wise";
   sectors: Sector[];
 }
 
 const radius = RADAR_WIDTH;
 
 export const sectorsInfo: SectorsInfo = {
-  direction: "clock-wise",
   sectors: [
     {
       name: "Techniques",
