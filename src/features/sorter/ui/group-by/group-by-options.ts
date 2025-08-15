@@ -2,6 +2,7 @@ import { setState, state } from "../../../../model/state";
 import { d } from "../../../../shared/utils/layout/d";
 
 type GroupByOptionNode = HTMLElement;
+
 export enum GroupByOptions {
   Sectors = "sectors",
   Rings = "rings",

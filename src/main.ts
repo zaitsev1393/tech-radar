@@ -11,8 +11,10 @@ import { BulletModal } from "./features/bullet-overview/bullet-modal.ts/bullet-m
 import { listenDeleteButton } from "./features/bullet-overview/delete-bullet-button/listen-delete-button";
 import { listenCreateBulletToggle } from "./features/radars/ui/create-bullet-toggle";
 import { getRingsInfo } from "./features/sorter/lib/get-rings-info";
+import { SorterGroupByOptions } from "./features/sorter/model/sorter-group-by";
 import { listenGroupByOptions } from "./features/sorter/ui/group-by/group-by-options";
 import { groupBullets } from "./features/sorter/ui/groups/group-bullets";
+import { createSorterTabs } from "./features/sorter/ui/sorter-tabs/create-tabs";
 import type { Radar } from "./model/radar";
 import { sectorsInfo } from "./model/sectors";
 import { setState, state } from "./model/state";
@@ -21,6 +23,7 @@ import { ModalService } from "./shared/modal/modal";
 import { listenDeleteAllRadarsButton } from "./shared/testing/delete-all-radars-button/listen-delete-all-radars";
 import { listenSignUpButton } from "./shared/ui/header/sign-up-button/sign-up-button";
 import { renderTabs } from "./shared/ui/tabs/render-tabs";
+import { compose } from "./shared/utils/layout/compose";
 import { d } from "./shared/utils/layout/d";
 import { l } from "./shared/utils/logger/l";
 import "./style.css";
@@ -33,6 +36,10 @@ listenSignUpButton();
 listenDeleteAllRadarsButton();
 listenToDocumentEvents();
 createModal();
+
+compose()
+  .append(createSorterTabs(Object.values(SorterGroupByOptions)))
+  .to("sorter");
 
 export const modalService = ModalService();
 

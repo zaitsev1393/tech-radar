@@ -10,6 +10,7 @@
   <body>
     <div class="flex flex-col">
       <div class="w-full flex justify-end p-4">
+        <!-- Header -->
         <div id="profileSection">
           <div class="text-white">Profile</div>
           <div id="profileName" class="text-white"></div>
@@ -27,8 +28,11 @@
           Sign up
         </button>
       </div>
-      <div class="flex flex-col md:flex-row">
+
+      <!-- Content -->
+      <div id="content" class="flex flex-col md:flex-row">
         <div class="p-4 flex-1">
+          <!-- Interaction Section -->
           <div class="flex gap-2 items-center">
             <button
               id="deleteAllRadarsButton"
@@ -44,15 +48,16 @@
             </button>
             <div class="label" id="creatingBulletLabel"></div>
           </div>
-          <div id="tabs" class="w-full flex items-center">
-            <!-- <div g-for="let radar of radars">{{radar.title}}</div> -->
-          </div>
-          <div id="radar"></div>
-        </div>
-        <!-- <div class="vertical-line"></div> -->
-        <div class="p-4 flex-1">
-          <div id="create-bullet-content"></div>
 
+          <!-- Radars -->
+          <div id="radars">
+            <div id="tabs" class="w-full flex items-center"></div>
+            <div id="radar"></div>
+          </div>
+        </div>
+
+        <!-- Overview -->
+        <div class="p-4 flex-1">
           <div
             id="bullet-overview"
             class="hidden border border-white rounded-lg p-4"
@@ -78,35 +83,8 @@
           </div>
         </div>
       </div>
-      <div>
-        <div id="groupByContainer" class="text-white px-4 flex gap-4">
-          <div class="">Group by:</div>
-          <div
-            groupByOption
-            sectorsOption
-            class="hover:cursor-pointer hover:underline"
-          >
-            Sectors
-          </div>
-          <div
-            groupByOption
-            ringsOption
-            class="hover:cursor-pointer hover:underline"
-          >
-            Rings
-          </div>
-        </div>
-        <div
-          id="sectorsContainer"
-          group
-          class="hidden text-white px-4 flex flex-wrap w-1/2 justify-between gap-4"
-        ></div>
-        <div
-          group
-          id="ringsContainer"
-          class="hidden text-white px-4 flex flex-wrap w-1/2 justify-between gap-4"
-        ></div>
-      </div>
+      <!-- Bullets sorted in columns -->
+      <div id="sorter"></div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

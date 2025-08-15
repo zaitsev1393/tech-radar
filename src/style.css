@@ -91,3 +91,13 @@ textarea {
     }
   }
 }
+
+.sorter-tab-node {
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  &.active-sorter-tab {
+    text-decoration: underline;
+  }
+}
