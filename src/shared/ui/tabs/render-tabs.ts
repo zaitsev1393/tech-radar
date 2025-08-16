@@ -1,3 +1,4 @@
+import { BulletOverview } from "@/features/bullet-overview/bullet-overview";
 import { updateSorterContainer } from "@/features/sorter/ui/sorter/update-sorter-container";
 import type { Radar } from "../../../model/radar";
 import { setState, state } from "../../../model/state";
@@ -53,8 +54,10 @@ export function renderTabs(radars: Radar[]): void {
       tabs.forEach((tab) => tab.classList.remove("active"));
 
       if (target) {
-        target.classList.add("active");
+        target.closest(".tab")?.classList.add("active");
       }
+
+      BulletOverview().hide();
 
       showRadar(radar);
 

@@ -29,7 +29,7 @@ textarea {
   stroke: var(--hard);
 }
 
-.bullet-active {
+.active-bullet {
   stroke-width: 3px;
   stroke: var(--hard);
 }
@@ -50,10 +50,15 @@ textarea {
   pointer-events: visibleFill;
 }
 
-.group-item:hover {
-  cursor: pointer;
-  transition: 0.3s;
-  text-decoration: underline;
+.group-item {
+  &.active {
+    text-decoration: underline;
+  }
+  &:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: underline;
+  }
 }
 
 input,

@@ -1,4 +1,3 @@
-import { l } from "@/shared/utils/logger/l";
 import type { BulletRead } from "../../model/bullet-read";
 import { d } from "../../shared/utils/layout/d";
 
@@ -31,7 +30,6 @@ export function BulletOverview(): BulletOverviewAPI {
   }
 
   function setBullet(bullet: BulletRead): void {
-    l("bullet: ", bullet);
     const { name, description } = bullet;
     if (titleNode) {
       titleNode.innerHTML = name;

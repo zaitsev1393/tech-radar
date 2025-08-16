@@ -14,7 +14,7 @@ export interface SorterData {
 type SorterDataEntries = [string, BulletRead[]];
 
 export const updateSorterContainer = (
-  groupBy: SorterGroupByOptions,
+  groupBy: SorterGroupByOptions | null,
   radar: Radar | null
 ): void => {
   if (!radar) return;

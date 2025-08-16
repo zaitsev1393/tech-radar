@@ -48,7 +48,7 @@ export function listenBullet(bullet: Element) {
   });
 
   bulletNode.addEventListener("click", () => {
-    bullet.classList.add("bullet-active");
+    bullet.classList.add("active-bullet");
     BulletOverview().open(state.currentBullet);
   });
 
@@ -72,7 +72,7 @@ export function listenBullet(bullet: Element) {
 
 export const listenToDocumentEvents = () => {
   document.addEventListener("mouseup", async (event) => {
-    clearActiveBullet();
+    // clearActiveBullet();
     mouseDownOnBulletNode = false;
     if (bulletHovered) {
       showPopup({ title: state.currentBullet.name }, event);
@@ -156,9 +156,9 @@ function updateCurrentBulletNode(state: GlobalStateModel): void {
 }
 
 function clearActiveBullet(): void {
-  const activeBullet = d.query(".bullet-active");
+  const activeBullet = d.query(".active-bullet");
   if (activeBullet) {
-    activeBullet.classList.remove("bullet-active");
+    activeBullet.classList.remove("active-bullet");
   }
 }
 
