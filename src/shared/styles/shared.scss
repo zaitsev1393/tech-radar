@@ -1,0 +1,11 @@
+input.rad-input,
+textarea.rad-textarea {
+  @apply p-1;
+  border: 1px solid black;
+  background: var(--bg);
+  color: var(--text);
+}
+
+label {
+  @apply text-gray-600;
+}

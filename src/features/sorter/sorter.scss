@@ -2,29 +2,9 @@
   margin: 16px;
 }
 
-/* "text-white",
-    "mt-4",
-    "basis-full",
-    "md:basis-auto",
-    "sm:basis-full" */
-
 .sorter-column {
+  @apply mt-4 basis-full md:basis-auto sm:basis-full;
   color: var(--text);
-  font-weight: 500;
-  margin-top: 1rem;
-  flex-basis: 100%;
-}
-
-@media (min-width: 768px) {
-  .sorter-column {
-    flex-basis: auto;
-  }
-}
-
-@media (min-width: 640px) and (max-width: 767px) {
-  .sorter-column {
-    flex-basis: 100%;
-  }
 }
 
 .sorter-tab-node {

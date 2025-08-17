@@ -1,5 +1,13 @@
-@import "./shared/ui/tabs/tabs.scss";
-@import "./features/sorter/sorter.scss";
+@use "./shared/ui/tabs/tabs.scss";
+@use "./features/sorter/sorter.scss";
+@use "./shared/styles/shared.scss";
+@use "./entities/radar/ui/radar/radar.scss";
+@use "./entities/bullet/bullet.scss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* --bg: #320a6b;
   --text: #78b9b5;
   --mid: #0f828c;
@@ -22,51 +30,4 @@ html {
 
 .header {
   border-bottom: 1px solid var(--text);
-}
-
-input,
-textarea {
-  border: 1px solid black;
-}
-
-.label {
-  color: white;
-}
-
-.bullet:hover {
-  cursor: pointer;
-  stroke-width: 3px;
-  stroke: var(--hard);
-}
-
-.active-bullet {
-  stroke-width: 3px;
-  stroke: var(--hard);
-}
-
-.vertical-line {
-  position: absolute;
-  top: var(--unit);
-  left: calc(50% - 1px);
-  width: 2px;
-  height: calc(100vh - var(--unit) * 2);
-  background-color: var(--text);
-}
-
-.radar-circle {
-  transition: 0.3s;
-  fill: var(--bg);
-  position: absolute;
-  pointer-events: visibleFill;
-}
-
-input,
-textarea {
-  background: white;
-  color: black;
-}
-
-#editForm {
-  border-color: white;
-  border-radius: 8px;
 }

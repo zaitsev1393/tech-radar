@@ -10,11 +10,11 @@ export class BulletModal implements Modal {
     >
       <div class="flex flex-col gap-1">
         <label for="name">Name</label>
-        <input id="name" type="text" />
+        <input class='rad-input' id="name" type="text" />
       </div>
       <div class="flex flex-col gap-1">
         <label for="description">Description</label>
-        <textarea id="description"></textarea>
+        <textarea class='rad-textarea' id="description"></textarea>
       </div>
       <button
         id="saveFormButton"

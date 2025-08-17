@@ -1,0 +1,10 @@
+.active-bullet {
+  stroke-width: 3px;
+  stroke: var(--hard);
+}
+
+.bullet:hover {
+  cursor: pointer;
+  stroke-width: 3px;
+  stroke: var(--hard);
+}
