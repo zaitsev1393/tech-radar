@@ -24,7 +24,7 @@ import { renderTabs } from "./shared/ui/tabs/render-tabs";
 import { compose } from "./shared/utils/layout/compose";
 import { d } from "./shared/utils/layout/d";
 import { l } from "./shared/utils/logger/l";
-import "./style.css";
+import "./style.scss";
 
 createPopup();
 listenCreateBulletToggle();

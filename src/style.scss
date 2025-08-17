@@ -1,10 +1,10 @@
-@import "./shared/ui/tabs/tabs.css";
-@import "./features/sorter/sorter.css";
+@import "./shared/ui/tabs/tabs.scss";
+@import "./features/sorter/sorter.scss";
 /* --bg: #320a6b;
   --text: #78b9b5;
   --mid: #0f828c;
   --hard: #065084; */
-:root  {
+:root {
   --bg: #f5efe7;
   --text: #3e5879;
   --mid: #d8c4b6;
