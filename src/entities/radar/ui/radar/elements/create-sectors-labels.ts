@@ -1,5 +1,14 @@
+import { Colors } from "@/config/styles/colors";
 import { RADAR_HEIGHT, RADAR_WIDTH } from "@/entities/radar/model/radar.config";
 import type { SectorsInfo } from "@/model/sectors";
+
+const FONT_SIZE = 20;
+const DEFAULT_OFFSET = 24;
+
+const setStyles = (qudrant: SVGTextElement): void => {
+  qudrant.setAttribute("font-size", FONT_SIZE.toString());
+  qudrant.setAttribute("fill", Colors.Radar.Text);
+};
 
 export const createSectorLabels = (
   sectorsInfo: SectorsInfo,
@@ -12,12 +21,10 @@ export const createSectorLabels = (
     "http://www.w3.org/2000/svg",
     "text"
   );
-  const FONT_SIZE = 20;
-  const DEFAULT_OFFSET = 24;
+
+  setStyles(qudrantOne);
   qudrantOne.setAttribute("x", "0");
   qudrantOne.setAttribute("y", DEFAULT_OFFSET.toString());
-  qudrantOne.setAttribute("font-size", FONT_SIZE.toString());
-  qudrantOne.setAttribute("fill", "white");
   qudrantOne.textContent = names[0];
   el.appendChild(qudrantOne);
 
@@ -25,8 +32,7 @@ export const createSectorLabels = (
     "http://www.w3.org/2000/svg",
     "text"
   );
-  quadrantTwo.setAttribute("font-size", FONT_SIZE.toString());
-  quadrantTwo.setAttribute("fill", "white");
+  setStyles(quadrantTwo);
   quadrantTwo.setAttribute("text-anchor", "end");
   quadrantTwo.textContent = names[1];
   el.appendChild(quadrantTwo);
@@ -40,8 +46,8 @@ export const createSectorLabels = (
     "http://www.w3.org/2000/svg",
     "text"
   );
-  quadrantThree.setAttribute("font-size", FONT_SIZE.toString());
-  quadrantThree.setAttribute("fill", "white");
+
+  setStyles(quadrantThree);
   quadrantThree.textContent = names[2];
   el.appendChild(quadrantThree);
   quadrantThree.setAttribute("x", "0");
@@ -51,8 +57,7 @@ export const createSectorLabels = (
     "http://www.w3.org/2000/svg",
     "text"
   );
-  quadrantFour.setAttribute("font-size", FONT_SIZE.toString());
-  quadrantFour.setAttribute("fill", "white");
+  setStyles(quadrantFour);
   quadrantFour.setAttribute("text-anchor", "end");
   quadrantFour.textContent = names[3];
   el.appendChild(quadrantFour);

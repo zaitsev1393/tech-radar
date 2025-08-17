@@ -1,3 +1,5 @@
+import { Colors } from "@/config/styles/colors";
+
 interface CreateVerticalLineProps {
   r: number;
   strokeColor?: string;
@@ -6,7 +8,7 @@ interface CreateVerticalLineProps {
 
 export const createVerticalLine = ({
   r,
-  strokeColor = "white",
+  strokeColor = Colors.Radar.Line,
   strokeWidth = "1",
 }: CreateVerticalLineProps) => {
   const verticalLine = document.createElementNS(

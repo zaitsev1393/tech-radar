@@ -31,7 +31,7 @@ export const createTextLabel = ({
   textLabelEl.textContent = text;
   // text.setAttribute("text-anchor", "end");
   textLabelEl.setAttribute("font-size", `${config["font-size"]}`);
-  textLabelEl.setAttribute("fill", "white");
+  textLabelEl.setAttribute("fill", config.color);
   root.appendChild(textLabelEl);
 
   textLabelEl.setAttribute("x", `${x - elWidth(textLabelEl)}`);

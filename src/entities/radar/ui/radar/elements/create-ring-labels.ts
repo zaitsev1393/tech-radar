@@ -1,3 +1,4 @@
+import { Colors } from "@/config/styles/colors";
 import { RADAR_WIDTH } from "@/entities/radar/model/radar.config";
 import { createSVGContainer } from "@/shared/utils/layout/create-svg-container";
 
@@ -18,7 +19,7 @@ const createLabel = (root: Element, name: string, distance: number): void => {
   text.textContent = name;
   text.setAttribute("text-anchor", "end");
   text.setAttribute("font-size", `${FONT_SIZE}`);
-  text.setAttribute("fill", "white");
+  text.setAttribute("fill", Colors.Radar.Text);
   root.appendChild(text);
 
   text.setAttribute("x", `${distance - elWidth(text) - DEFAULT_OFFSET}`);

@@ -23,7 +23,7 @@ export const createColumn = (
 
   const list = document.createElement("div");
   bullets.forEach((bullet, i) => {
-    const item = document.createElement("span");
+    const item = document.createElement("div");
     item.innerText = `${i + 1}. ${bullet.name}`;
     item.classList.add("group-item");
     item.setAttribute("id", bullet.id?.toString() || "");

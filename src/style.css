@@ -1,8 +1,13 @@
-:root {
-  --bg: #320a6b;
+/* --bg: #320a6b;
   --text: #78b9b5;
   --mid: #0f828c;
-  --hard: #065084;
+  --hard: #065084; */
+
+:root {
+  --bg: #f5efe7;
+  --text: #3e5879;
+  --mid: #d8c4b6;
+  --hard: #213555;
   --unit: 16px;
 }
 
@@ -12,6 +17,10 @@ html {
 
 #radar {
   margin: var(--unit);
+}
+
+.header {
+  border-bottom: 1px solid var(--text);
 }
 
 input,

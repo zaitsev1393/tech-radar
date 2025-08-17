@@ -1,6 +1,7 @@
 export const Colors = {
   Radar: {
-    Line: "white",
+    Line: "#213555",
+    Text: "#213555",
   },
   Bullet: {
     Bg: "#065084",

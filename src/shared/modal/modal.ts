@@ -1,5 +1,4 @@
 import { d } from "../utils/layout/d";
-import { l } from "../utils/logger/l";
 import {
   MODAL_BACKDROP_ID,
   MODAL_ID,
@@ -19,8 +18,6 @@ export function ModalService(): ModalResponse {
     if (!modal) return;
 
     const { state, cb } = config;
-
-    l("state: ", state);
 
     const modalEntity = new config.class();
 

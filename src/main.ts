@@ -32,7 +32,7 @@ listenDeleteButton();
 listenSignUpButton();
 listenDeleteAllRadarsButton();
 listenToDocumentEvents();
-createModal();
+await createModal();
 
 compose()
   .append(createSorterTabs(Object.values(SorterGroupByOptions)))

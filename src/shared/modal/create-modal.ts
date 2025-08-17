@@ -1,7 +1,8 @@
 import { modalService } from "@/main";
+import { loadIcon } from "../icons/icons.service";
 import { MODAL_BACKDROP_ID, MODAL_ID } from "./model/modal";
 
-export const createModal = (): void => {
+export const createModal = async (): Promise<void> => {
   const modalContainer = document.createElement("div");
   const backdrop = document.createElement("div");
   const modal = document.createElement("div");
@@ -24,12 +25,12 @@ export const createModal = (): void => {
 
   modalContent.id = "modal-content";
 
-  closeButton.classList.add("absolute", "p-2");
+  closeButton.classList.add("absolute", "pt-2", "cursor-pointer");
   closeButton.style.top = "10px";
   closeButton.style.right = "20px";
   closeButton.style.zIndex = "100";
 
-  closeButton.innerText = "X";
+  closeButton.innerHTML = await loadIcon("close");
 
   closeButton.addEventListener("click", () => {
     modalService.close(null);

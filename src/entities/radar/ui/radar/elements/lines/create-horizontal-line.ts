@@ -6,7 +6,7 @@ interface CreateHorizontalLineProps {
 
 export const createHorizontalLine = ({
   r,
-  strokeColor = "white",
+  strokeColor = "#213555",
   strokeWidth = "1",
 }: CreateHorizontalLineProps) => {
   const horizontalLine = document.createElementNS(
