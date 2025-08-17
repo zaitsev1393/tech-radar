@@ -2,7 +2,7 @@ import { modalService } from "@/main";
 import type { FormInput, Modal } from "@/shared/modal/model/modal";
 import { d } from "@/shared/utils/layout/d";
 
-export class CreateModal implements Modal {
+export class RadarModal implements Modal {
   private template = /*template*/ `
     <div
       id="editform"

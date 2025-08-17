@@ -10,13 +10,7 @@ export const createColumn = (
   bullets: BulletRead[]
 ): HTMLElement => {
   const column = document.createElement("div");
-  column.classList.add(
-    "text-white",
-    "mt-4",
-    "basis-full",
-    "md:basis-auto",
-    "sm:basis-full"
-  );
+  column.classList.add("sorter-column");
   const title = document.createElement("div");
   title.classList.add("underline");
   title.innerText = name;

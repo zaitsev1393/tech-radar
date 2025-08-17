@@ -1,9 +1,10 @@
+@import "./shared/ui/tabs/tabs.css";
+@import "./features/sorter/sorter.css";
 /* --bg: #320a6b;
   --text: #78b9b5;
   --mid: #0f828c;
   --hard: #065084; */
-
-:root {
+:root  {
   --bg: #f5efe7;
   --text: #3e5879;
   --mid: #d8c4b6;
@@ -59,17 +60,6 @@ textarea {
   pointer-events: visibleFill;
 }
 
-.group-item {
-  &.active {
-    text-decoration: underline;
-  }
-  &:hover {
-    cursor: pointer;
-    transition: 0.3s;
-    text-decoration: underline;
-  }
-}
-
 input,
 textarea {
   background: white;
@@ -79,43 +69,4 @@ textarea {
 #editForm {
   border-color: white;
   border-radius: 8px;
-}
-
-#tabs {
-  display: flex;
-  gap: 8px;
-  color: var(--text);
-
-  .tab,
-  .add-new-radar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px;
-    transition: 0.3s;
-    border-bottom: 2px solid transparent;
-    &:hover {
-      border-bottom: 2px solid var(--text);
-      cursor: pointer;
-      color: white;
-    }
-    &.active {
-      border-bottom: 2px solid var(--text);
-      color: white;
-    }
-  }
-}
-
-#sorter {
-  margin: 16px;
-}
-
-.sorter-tab-node {
-  &:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  &.active-sorter-tab {
-    text-decoration: underline;
-  }
 }

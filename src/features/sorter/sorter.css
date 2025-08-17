@@ -1,0 +1,51 @@
+#sorter {
+  margin: 16px;
+}
+
+/* "text-white",
+    "mt-4",
+    "basis-full",
+    "md:basis-auto",
+    "sm:basis-full" */
+
+.sorter-column {
+  color: var(--text);
+  font-weight: 500;
+  margin-top: 1rem;
+  flex-basis: 100%;
+}
+
+@media (min-width: 768px) {
+  .sorter-column {
+    flex-basis: auto;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .sorter-column {
+    flex-basis: 100%;
+  }
+}
+
+.sorter-tab-node {
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  &.active-sorter-tab {
+    text-decoration: underline;
+  }
+}
+
+.group-item {
+  font-weight: 400;
+  color: var(--text);
+  &.active {
+    text-decoration: underline;
+  }
+  &:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: underline;
+  }
+}

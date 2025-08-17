@@ -1,5 +1,5 @@
 import { patchRadar } from "@/data-access/radars.service";
-import { CreateModal } from "@/features/radars/ui/create-radar-form/create-radar-modal";
+import { RadarModal } from "@/features/radars/ui/create-radar-form/create-radar-modal";
 import { modalService } from "@/main";
 import type { Radar } from "@/model/radar";
 import { setState, state } from "@/model/state";
@@ -8,7 +8,7 @@ import { renderTabs } from "../render-tabs";
 
 export const editRadarHandler = async (radar: Radar): Promise<void> => {
   return modalService.open({
-    class: CreateModal,
+    class: RadarModal,
     state: { radarTitle: radar.title },
     cb: async (data: FormInput) => {
       if (!data) return;
