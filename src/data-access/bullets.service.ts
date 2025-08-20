@@ -1,6 +1,13 @@
+import bus from "@/shared/bus/bus";
 import type { BulletRead, BulletWrite } from "../model/bullet-read";
 import { setState, state } from "../model/state";
 import { apiUrl } from "./auth.service";
+
+export enum BulletActions {
+  Create = "bulletCreated",
+  Delete = "bulletDeleted",
+  Update = "bulletUpdated",
+}
 
 interface PatchBulletRequest {
   radarId: number;
@@ -26,10 +33,14 @@ export async function createNewBullet(bullet: BulletRead): Promise<BulletRead> {
     }
   );
   const newBullet = await response.json();
+
   setState({
     currentBullet: newBullet,
     bullets: [...state.bullets, newBullet],
   });
+
+  bus.notify({ name: BulletActions.Create });
+
   return newBullet;
 }
 
@@ -55,10 +66,14 @@ export async function patchBullet({
   if (bulletIdx > -1) {
     bullets.splice(bulletIdx, 1, bullet);
   }
+
   setState({
     currentBullet: bullet,
     bullets,
   });
+
+  bus.notify({ name: BulletActions.Update });
+
   return bullet;
 }
 
@@ -81,6 +96,9 @@ export async function deleteBullet({
         bullets: state.bullets.filter((e) => e.id !== Number(bulletId)),
       });
     }
+
+    bus.notify({ name: BulletActions.Delete });
+
     return response;
   } catch (e: any) {
     throw new Error(e);

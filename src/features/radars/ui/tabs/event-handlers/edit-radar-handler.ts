@@ -3,7 +3,7 @@ import { RadarModal } from "@/features/radars/ui/create-radar-form/create-radar-
 import { modalService } from "@/main";
 import type { Radar } from "@/model/radar";
 import { setState, state } from "@/model/state";
-import type { FormInput } from "@/shared/modal/model/modal";
+import type { FormInput } from "@/shared/ui/modal/model/modal";
 import { renderTabs } from "../render-tabs";
 
 export const editRadarHandler = async (radar: Radar): Promise<void> => {

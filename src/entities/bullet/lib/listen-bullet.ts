@@ -1,10 +1,14 @@
 // import { renderRingGroups } from "@/features/sorter/ui/ring-groups/render-ring-groups";
 import { removePopup } from "@/shared/ui/popup/remove-popup";
 import { showPopup } from "@/shared/ui/popup/show-popup";
-import { patchBullet } from "../../../data-access/bullets.service";
+import {
+  BulletActions,
+  patchBullet,
+} from "../../../data-access/bullets.service";
 import { BulletOverview } from "../../../features/bullet-overview/bullet-overview";
 // import { groupBullets } from "../../../features/sorter/lib/get-bullets-by-sectors";
 // import { renderGroups } from "../../../features/sorter/ui/groups/render-groups";
+import { updateSorterContainer } from "@/features/sorter/ui/sorter/update-sorter-container";
 import { setState, state, type GlobalStateModel } from "../../../model/state";
 import bus from "../../../shared/bus/bus";
 import { d } from "../../../shared/utils/layout/d";
@@ -137,11 +141,18 @@ export const listenToDocumentEvents = () => {
 };
 
 const listenBulletSub = bus.subscribe((event) => {
+  const { name } = event;
   if (event.name === "STATE_CHANGED") {
-    const { payload: state } = event;
-    // renderGroups(state);
-    // renderRingGroups(state);
+    // updateSorterContainer(state.groupBy, state.currentRadar);
     updateCurrentBulletNode(state);
+  }
+
+  if (
+    [BulletActions.Create, BulletActions.Delete, BulletActions.Update].includes(
+      name as BulletActions
+    )
+  ) {
+    updateSorterContainer(state.groupBy, state.currentRadar);
   }
 });
 

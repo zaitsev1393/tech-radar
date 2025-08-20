@@ -1,5 +1,5 @@
 import { modalService } from "@/main";
-import type { FormInput, Modal } from "@/shared/modal/model/modal";
+import type { FormInput, Modal } from "@/shared/ui/modal/model/modal";
 import { d } from "@/shared/utils/layout/d";
 
 export class BulletModal implements Modal {

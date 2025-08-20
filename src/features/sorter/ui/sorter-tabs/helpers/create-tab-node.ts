@@ -3,7 +3,7 @@ import { listenSorterTab } from "./listen-sorter-tab";
 
 export const createTabNode = (title: SorterGroupByOptions): HTMLElement => {
   const tabNode = document.createElement("div");
-  tabNode.classList.add("py-1", "capitalize", "sorter-tab-node");
+  tabNode.classList.add("sorter-tab");
   tabNode.setAttribute("group-by", title);
   tabNode.innerText = title;
 

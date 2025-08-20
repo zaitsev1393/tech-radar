@@ -4,7 +4,7 @@ import { createRadar } from "@/entities/radar/ui/create-radar";
 import { getRadarsContainer } from "@/entities/radar/utils/get-radar-node";
 import { RadarModal } from "@/features/radars/ui/create-radar-form/create-radar-modal";
 import { modalService } from "@/main";
-import type { FormInput } from "@/shared/modal/model/modal";
+import type { FormInput } from "@/shared/ui/modal/model/modal";
 import { renderTabs } from "../render-tabs";
 
 export const addRadarHandler = async () => {

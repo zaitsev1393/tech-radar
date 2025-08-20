@@ -1,9 +1,10 @@
 import { BulletOverview } from "@/features/bullet-overview/bullet-overview";
 import { updateSorterContainer } from "@/features/sorter/ui/sorter/update-sorter-container";
-import type { Radar } from "../../../model/radar";
-import { setState, state } from "../../../model/state";
-import { clearElement } from "../../utils/layout/clear-element";
-import { d } from "../../utils/layout/d";
+import { loadIcon } from "@/shared/icons/icons.service";
+import type { Radar } from "../../../../model/radar";
+import { setState, state } from "../../../../model/state";
+import { clearElement } from "../../../../shared/utils/layout/clear-element";
+import { d } from "../../../../shared/utils/layout/d";
 import { addRadarHandler } from "./event-handlers/add-radar-handler";
 import { deleteRadarHandler } from "./event-handlers/delete-radar-handler";
 import { editRadarHandler } from "./event-handlers/edit-radar-handler";
@@ -16,26 +17,21 @@ export function renderTabs(radars: Radar[]): void {
 
   clearElement(tabsEl);
 
-  radars.forEach((radar: Radar) => {
+  radars.forEach(async (radar: Radar) => {
     const tab = document.createElement("div");
     const text = document.createElement("div");
-    const edit = document.createElement("div");
-    const deleteButton = document.createElement("div");
-
+    const edit = await loadIcon("pencil-square");
+    const deleteButton = await loadIcon("trash");
     text.innerText = radar.title;
 
-    edit.innerText = "E";
     edit.classList.add("edit-radar");
-
-    deleteButton.innerText = "D";
     deleteButton.classList.add("delete-radar");
 
     tab.appendChild(text);
     tab.appendChild(edit);
     tab.appendChild(deleteButton);
     tab.classList.add("tab");
-
-    tabsEl.appendChild(tab);
+    tabsEl.prepend(tab);
 
     tab.addEventListener("click", async (event: MouseEvent) => {
       const target: HTMLElement | null = event?.target as HTMLElement;
@@ -65,11 +61,9 @@ export function renderTabs(radars: Radar[]): void {
       updateSorterContainer(state.groupBy, radar);
     });
   });
-
   const addRadarButton = document.createElement("div");
   addRadarButton.innerText = "+";
   addRadarButton.classList.add("add-new-radar");
   addRadarButton.addEventListener("click", () => addRadarHandler());
-
   tabsEl.appendChild(addRadarButton);
 }
