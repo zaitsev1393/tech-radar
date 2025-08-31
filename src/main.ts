@@ -1,15 +1,14 @@
 import { createPopup } from "@/shared/ui/popup/create-popup";
-import { currentUser, isAuthenticated } from "./data-access/auth.service";
+import { auth, currentUser, isAuthenticated } from "./data-access/auth.service";
 import { initializeInterceptors } from "./data-access/interceptors/main-interceptor";
 import { getRadars } from "./data-access/radars.service";
 import { listenToDocumentEvents } from "./entities/bullet/lib/listen-bullet";
 import { drawBullets } from "./entities/bullet/ui/draw-bullets";
-import { editBulletHandler } from "./entities/bullet/ui/modal/edit-handler/edit-handler";
 import { DEFAULT_RADAR_CONFIG } from "./entities/radar/model/radar.config";
 import { createRadar } from "./entities/radar/ui/create-radar";
 import { getRadarsContainer } from "./entities/radar/utils/get-radar-node";
-import { BulletModal } from "./features/bullet-overview/bullet-modal.ts/bullet-modal";
 import { listenDeleteButton } from "./features/bullet-overview/delete-bullet-button/listen-delete-button";
+import { listenEditBulletButton } from "./features/bullet-overview/edit-button/edit-button";
 import { listenCreateBulletToggle } from "./features/radars/ui/create-bullet-toggle";
 import { renderTabs } from "./features/radars/ui/tabs/render-tabs";
 import { SorterGroupByOptions } from "./features/sorter/model/sorter-group-by";
@@ -32,7 +31,7 @@ if (document.URL.includes("auth/success")) {
   await isAuthenticated();
 }
 
-initializeInterceptors([UIUpdateInterceptor]);
+initializeInterceptors();
 
 createPopup();
 listenCreateBulletToggle();
@@ -41,6 +40,7 @@ listenSignUpButton();
 listenDeleteAllRadarsButton();
 listenToDocumentEvents();
 listenLogoutButton();
+listenEditBulletButton();
 await createModal();
 
 compose()
@@ -51,55 +51,8 @@ compose()
 
 export const modalService = ModalService();
 
-let bullets = [];
-const savedRadar = localStorage.getItem("radar");
-if (savedRadar) {
-  bullets = JSON.parse(savedRadar)["bullets"];
-}
-
-setState({
-  bullets,
-});
-
-const openEditFormButton = d.id("openEditFormButton");
-openEditFormButton?.addEventListener("click", async (event) => {
-  modalService.open({
-    class: BulletModal,
-    state: {
-      name: state.currentBullet?.name || "",
-      description: state.currentBullet?.description || "",
-    },
-    cb: editBulletHandler,
-  });
-  // openEditFormButton.classList.add("hidden");
-});
-
-updateUiAfterAuth();
-
-async function updateUiAfterAuth() {
-  l("updateUiAfterAuth");
-  const signUpButton = d.id("signUpButton");
-  const profileSection = d.id("profileSection");
-  if (!signUpButton) return;
-
-  const isLoggedIn = !!currentUser;
-  l("isLoggedIn: ", isLoggedIn);
-  if (isLoggedIn) {
-    signUpButton.style.display = "none";
-    if (profileSection) {
-      profileSection.style.display = "block";
-    }
-  } else {
-    signUpButton.style.display = "block";
-  }
-}
-
-function UIUpdateInterceptor(): void {
-  console.log("- Updating ui -");
-  updateUiAfterAuth();
-}
-
-if (await isAuthenticated()) {
+if (await auth()) {
+  l("- Authenticated as: ", currentUser?.email);
   try {
     const radarsResponse = await getRadars();
     const radars = await radarsResponse.json();
@@ -121,6 +74,26 @@ if (await isAuthenticated()) {
     drawBullets(radars);
   } catch (e) {
     console.error(e);
+  }
+} else {
+  l("- Failed authenticating -");
+}
+
+updateUiAfterAuth();
+
+async function updateUiAfterAuth() {
+  const signUpButton = d.id("signUpButton");
+  const profileSection = d.id("profileSection");
+  if (!signUpButton) return;
+
+  const isLoggedIn = !!currentUser;
+  if (isLoggedIn) {
+    signUpButton.style.display = "none";
+    if (profileSection) {
+      profileSection.style.display = "block";
+    }
+  } else {
+    signUpButton.style.display = "block";
   }
 }
 
