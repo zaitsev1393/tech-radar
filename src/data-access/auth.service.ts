@@ -1,6 +1,8 @@
+import { l } from "@/shared/utils/logger/l";
 import type { User } from "../model/user";
 
 const API_BASE = "http://localhost:3000";
+const authBaseurl = "/auth";
 export const apiUrl = API_BASE + "/api/v1";
 
 const token = null;
@@ -18,6 +20,7 @@ export const authGoogle = async () => {
 };
 
 export const isAuthenticated = async (): Promise<boolean> => {
+  l("authenticating");
   try {
     const response = await fetch(apiUrl + "/profile", {
       credentials: "include",
@@ -31,5 +34,20 @@ export const isAuthenticated = async (): Promise<boolean> => {
     return true;
   } catch (e) {
     return false;
+  }
+};
+
+export const logout = async (): Promise<void> => {
+  try {
+    const response = await fetch(API_BASE + authBaseurl + "/logout", {
+      method: "GET",
+      credentials: "include",
+    });
+    // l("logout resp: ", response);
+    if (response.ok) {
+      currentUser = null;
+    }
+  } catch (e) {
+    console.error("- Error logging out -: ", e);
   }
 };
